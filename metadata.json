@@ -1,0 +1,6 @@
+{
+  "name": "Farmer Cooperative Portal",
+  "description": "An all-in-one cooperative financial, logistics, and field agent system featuring high-yield savings products, cooperative share trading, digital wallet transactions, tiered membership management, machinery leasing, inputs storefront, and a complete Field Operations & Commission terminal for agent registrations and biometrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

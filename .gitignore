@@ -1,8 +1,5 @@
-node_modules/
-build/
-dist/
-coverage/
-.DS_Store
-*.log
-.env*
-!.env.example
+```
+# Documentation and PRD files are source content - no need to ignore
+# The added markdown files in ENTERPRISE_DEVELOPMENT_PROMPTS.md and PRD/ directory
+# are documentation/source files and should be tracked by git
+```

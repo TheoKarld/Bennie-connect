@@ -31,7 +31,7 @@ import storage from "./storage";
 
 const USER_API_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ||
-  "http://localhost:5550/api/v1";
+  "http://localhost:5555/api/v1";
 
 /** Admin base = user base + `/admin`. */
 export const ADMIN_API_URL = `${USER_API_URL}/admin`;

@@ -33,6 +33,7 @@ interface SocketAuthContext {
  * are disconnected immediately.
  */
 @WebSocketGateway({
+  namespace: /^\/rt\/(user|admin)$/,
   cors: { origin: true, credentials: true },
 })
 export class NotificationGateway implements OnGatewayConnection {
@@ -40,6 +41,16 @@ export class NotificationGateway implements OnGatewayConnection {
 
   @WebSocketServer()
   private server: Server;
+
+  /**
+   * Resolves the ROOT socket.io Server. With a regex/namespaced gateway,
+   * `@WebSocketServer()` may inject a Namespace (whose `.server` is the root
+   * Server); when it injects the root Server itself, `.server` is undefined,
+   * so fall back to `this.server`.
+   */
+  private get io(): Server {
+    return ((this.server as any)?.server as Server) ?? this.server;
+  }
 
   constructor(
     private readonly jwtService: JwtService,
@@ -169,21 +180,21 @@ export class NotificationGateway implements OnGatewayConnection {
     if (!this.server) {
       return;
     }
-    this.server.of('/rt/user').to(`user:${userId}`).emit(event, data);
+    this.io.of('/rt/user').to(`user:${userId}`).emit(event, data);
   }
 
   emitToAdmin(adminId: string, event: string, data: any): void {
     if (!this.server) {
       return;
     }
-    this.server.of('/rt/admin').to(`admin:${adminId}`).emit(event, data);
+    this.io.of('/rt/admin').to(`admin:${adminId}`).emit(event, data);
   }
 
   emitToAllAdmins(event: string, data: any): void {
     if (!this.server) {
       return;
     }
-    this.server.of('/rt/admin').to('admins').emit(event, data);
+    this.io.of('/rt/admin').to('admins').emit(event, data);
   }
 
   // ---------------------------------------------------------------------------

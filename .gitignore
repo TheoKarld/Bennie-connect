@@ -60,7 +60,6 @@ build/
 *.egg-info/
 .eggs/
 .installed.cfg
-lib/
 lib64/
 parts/
 sdist/

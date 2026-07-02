@@ -1,0 +1,20 @@
+{
+    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+    "redirects": [
+      {
+        "source": "/old-route",
+        "destination": "/new-route",
+        "permanent": true
+      }
+    ],
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          { "key": "Cache-Control", "value": "max-age=0, no-cache, no-store, must-revalidate" },
+          { "key": "X-Frame-Options", "value": "DENY" }
+        ]
+      }
+    ]
+  }
+  

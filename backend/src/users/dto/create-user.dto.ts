@@ -1,4 +1,13 @@
-import { IsEmail, IsNotEmpty, IsString, IsOptional, IsEnum, MinLength, MaxLength, Matches } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsEnum,
+  MinLength,
+  MaxLength,
+  Matches,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class CreateUserDto {
@@ -26,7 +35,8 @@ export class CreateUserDto {
   @MinLength(8, { message: 'Password must be at least 8 characters long' })
   @MaxLength(100, { message: 'Password must not exceed 100 characters' })
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/, {
-    message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    message:
+      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
   })
   password: string;
 
@@ -35,7 +45,9 @@ export class CreateUserDto {
   phoneNumber?: string;
 
   @IsOptional()
-  @IsEnum(['farmer', 'agent', 'admin', 'super_admin'], { message: 'Invalid role' })
+  @IsEnum(['farmer', 'agent', 'admin', 'super_admin'], {
+    message: 'Invalid role',
+  })
   role?: string;
 
   @IsOptional()

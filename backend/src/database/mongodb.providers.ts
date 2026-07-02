@@ -1,11 +1,10 @@
-import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { ConfigService } from '@nestjs/config';
+import { MongooseModuleOptions } from '@nestjs/mongoose';
 
 export const createMongooseOptions = (): MongooseModuleOptions => {
   return {
-    uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/cooperative_farming',
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    uri:
+      process.env.MONGODB_URI ||
+      'mongodb://localhost:27017/cooperative_farming',
     autoIndex: true,
     maxPoolSize: 10,
     serverSelectionTimeoutMS: 5000,
@@ -18,9 +17,9 @@ export const createMongooseOptions = (): MongooseModuleOptions => {
 
 export const MongooseConfigFactory = {
   createMongooseOptions: () => ({
-    uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/cooperative_farming',
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    uri:
+      process.env.MONGODB_URI ||
+      'mongodb://localhost:27017/cooperative_farming',
     autoIndex: true,
     maxPoolSize: 10,
     serverSelectionTimeoutMS: 5000,

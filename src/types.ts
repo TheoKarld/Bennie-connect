@@ -271,6 +271,50 @@ export interface CommissionReward {
   amountEarned: number;
 }
 
+// --- Frontend Auth (client session) ---
+// Backend user role taxonomy (see PRD data_structure §0 / §5).
+export type BackendUserRole = "farmer" | "agent" | "admin" | "super_admin";
+
+export type AuthProvider = "local" | "google";
+
+export type AuthStatus =
+  | "idle"
+  | "loading"
+  | "authenticated"
+  | "unauthenticated";
+
+// Subset of the backend "safe user" the SPA keeps in memory / localStorage.
+export interface AuthUser {
+  id?: string; // Mongo _id (when surfaced)
+  userId: string; // human id "USR_<ts>_<rand>"
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: BackendUserRole;
+  phoneNumber?: string;
+  isEmailVerified: boolean;
+  referralCode?: string;
+  profileImageUrl?: string;
+  authProvider?: AuthProvider;
+}
+
+// Persisted client session (localStorage keys: "userToken" + "userData").
+// The refresh token is NOT held in JS — it lives in an httpOnly cookie.
+export interface AuthState {
+  user: AuthUser | null;
+  accessToken: string | null;
+  status: AuthStatus;
+  error?: string;
+}
+
+// Success envelope payload returned by register / login / google / refresh.
+// No refreshToken: it is delivered as an httpOnly cookie by the backend.
+export interface AuthResponseData {
+  user: AuthUser;
+  accessToken: string;
+  expiresIn: number;
+}
+
 export interface FarmerAppState {
   walletBalance: number;
   walletTransactions: WalletTransaction[];

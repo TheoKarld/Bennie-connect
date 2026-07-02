@@ -1,7 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-export type UserDocument = User & Document;
+export type UserDocument = User &
+  Document & {
+    comparePassword(candidatePassword: string): Promise<boolean>;
+  };
 
 @Schema({
   timestamps: true,
@@ -20,14 +23,29 @@ export class User {
   @Prop({ type: String, required: true, trim: true })
   lastName: string;
 
-  @Prop({ type: String, required: true })
-  password: string;
+  @Prop({
+    type: String,
+    required: function (this: User) {
+      return this.authProvider !== 'google';
+    },
+  })
+  password?: string;
 
   @Prop({ type: String, trim: true })
   phoneNumber?: string;
 
-  @Prop({ type: String, enum: ['farmer', 'agent', 'admin', 'super_admin'], default: 'farmer' })
+  @Prop({
+    type: String,
+    enum: ['farmer', 'agent', 'admin', 'super_admin'],
+    default: 'farmer',
+  })
   role: string;
+
+  @Prop({ type: String })
+  googleId?: string;
+
+  @Prop({ type: String, enum: ['local', 'google'], default: 'local' })
+  authProvider: string;
 
   @Prop({ type: Boolean, default: false })
   isEmailVerified: boolean;
@@ -157,7 +175,8 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 // Indexes for performance
 UserSchema.index({ email: 1 }, { unique: true });
-UserSchema.index({ userId: 1 }, { unique: true });
+// userId uniqueness is already declared via @Prop({ unique: true }) on the field —
+// do not re-declare it here or Mongoose warns about a duplicate index.
 UserSchema.index({ phoneNumber: 1 }, { sparse: true });
 UserSchema.index({ role: 1 });
 UserSchema.index({ isActive: 1 });
@@ -165,30 +184,39 @@ UserSchema.index({ createdAt: -1 });
 UserSchema.index({ wallet: 1 });
 UserSchema.index({ referredBy: 1 });
 UserSchema.index({ referralCode: 1 });
+UserSchema.index({ googleId: 1 }, { unique: true, sparse: true });
 
-// Pre-save hook to generate userId
-UserSchema.pre('save', function (next) {
+// Pre-validate hook to generate userId + referralCode before required-field
+// validation runs (a plain pre-save hook can run after validation, causing a
+// spurious "userId is required" error).
+UserSchema.pre('validate', function (next) {
   if (!this.userId) {
     this.userId = `USR_${Date.now()}_${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   }
-  
+
   // Generate referral code if not exists
-  if (!this.referralCode) {
-    this.referralCode = this.firstName.substring(0, 3).toUpperCase() + 
-                        Math.random().toString(36).substr(2, 5).toUpperCase();
+  if (!this.referralCode && this.firstName) {
+    this.referralCode =
+      this.firstName.substring(0, 3).toUpperCase() +
+      Math.random().toString(36).substr(2, 5).toUpperCase();
   }
-  
+
   next();
 });
 
 // Method to check if password matches
-UserSchema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
+UserSchema.methods.comparePassword = async function (
+  candidatePassword: string,
+): Promise<boolean> {
+  if (!this.password) {
+    return false;
+  }
   const bcrypt = await import('bcrypt');
   return bcrypt.compare(candidatePassword, this.password);
 };
 
 // Method to hide sensitive data
-UserSchema.methods.toJSON = function() {
+UserSchema.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
   delete obj.resetPasswordToken;

@@ -21,7 +21,7 @@ You own the **end-user frontend** in `src/`:
 ## Source of truth
 1. The relevant `PRD/user_module/*.md` file is the contract for the feature — read it first.
 2. `PRD/data_structure.md` for canonical data shapes; `CLAUDE.md` for the real (partial) state and known divergences. Read before starting.
-3. The live backend API (base `http://localhost:5555/api/v1`) — call it through `src/lib/api.ts` + `src/services/`.
+3. The live backend API (base `http://localhost:5566/api/v1`) — call it through `src/lib/api.ts` + `src/services/`.
 
 ## Frontend architecture (current — post-refactor)
 - **State: zustand**, not Context. `store/authStore.ts` (session: user, tokens, login/register/google/logout/refresh/hydrate; persisted to `bennie_auth`) and `store/appStore.ts` (the `FarmerAppState` + all domain actions; persisted to `KM_FARMER_PORTAL_STATE_REAL`). Consume via `hooks/useAuth`/`useAppState` selectors — no prop-drilling.

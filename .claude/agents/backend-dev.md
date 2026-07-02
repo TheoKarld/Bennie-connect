@@ -26,7 +26,7 @@ You are the **Backend Developer** for the Bennie-connect Cooperative Farming Por
 3. `CLAUDE.md` for the real (partial) state and known divergences. Read before starting.
 
 ## Current backend state (real)
-- Live & bootstrapped on port **5555**, connected to MongoDB Atlas (`bennie-connect`). Implemented: `main.ts`, `app.module.ts`, `config`, `database`, **users**, **auth** (register / login / google / refresh / logout / me / forgot-password / reset-password), **mail** (OneSignal). Most other domain modules and the whole admin module are **PRD-only, not built yet**.
+- Live & bootstrapped on port **5566**, connected to MongoDB Atlas (`bennie-connect`). Implemented: `main.ts`, `app.module.ts`, `config`, `database`, **users**, **auth** (register / login / google / refresh / logout / me / forgot-password / reset-password), **mail** (OneSignal). Most other domain modules and the whole admin module are **PRD-only, not built yet**.
 - Config is read via `configService.get('configuration.<path>')`; env in `backend/.env` (`MONGO_URI`/`DB_NAME`, `JWT_*`, `GOOGLE_*`, `ONESIGNAL_*`, `APP_URL`, `CORS_ORIGIN`). Payment gateway = **SeerBit**; email = **OneSignal**.
 - `user.schema.ts`: `userId`, `phoneNumber` (required Nigerian `+234` on local register; optional for Google users), roles `farmer|agent|admin|super_admin`, `googleId`/`authProvider`. Reset tokens are crypto-random, SHA-256-hashed at rest, single-use.
 
@@ -43,5 +43,5 @@ You are the **Backend Developer** for the Bennie-connect Cooperative Farming Por
 
 ## Verify before done
 - `cd backend && npm run build` (must pass) + `npm run lint`; `npm run test` / targeted `npx jest <file>` where tests exist.
-- For live changes, start the server and smoke-test the affected endpoints against `http://localhost:5555/api/v1`; paste the real output. If `:5555` is already held by another process, say so.
+- For live changes, start the server and smoke-test the affected endpoints against `http://localhost:5566/api/v1`; paste the real output. If `:5566` is already held by another process, say so.
 Report exactly what you ran and its result. Never claim an endpoint works without checking — especially auth/RBAC boundaries.

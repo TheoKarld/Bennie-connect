@@ -25,12 +25,12 @@ import { io, type Socket } from "socket.io-client";
 /**
  * Derive the socket.io origin from the REST base URL by stripping the trailing
  * `/api/v1` (and any trailing slash). e.g.
- *   http://localhost:5555/api/v1  ->  http://localhost:5555
+ *   http://localhost:5566/api/v1  ->  http://localhost:5566
  */
 export function getSocketOrigin(): string {
   const apiUrl =
     (import.meta.env.VITE_API_URL as string | undefined) ||
-    "http://localhost:5555/api/v1";
+    "http://localhost:5566/api/v1";
   return apiUrl.replace(/\/api\/v\d+\/?$/i, "").replace(/\/$/, "");
 }
 

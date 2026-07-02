@@ -28,7 +28,7 @@ import storage from "./storage";
 
 const API_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ||
-  "http://localhost:5555/api/v1";
+  "http://localhost:5566/api/v1";
 
 // --- Axios instance ----------------------------------------------------------
 

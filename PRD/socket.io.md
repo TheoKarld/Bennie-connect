@@ -37,7 +37,7 @@ Source-of-truth references:
 
 - **Stack:** NestJS `@nestjs/websockets` + `@nestjs/platform-socket.io` (socket.io v4).
 - **Adapter:** a custom `IoAdapter` is registered in `main.ts` (`app.useWebSocketAdapter(new IoAdapter(app))`)
-  so socket.io shares the same HTTP server + port as the REST API (default `5555`,
+  so socket.io shares the same HTTP server + port as the REST API (default `5566`,
   `configuration.port`). CORS for the WS handshake reuses `configuration.cors.origin`.
 - **Gateways:** two Nest gateways (or one gateway with two `@WebSocketGateway`
   namespace declarations), one per plane — see Namespaces below. Each holds a

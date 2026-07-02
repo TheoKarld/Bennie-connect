@@ -16,8 +16,8 @@ import { AppModule } from './app.module';
 const dnsServers =
   process.env.DNS_SERVERS !== undefined
     ? process.env.DNS_SERVERS.split(',')
-        .map((s) => s.trim())
-        .filter(Boolean)
+      .map((s) => s.trim())
+      .filter(Boolean)
     : ['8.8.8.8', '1.1.1.1'];
 if (dnsServers.length > 0) {
   try {
@@ -31,7 +31,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT') || 5550;
+  const port = configService.get<number>('PORT') || 5555;
   const apiPrefix =
     configService.get<string>('configuration.apiPrefix') || 'api/v1';
 

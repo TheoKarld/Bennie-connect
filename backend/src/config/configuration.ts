@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 
 export default registerAs('configuration', () => ({
   nodeEnv: process.env.NODE_ENV || 'development',
-  port: parseInt(process.env.PORT || '5550', 10),
+  port: parseInt(process.env.PORT || '5566', 10),
   apiPrefix: process.env.API_PREFIX || 'api/v1',
 
   app: {
@@ -53,7 +53,7 @@ export default registerAs('configuration', () => ({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     callbackUrl:
       process.env.GOOGLE_CALLBACK_URL ||
-      'http://localhost:5550/api/v1/auth/google/callback',
+      'http://localhost:5566/api/v1/auth/google/callback',
   },
 
   oneSignal: {
@@ -96,7 +96,7 @@ export default registerAs('configuration', () => ({
   },
 
   cors: {
-    origin: process.env.CORS_ORIGIN?.split(',') || ['http://localhost:3000'],
+    origin: process.env.CORS_ORIGIN?.split(',') || ['http://localhost:3000', 'https://bennie-connect-two.vercel.app'],
   },
 
   logging: {

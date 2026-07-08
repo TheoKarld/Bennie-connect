@@ -27,6 +27,9 @@ import { useEffect, useRef } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNotificationStore } from "../store/notificationStore";
 import type { ServerNotification } from "../store/notificationStore";
+import { useWalletStore } from "../store/walletStore";
+import { useAdasheStore } from "../store/adasheStore";
+import { useEquipmentStore } from "../store/equipmentStore";
 import { createRealtimeSocket, type Socket } from "../lib/socket";
 import { onForegroundMessage } from "../lib/firebase";
 import storage from "../lib/storage";
@@ -48,6 +51,22 @@ export default function NotificationProvider() {
   const setUnreadCount = useNotificationStore((s) => s.setUnreadCount);
   const reset = useNotificationStore((s) => s.reset);
 
+  // Live wallet: hydrate on auth so Dashboard + top-nav show the real balance,
+  // reset on logout, and refetch when a wallet-related realtime event arrives.
+  const fetchWallet = useWalletStore((s) => s.fetchWallet);
+  const resetWallet = useWalletStore((s) => s.reset);
+
+  // Live Adashe: hydrate my-groups + invitations on auth so the dashboard shows
+  // real circle data immediately; reset on logout, refresh on adashe/group events.
+  const fetchMyGroups = useAdasheStore((s) => s.fetchMyGroups);
+  const fetchInvitations = useAdasheStore((s) => s.fetchInvitations);
+  const resetAdashe = useAdasheStore((s) => s.reset);
+
+  // Live Equipment: nudge my-bookings when an equipment event lands so the
+  // bookings list / status chips stay fresh; reset on logout.
+  const fetchMyBookings = useEquipmentStore((s) => s.fetchMyBookings);
+  const resetEquipment = useEquipmentStore((s) => s.reset);
+
   useEffect(() => {
     // Only run the runtime for an authenticated user.
     if (status !== "authenticated" || !userId) {
@@ -56,8 +75,11 @@ export default function NotificationProvider() {
 
     let disposed = false;
 
-    // 1. Hydrate the durable inbox.
+    // 1. Hydrate the durable inbox + the live wallet balance + Adashe circles.
     void hydrate();
+    void fetchWallet({ silent: true });
+    void fetchMyGroups({ silent: true });
+    void fetchInvitations();
 
     // 2. Connect the user realtime socket.
     const socket = createRealtimeSocket({
@@ -77,6 +99,25 @@ export default function NotificationProvider() {
         message: n.message,
         tone: toToastTone(n.type),
       });
+      // Refetch the live wallet when a wallet-related event lands (deposit
+      // credited, withdrawal state change, transfer in/out).
+      if (typeof n.event === "string" && n.event.startsWith("wallet.")) {
+        void fetchWallet({ silent: true });
+      }
+      // Nudge Adashe when a circle event lands so the dashboard/list stay fresh
+      // even when the workspace socket is not open.
+      if (
+        typeof n.event === "string" &&
+        (n.event.startsWith("adashe.") || n.event.startsWith("group."))
+      ) {
+        void fetchMyGroups({ silent: true });
+        if (n.event.startsWith("adashe.invite")) void fetchInvitations();
+      }
+      // Nudge equipment bookings when a booking lifecycle event lands (approved,
+      // confirmed, in_use, completed, cancelled) so the list stays fresh.
+      if (typeof n.event === "string" && n.event.startsWith("equipment.")) {
+        void fetchMyBookings({ silent: true });
+      }
     };
 
     const handleUnreadCount = (payload: { count?: number; unreadCount?: number }) => {
@@ -131,14 +172,27 @@ export default function NotificationProvider() {
       socketRef.current = null;
       unsubFcm();
     };
-  }, [status, userId, hydrate, add, setUnreadCount]);
+  }, [
+    status,
+    userId,
+    hydrate,
+    add,
+    setUnreadCount,
+    fetchWallet,
+    fetchMyGroups,
+    fetchInvitations,
+    fetchMyBookings,
+  ]);
 
-  // On leaving the authenticated state entirely, clear the server store.
+  // On leaving the authenticated state entirely, clear the server stores.
   useEffect(() => {
     if (status === "unauthenticated") {
       reset();
+      resetWallet();
+      resetAdashe();
+      resetEquipment();
     }
-  }, [status, reset]);
+  }, [status, reset, resetWallet, resetAdashe, resetEquipment]);
 
   return null;
 }

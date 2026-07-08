@@ -200,52 +200,10 @@ export interface ServiceBooking {
   createdAt: string;
 }
 
-// --- Agricultural Marketplace Types ---
-export type ProductCategoryName =
-  | "Seeds"
-  | "Fertilizers"
-  | "Agrochemicals"
-  | "Farm Equipment"
-  | "Livestock Inputs"
-  | "Irrigation Equipment"
-  | "Greenhouse Materials"
-  | "Farm Produce";
-
-export interface Product {
-  id: string;
-  name: string;
-  category: ProductCategoryName;
-  price: number; // in NGN
-  unit: string; // e.g. "50kg Bag", "Litre Bottle", "Unit", "Packet"
-  stock: number;
-  merchantId: string;
-  merchantName: string;
-  description: string;
-  imageUrl?: string;
-}
-
-export interface CartItem {
-  id: string; // cart item entry id
-  productId: string;
-  quantity: number;
-}
-
-export interface ProductOrder {
-  id: string;
-  farmerId: string;
-  farmerName: string;
-  deliveryAddress: string;
-  items: {
-    productId: string;
-    productName: string;
-    quantity: number;
-    priceAtPurchase: number;
-  }[];
-  totalAmount: number;
-  orderDate: string;
-  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
-  deliveryDate?: string;
-}
+// --- Agricultural Marketplace ---
+// The mock Product / CartItem / ProductOrder / ProductCategoryName types were
+// SUPERSEDED by the live server-backed marketplace — see `src/types/marketplace.ts`
+// and `src/types/merchant.ts` (PRD 08 / 08a / 08b).
 
 export type AgentLevel = "Bronze Agent" | "Silver Agent" | "Gold Agent" | "Platinum Agent";
 
@@ -332,9 +290,6 @@ export interface FarmerAppState {
   // Added for Modules 4 & 5
   serviceCategories?: ServiceCategory[];
   serviceBookings?: ServiceBooking[];
-  products?: Product[];
-  orders?: ProductOrder[];
-  cart?: CartItem[];
   // Added for Module 7: Agent System
   agentLevel?: AgentLevel;
   registeredFarmers?: RegisteredFarmer[];

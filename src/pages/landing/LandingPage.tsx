@@ -20,7 +20,7 @@ import LandingFooter from "./sections/LandingFooter";
  */
 export default function LandingPage() {
   return (
-    <div className="min-h-screen scroll-smooth bg-[#FAF8F5] text-[#1A2421] antialiased">
+    <div className="min-h-screen scroll-smooth bg-canvas text-ink antialiased">
       <LandingNav />
       <main>
         <HeroSection />

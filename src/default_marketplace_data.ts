@@ -1,4 +1,4 @@
-import { ServiceCategory, Product, ServiceBooking, ProductOrder } from "./types";
+import { ServiceCategory, ServiceBooking } from "./types";
 
 export const DEFAULT_SERVICE_CATEGORIES: ServiceCategory[] = [
   {
@@ -137,108 +137,6 @@ export const DEFAULT_SERVICE_CATEGORIES: ServiceCategory[] = [
   }
 ];
 
-export const DEFAULT_PRODUCTS: Product[] = [
-  {
-    id: "p_seeds_1",
-    name: "Hybrid Disease-Resistant Maize Seeds (Zea mays)",
-    category: "Seeds",
-    price: 18500,
-    unit: "10kg Bag",
-    stock: 45,
-    merchantId: "merch_bennie",
-    merchantName: "Bennie Agro Seeds",
-    description: "High-yielding (up to 7 tons per hectare) drought-tolerant hybrid seeds certified for high germination rate."
-  },
-  {
-    id: "p_seeds_gf",
-    name: "Premium Rice Paddy Seeds (Faro 44)",
-    category: "Seeds",
-    price: 12000,
-    unit: "25kg Bag",
-    stock: 30,
-    merchantId: "merch_coop",
-    merchantName: "Coop Input Reserve",
-    description: "Ideal for wetland alluvial soil. Rapid tillering and robust blast-disease resistance."
-  },
-  {
-    id: "p_fert_1",
-    name: "Granular Fertilizer NPK 15:15:15",
-    category: "Fertilizers",
-    price: 32000,
-    unit: "50kg Bag",
-    stock: 80,
-    merchantId: "merch_coop",
-    merchantName: "Coop Input Reserve",
-    description: "Standard balanced nitrogen, phosphorus, and potassium fertilizer ideal for cereal crops, tubers, and vegetables."
-  },
-  {
-    id: "p_chem_1",
-    name: "Broad-Spectrum Glyphosate Herbicide",
-    category: "Agrochemicals",
-    price: 4500,
-    unit: "1L Bottle",
-    stock: 120,
-    merchantId: "merch_biochem",
-    merchantName: "BioChem Distributors",
-    description: "Post-emergence herbicide for non-selective annual and perennial weed control in fields."
-  },
-  {
-    id: "p_eq_1",
-    name: "Manual Direct-Push Single Row Seed Planter",
-    category: "Farm Equipment",
-    price: 38000,
-    unit: "Unit",
-    stock: 15,
-    merchantId: "merch_bennie",
-    merchantName: "Bennie Agro Engineering",
-    description: "A simple mechanical row planter with seed plates for maize, beans, groundnuts, or cowpea."
-  },
-  {
-    id: "p_livestock_1",
-    name: "High Pro Concentrate Layer Poultry Feed",
-    category: "Livestock Inputs",
-    price: 14500,
-    unit: "25kg Bag",
-    stock: 60,
-    merchantId: "merch_coop",
-    merchantName: "Coop Input Reserve",
-    description: "Premium feed formulation for high body retention and continuous bright yellow egg production."
-  },
-  {
-    id: "p_irrig_1",
-    name: "Gravity Drip Irrigation Starter Kit (0.5 Acre)",
-    category: "Irrigation Equipment",
-    price: 75000,
-    unit: "Set",
-    stock: 10,
-    merchantId: "merch_bennie",
-    merchantName: "Bennie Agro Engineering",
-    description: "Includes header filter, lateral 16mm tubes, drip connectors, and end valves. Ready to install."
-  },
-  {
-    id: "p_greenhouse_1",
-    name: "UV-Stabilized Polyethylene Greenhouse Film (200 Micron)",
-    category: "Greenhouse Materials",
-    price: 95000,
-    unit: "Roll (10m x 4m)",
-    stock: 8,
-    merchantId: "merch_vanguard",
-    merchantName: "Vanguard Sheets Ltd",
-    description: "High light-transmission, anti-drip, and dust-resistant sheet for greenhouse protection."
-  },
-  {
-    id: "p_produce_1",
-    name: "Fresh Hand-Picked Yellow Habanero Peppers",
-    category: "Farm Produce",
-    price: 15000,
-    unit: "30kg Basket",
-    stock: 12,
-    merchantId: "merch_shola_farms",
-    merchantName: "Shola Organic Farms",
-    description: "Freshly harvested under cooperative sorting standards. High spice heat content."
-  }
-];
-
 export const DEFAULT_SERVICE_BOOKINGS: ServiceBooking[] = [
   {
     id: "sb_1001",
@@ -253,28 +151,3 @@ export const DEFAULT_SERVICE_BOOKINGS: ServiceBooking[] = [
   }
 ];
 
-export const DEFAULT_ORDERS: ProductOrder[] = [
-  {
-    id: "ord_2001",
-    farmerId: "aliyu_coop",
-    farmerName: "Aliyu (You)",
-    deliveryAddress: "Kano State Maize Hub, Sector A3",
-    items: [
-      {
-        productId: "p_seeds_1",
-        productName: "Hybrid Disease-Resistant Maize Seeds (Zea mays)",
-        quantity: 2,
-        priceAtPurchase: 18500
-      },
-      {
-        productId: "p_fert_1",
-        productName: "Granular Fertilizer NPK 15:15:15",
-        quantity: 1,
-        priceAtPurchase: 32000
-      }
-    ],
-    totalAmount: 69000,
-    orderDate: "2026-06-01T14:00:00Z",
-    status: "processing"
-  }
-];

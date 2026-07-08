@@ -31,7 +31,7 @@ export default function AuthLayout() {
   const reduce = useReducedMotion();
 
   return (
-    <div className="min-h-screen flex bg-[#FAF8F5] text-[#1A2421]">
+    <div className="min-h-screen flex bg-canvas text-ink">
       {/* LEFT — brand panel (desktop) */}
       <div className="hidden lg:flex w-[46%] xl:w-1/2 flex-col justify-between bg-[#0F4C2F] text-white p-12 xl:p-14 relative overflow-hidden">
         {/* Layered mesh + ambient glows */}
@@ -148,14 +148,14 @@ export default function AuthLayout() {
         {/* Mobile brand header */}
         <div className="w-full max-w-md lg:hidden mb-8">
           <Link to="/" className="flex items-center gap-2.5 w-max">
-            <div className="w-9 h-9 rounded-xl bg-[#135D39] flex items-center justify-center shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-sm">
               <Sprout className="w-5 h-5 text-white" />
             </div>
             <div>
-              <span className="font-display font-semibold text-[#1A2421] text-lg leading-none block">
+              <span className="font-display font-semibold text-ink text-lg leading-none block">
                 Bennie Connect
               </span>
-              <span className="text-[9px] text-[#5C6460] font-bold uppercase tracking-[0.16em]">
+              <span className="text-[9px] text-muted font-bold uppercase tracking-[0.16em]">
                 Cooperative Portal
               </span>
             </div>
@@ -166,12 +166,12 @@ export default function AuthLayout() {
           initial={reduce ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-md rounded-[28px] bg-white/70 ring-1 ring-[#E6E5DF] shadow-[0_8px_40px_-12px_rgba(19,93,57,0.15)] backdrop-blur-sm p-7 sm:p-9"
+          className="w-full max-w-md rounded-[28px] bg-surface/70 ring-1 ring-border shadow-[0_8px_40px_-12px_rgba(19,93,57,0.15)] backdrop-blur-sm p-7 sm:p-9"
         >
           <Outlet />
         </motion.div>
 
-        <p className="mt-6 text-center text-[11px] text-[#9AA29D] max-w-md">
+        <p className="mt-6 text-center text-[11px] text-muted max-w-md">
           Protected by bank-grade encryption. By continuing you agree to our
           cooperative terms.
         </p>

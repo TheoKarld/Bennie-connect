@@ -3,273 +3,534 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   Sprout,
-  LayoutDashboard,
-  Wallet,
-  PiggyBank,
-  TrendingUp,
-  Users,
   Menu,
   X,
-  CreditCard,
-  Compass,
-  Wrench,
-  ShoppingBag,
-  Briefcase,
   LogOut,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  PanelLeft,
+  PanelLeftClose,
+  MoreHorizontal,
+  BadgeCheck,
 } from "lucide-react";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useAppState } from "../../hooks/useAppState";
+import { USER_NAV, USER_BOTTOM_NAV_ROUTES, USER_ROUTE_TITLES } from "./userNav";
 import NotificationBell from "./NotificationBell";
 import NotificationProvider from "../../providers/NotificationProvider";
-import { Toaster } from "../ui";
+import { Toaster, ThemeToggle, ThemeToggleButton } from "../ui";
 
-interface NavItem {
-  to: string;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-  end?: boolean;
+const SIDEBAR_PREF_KEY = "bennie_user_sidebar";
+const APP_VERSION = "v0.1.0";
+
+/** Read the persisted collapse preference (desktop). */
+function readCollapsePref(): boolean {
+  try {
+    return localStorage.getItem(SIDEBAR_PREF_KEY) === "collapsed";
+  } catch {
+    return false;
+  }
 }
 
-const NAV_ITEMS: NavItem[] = [
-  { to: "/app", label: "Overview", icon: LayoutDashboard, end: true },
-  { to: "/app/wallet", label: "Wallet", icon: Wallet },
-  { to: "/app/savings", label: "Savings", icon: PiggyBank },
-  { to: "/app/adashe", label: "Adashe Groups", icon: Users },
-  { to: "/app/equipment", label: "Equipment Booking", icon: Compass },
-  { to: "/app/services", label: "Agro Services", icon: Wrench },
-  { to: "/app/marketplace", label: "Inputs Marketplace", icon: ShoppingBag },
-  { to: "/app/shares", label: "Shares", icon: TrendingUp },
-  { to: "/app/membership", label: "Membership", icon: CreditCard },
-  { to: "/app/agent", label: "Agent Terminal", icon: Briefcase },
-];
-
-function linkClasses(isActive: boolean): string {
-  return `w-full text-left px-4 py-2.5 rounded-full font-semibold flex items-center gap-3 transition ${
-    isActive
-      ? "bg-[#135D39] text-white shadow-md shadow-[#135D39]/15"
-      : "text-[#5C6460] hover:text-[#1A2421] hover:bg-[#135D39]/5"
-  }`;
-}
-
-export default function AppShell() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const { user, logout } = useAuth();
-  const state = useAppState();
-
-  const firstName = user?.firstName || "Farmer";
-  const initials =
-    (user?.firstName?.[0] || "F") + (user?.lastName?.[0] || "");
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login", { replace: true });
-  };
-
-  const SidebarNav = ({ onNavigate }: { onNavigate?: () => void }) => (
-    <nav className="flex flex-col space-y-1 text-sm pt-4">
-      {NAV_ITEMS.map(({ to, label, icon: Icon, end }) => (
+/** The primary nav — one component, two presentations (sidebar + drawer). */
+function UserSidebarNav({
+  collapsed = false,
+  onNavigate,
+}: {
+  collapsed?: boolean;
+  onNavigate?: () => void;
+}) {
+  return (
+    <nav aria-label="Primary" className="flex flex-col gap-1">
+      {USER_NAV.map(({ label, to, icon: Icon, end }) => (
         <NavLink
           key={to}
           to={to}
           end={end}
           onClick={onNavigate}
-          className={({ isActive }) => linkClasses(isActive)}
+          title={collapsed ? label : undefined}
+          className={({ isActive }) =>
+            `group relative flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition ${
+              collapsed ? "justify-center" : ""
+            } ${
+              isActive
+                ? "bg-white/12 text-white"
+                : "text-white/60 hover:bg-white/[0.06] hover:text-white"
+            }`
+          }
         >
-          <Icon className="w-4.5 h-4.5" /> {label}
+          {({ isActive }) => (
+            <>
+              {isActive && (
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-[#E7A13C]"
+                />
+              )}
+              <Icon
+                className={`h-[18px] w-[18px] shrink-0 ${
+                  isActive ? "text-[#E7A13C]" : ""
+                }`}
+              />
+              {!collapsed && <span className="truncate">{label}</span>}
+            </>
+          )}
         </NavLink>
       ))}
     </nav>
   );
+}
+
+export default function AppShell() {
+  const reduce = useReducedMotion();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, logout } = useAuth();
+  const state = useAppState();
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(readCollapsePref);
+  const [identityOpen, setIdentityOpen] = useState(false);
+
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const identityRef = useRef<HTMLDivElement>(null);
+
+  const fullName =
+    `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim() || "Farmer";
+  const initials =
+    (user?.firstName?.[0] ?? "F") + (user?.lastName?.[0] ?? "");
+  const tier = state.membership?.tier ?? "Bronze";
+
+  // Persist collapse preference.
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        SIDEBAR_PREF_KEY,
+        collapsed ? "collapsed" : "pinned"
+      );
+    } catch {
+      /* ignore */
+    }
+  }, [collapsed]);
+
+  // Close drawer + menus on route change.
+  useEffect(() => {
+    setDrawerOpen(false);
+    setIdentityOpen(false);
+  }, [location.pathname]);
+
+  // Esc closes the drawer; focus-trap while open; restore focus on close.
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setDrawerOpen(false);
+        hamburgerRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    const first = drawerRef.current?.querySelector<HTMLElement>(
+      "a, button, [tabindex]"
+    );
+    first?.focus();
+    return () => document.removeEventListener("keydown", onKey);
+  }, [drawerOpen]);
+
+  // Click-away for the identity menu.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (
+        identityRef.current &&
+        !identityRef.current.contains(e.target as Node)
+      ) {
+        setIdentityOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  // Esc closes the identity menu.
+  useEffect(() => {
+    if (!identityOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIdentityOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [identityOpen]);
+
+  const handleLogout = useCallback(async () => {
+    await logout();
+    navigate("/login", { replace: true });
+  }, [logout, navigate]);
+
+  // --- Breadcrumb / page title -------------------------------------------
+  const pageTitle = useMemo(() => {
+    const seg = location.pathname.replace(/^\/app\/?/, "").split("/")[0] || "";
+    return USER_ROUTE_TITLES[seg] ?? "Overview";
+  }, [location.pathname]);
+
+  // --- Bottom nav (mobile): key sections in intended order ----------------
+  const bottomItems = useMemo(
+    () =>
+      USER_BOTTOM_NAV_ROUTES.map((r) =>
+        USER_NAV.find((p) => p.to === r)
+      ).filter(Boolean) as typeof USER_NAV,
+    []
+  );
+
+  const brand = (
+    <Link
+      to="/app"
+      className="group flex items-center gap-2.5"
+      aria-label="Bennie Connect — Overview"
+    >
+      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-sm ring-1 ring-black/5 transition-transform group-hover:scale-105">
+        <Sprout className="h-5 w-5 text-white" />
+      </span>
+      <span className="hidden leading-none sm:block">
+        <span className="block font-display text-[15px] font-semibold tracking-tight text-ink">
+          Bennie Connect
+        </span>
+        <span className="mt-0.5 block text-[9px] font-bold uppercase tracking-[0.16em] text-primary">
+          Cooperative Portal
+        </span>
+      </span>
+    </Link>
+  );
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A2421] flex flex-col justify-between selection:bg-[#135D39]/10 selection:text-[#135D39] border-t-4 border-[#135D39] relative overflow-hidden">
+    <div className="min-h-screen bg-canvas text-ink selection:bg-primary/10 selection:text-primary">
       {/* Real-time notification runtime (hydrate + socket + FCM) */}
       <NotificationProvider />
       {/* Toast stack for live arrivals (mounted once) */}
       <Toaster />
 
-      {/* Background radial ambient glowing effects */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#135D39]/3 blur-[120px] rounded-full pointer-events-none -mr-64 -mt-64"></div>
-      <div className="absolute bottom-40 left-0 w-[400px] h-[450px] bg-[#E7A13C]/3 blur-[100px] rounded-full pointer-events-none -ml-48"></div>
+      {/* Skip link */}
+      <a
+        href="#app-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        Skip to content
+      </a>
 
-      <div className="flex flex-col lg:flex-row flex-grow w-full max-w-7xl mx-auto relative z-20">
-        {/* DESKTOP SIDEBAR */}
-        <aside className="hidden lg:flex w-64 shrink-0 flex-col justify-between p-6 border-r border-[#E6E5DF] h-screen sticky top-0 bg-[#FAF8F5]/30">
-          <div className="space-y-8">
-            {/* Brand Logo */}
-            <div
-              className="flex items-center gap-3 cursor-pointer"
-              onClick={() => navigate("/app")}
-            >
-              <div className="w-10 h-10 rounded-full bg-[#135D39] flex items-center justify-center shadow-lg shadow-[#135D39]/10">
-                <Sprout className="w-5.5 h-5.5 text-white" />
-              </div>
-              <div>
-                <span className="font-display font-medium text-[#1A2421] text-base tracking-tight block">
+      <div className="flex">
+        {/* DESKTOP SIDEBAR (forest brand rail) */}
+        <aside
+          className={`sticky top-0 hidden h-screen shrink-0 flex-col bg-[#0F3D28] text-white transition-[width] duration-200 md:flex ${
+            collapsed ? "w-[76px]" : "w-64"
+          }`}
+        >
+          <div className="flex h-16 items-center gap-2.5 px-4">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15">
+              <Sprout className="h-5 w-5 text-white" />
+            </span>
+            {!collapsed && (
+              <span className="leading-none">
+                <span className="block font-display text-sm font-semibold tracking-tight">
                   Bennie Connect
                 </span>
-                <span className="text-[10px] text-[#135D39] font-bold uppercase tracking-wider block -mt-1 leading-none">
+                <span className="mt-0.5 block text-[9px] font-bold uppercase tracking-[0.16em] text-[#E7A13C]">
                   Cooperative Portal
                 </span>
-              </div>
-            </div>
-
-            <SidebarNav />
+              </span>
+            )}
           </div>
 
-          <div className="bg-[#135D39]/5 border border-[#135D39]/10 p-4 rounded-3xl mt-auto">
-            <span className="text-[10px] font-bold text-[#135D39] uppercase tracking-wider block">
-              Coop Card ID
-            </span>
-            <span className="font-mono text-sm font-bold text-[#1A2421] block mt-1">
-              {state.membership.cardNumber}
-            </span>
-            <p className="text-[10px] text-[#5C6460] mt-1 leading-normal font-medium">
-              Verified Active registry ticket
-            </p>
+          <div className="flex-1 overflow-y-auto px-3 py-4">
+            <UserSidebarNav collapsed={collapsed} />
+          </div>
+
+          {/* Footer: coop card / identity + version + collapse */}
+          <div className="border-t border-white/10 px-3 py-3">
+            {!collapsed && (
+              <div className="mb-2 rounded-2xl bg-white/[0.05] px-3 py-2.5">
+                <span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-[#E7A13C]">
+                  Coop Card ID
+                </span>
+                <span className="mt-1 block truncate font-mono text-xs font-bold text-white">
+                  {state.membership?.cardNumber ?? "—"}
+                </span>
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={() => setCollapsed((v) => !v)}
+              className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-[11px] font-semibold text-white/55 transition hover:bg-white/[0.06] hover:text-white"
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {collapsed ? (
+                <PanelLeft className="h-4 w-4" />
+              ) : (
+                <>
+                  <PanelLeftClose className="h-4 w-4" />
+                  <span className="font-mono">{APP_VERSION}</span>
+                </>
+              )}
+            </button>
           </div>
         </aside>
 
-        {/* MAIN BODY AREA (Top Navbar + Views) */}
-        <div className="flex-grow flex flex-col min-h-screen lg:max-w-[calc(100%-16rem)]">
-          <header className="sticky top-0 z-40 bg-[#FAF8F5]/80 backdrop-blur-md border-b border-[#E6E5DF] h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8 w-full">
-            {/* Hamburger Trigger for Mobile */}
-            <div className="flex items-center gap-2 lg:hidden">
+        {/* MAIN COLUMN */}
+        <div className="flex min-h-screen w-full min-w-0 flex-col">
+          {/* TOP NAVBAR */}
+          <header className="sticky top-0 z-40 flex h-16 items-center justify-between gap-3 border-b border-border bg-canvas/85 px-4 backdrop-blur-md sm:px-6">
+            <div className="flex min-w-0 items-center gap-3">
+              {/* Mobile hamburger */}
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-[#1A2421] hover:bg-[#135D39]/5 focus:outline-none p-2 rounded-xl transition"
+                ref={hamburgerRef}
+                type="button"
+                onClick={() => setDrawerOpen(true)}
+                className="rounded-xl p-2 text-ink transition hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/25 md:hidden"
+                aria-label="Open navigation"
+                aria-expanded={drawerOpen}
               >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
+                <Menu className="h-5 w-5" />
+              </button>
+
+              {/* Desktop collapse toggle */}
+              <button
+                type="button"
+                onClick={() => setCollapsed((v) => !v)}
+                className="hidden rounded-xl p-2 text-muted transition hover:bg-primary/5 hover:text-ink focus:outline-none focus:ring-2 focus:ring-primary/25 md:inline-flex"
+                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              >
+                {collapsed ? (
+                  <ChevronRight className="h-5 w-5" />
                 ) : (
-                  <Menu className="w-6 h-6" />
+                  <ChevronLeft className="h-5 w-5" />
                 )}
               </button>
-              <div
-                className="flex items-center gap-2 cursor-pointer"
-                onClick={() => navigate("/app")}
+
+              {/* Mobile brand */}
+              <div className="md:hidden">{brand}</div>
+
+              {/* Breadcrumb / page title (desktop) */}
+              <nav
+                aria-label="Breadcrumb"
+                className="hidden min-w-0 items-center gap-2 md:flex"
               >
-                <div className="w-8 h-8 rounded-full bg-[#135D39] flex items-center justify-center">
-                  <Sprout className="w-4 h-4 text-white" />
-                </div>
-                <span className="font-display font-bold text-[#1A2421] text-sm tracking-tight">
-                  Bennie Connect
+                <span className="text-[11px] font-bold uppercase tracking-wider text-muted/70">
+                  Portal
                 </span>
-              </div>
+                <ChevronRight className="h-3.5 w-3.5 text-muted/50" />
+                <span className="truncate font-display text-sm font-semibold text-ink">
+                  {pageTitle}
+                </span>
+              </nav>
             </div>
 
-            <div className="hidden lg:block">
-              <span className="text-xs uppercase text-[#5C6460] font-bold tracking-wider">
-                Farmer Portal / Welcome, {firstName}
-              </span>
-            </div>
-
-            {/* Right side tools */}
-            <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {/* Notifications */}
               <NotificationBell />
 
-              {/* User badge */}
-              <div className="w-9 h-9 rounded-full bg-[#135D39] text-white flex items-center justify-center font-bold text-xs uppercase ring-2 ring-[#135D39]/10">
-                {initials}
-              </div>
+              {/* Theme toggle */}
+              <ThemeToggleButton />
 
-              <button
-                onClick={handleLogout}
-                className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-[#5C6460] hover:text-[#135D39] transition px-3 py-2 rounded-full hover:bg-[#135D39]/5"
-              >
-                <LogOut className="w-4 h-4" /> Logout
-              </button>
+              {/* Identity menu */}
+              <div className="relative" ref={identityRef}>
+                <button
+                  type="button"
+                  onClick={() => setIdentityOpen((v) => !v)}
+                  className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 transition hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/25"
+                  aria-label="Account menu"
+                  aria-expanded={identityOpen}
+                  aria-haspopup="true"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold uppercase text-white ring-2 ring-primary/10">
+                    {initials}
+                  </span>
+                  <ChevronDown className="hidden h-4 w-4 text-muted sm:block" />
+                </button>
+                <AnimatePresence>
+                  {identityOpen && (
+                    <motion.div
+                      initial={reduce ? false : { opacity: 0, y: -6, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={reduce ? undefined : { opacity: 0, y: -6, scale: 0.98 }}
+                      transition={{ duration: 0.16 }}
+                      role="menu"
+                      className="absolute right-0 top-full mt-2 w-72 overflow-hidden rounded-2xl border border-border bg-surface shadow-xl shadow-black/10"
+                    >
+                      <div className="border-b border-border px-4 py-3.5">
+                        <p className="truncate text-sm font-semibold text-ink">
+                          {fullName}
+                        </p>
+                        <p className="truncate font-mono text-[11px] text-muted">
+                          {user?.email}
+                        </p>
+                        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-accent/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-accent">
+                          <BadgeCheck className="h-3 w-3" />
+                          {tier} Member
+                        </span>
+                      </div>
+                      <div className="border-b border-border px-4 py-3">
+                        <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">
+                          Appearance
+                        </p>
+                        <ThemeToggle className="w-full justify-between" />
+                      </div>
+                      <div className="p-1.5">
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={handleLogout}
+                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-danger transition hover:bg-danger/10"
+                        >
+                          <LogOut className="h-4 w-4" /> Logout
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </header>
 
-          {/* MOBILE SIDEBAR DROPDOWN */}
-          {isMobileMenuOpen && (
-            <div className="lg:hidden fixed inset-0 z-50 bg-[#FAF8F5]/98 backdrop-blur-md shadow-2xl flex flex-col justify-between p-6">
-              <div className="space-y-6">
-                <div className="flex justify-between items-center pb-4 border-b border-[#E6E5DF]">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-[#135D39] flex items-center justify-center">
-                      <Sprout className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="font-display font-semibold text-[#1A2421] text-base">
-                      Bennie Connect
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-[#1A2421] p-1 h-8 w-8 hover:bg-slate-100 rounded-lg transition flex items-center justify-center"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-
-                <SidebarNav onNavigate={() => setIsMobileMenuOpen(false)} />
-
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    handleLogout();
-                  }}
-                  className="w-full text-left px-4 py-3 rounded-full font-semibold flex items-center gap-3 transition text-[#5C6460] hover:text-[#135D39] hover:bg-[#135D39]/5"
-                >
-                  <LogOut className="w-5 h-5" /> Logout
-                </button>
-              </div>
-
-              <div className="bg-[#135D39]/5 border border-[#135D39]/10 p-4 rounded-3xl mt-auto">
-                <span className="text-[10px] font-bold text-[#135D39] uppercase tracking-wider block">
-                  Coop Card ID
-                </span>
-                <span className="font-mono text-sm font-bold text-[#1A2421] block mt-1">
-                  {state.membership.cardNumber}
-                </span>
-                <p className="text-[10px] text-[#5C6460] mt-1 leading-normal font-medium">
-                  Verified Active registry ticket
-                </p>
-              </div>
+          {/* CONTENT */}
+          <main
+            id="app-content"
+            className="flex-1 px-4 pb-24 pt-6 sm:px-6 md:pb-10 lg:px-8"
+          >
+            <div className="mx-auto w-full max-w-7xl">
+              <Outlet />
             </div>
-          )}
-
-          {/* Main Page Content Body */}
-          <main className="flex-grow w-full py-8 md:py-10">
-            <Outlet />
           </main>
+
+          {/* Slim footer */}
+          <footer className="hidden border-t border-border px-4 py-4 text-center text-[11px] text-muted sm:px-6 md:block lg:px-8">
+            <span>© 1999 – 2026 Bennie Connect Cooperative. </span>
+            <span className="font-mono">
+              Secure SHA-256 Ledger • SeerBit Interfacing Active
+            </span>
+          </footer>
         </div>
       </div>
 
-      {/* Foot banner */}
-      <footer className="bg-[#FAF8F5] text-[#5C6460] py-12 border-t border-[#E6E5DF] mt-16 text-xs relative z-10 w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#135D39] flex items-center justify-center">
-                <Sprout className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-display font-medium text-[#1A2421] tracking-widest uppercase">
-                Bennie Connect
-              </span>
-            </div>
-            <p className="max-w-md text-[#5C6460] leading-relaxed text-[11px]">
-              Bennie Connect Coop Society is formatted under agricultural bylaws to
-              build mutual micro-capital, targeted tractor reserves, and verified
-              shares safely.
-            </p>
-          </div>
-        </div>
+      {/* MOBILE BOTTOM NAV */}
+      <nav
+        aria-label="Mobile"
+        className="fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t border-border bg-canvas/95 backdrop-blur-md md:hidden"
+      >
+        {bottomItems.map(({ label, to, icon: Icon, end }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end}
+            className={({ isActive }) =>
+              `flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-[10px] font-semibold transition ${
+                isActive ? "text-primary" : "text-muted"
+              }`
+            }
+          >
+            <Icon className="h-5 w-5" />
+            <span className="truncate">{label}</span>
+          </NavLink>
+        ))}
+        <button
+          type="button"
+          onClick={() => setDrawerOpen(true)}
+          className="flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-[10px] font-semibold text-muted transition hover:text-primary"
+          aria-label="More sections"
+        >
+          <MoreHorizontal className="h-5 w-5" />
+          <span>More</span>
+        </button>
+      </nav>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 mt-8 border-t border-[#E6E5DF] text-[#5C6460] flex justify-between items-center text-[10px]">
-          <span>© 1999 - 2026 Bennie Connect Cooperative. All rights reserved.</span>
-          <span className="flex items-center gap-1 font-mono">
-            Secure SHA-256 Ledger • SeerBit Interfacing Active
-          </span>
-        </div>
-      </footer>
+      {/* MOBILE DRAWER */}
+      <AnimatePresence>
+        {drawerOpen && (
+          <div className="fixed inset-0 z-[60] md:hidden">
+            <motion.div
+              aria-hidden
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              onClick={() => setDrawerOpen(false)}
+            />
+            <motion.div
+              ref={drawerRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation"
+              initial={reduce ? false : { x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={reduce ? undefined : { x: "-100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 34 }}
+              className="absolute inset-y-0 left-0 flex w-[82%] max-w-xs flex-col bg-[#0F3D28] text-white shadow-2xl"
+            >
+              <div className="flex h-16 items-center justify-between px-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15">
+                    <Sprout className="h-5 w-5 text-white" />
+                  </span>
+                  <span className="leading-none">
+                    <span className="block font-display text-sm font-semibold">
+                      Bennie Connect
+                    </span>
+                    <span className="mt-0.5 block text-[9px] font-bold uppercase tracking-[0.16em] text-[#E7A13C]">
+                      Cooperative Portal
+                    </span>
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    hamburgerRef.current?.focus();
+                  }}
+                  className="rounded-xl p-2 text-white/70 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+                  aria-label="Close navigation"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto px-3 py-4">
+                <UserSidebarNav onNavigate={() => setDrawerOpen(false)} />
+              </div>
+
+              <div className="border-t border-white/10 px-4 py-3">
+                <div className="mb-2 flex items-center gap-2.5">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E7A13C]/25 text-[11px] font-bold uppercase text-[#E7A13C]">
+                    {initials}
+                  </span>
+                  <span className="min-w-0 leading-tight">
+                    <span className="block truncate text-xs font-semibold">
+                      {fullName}
+                    </span>
+                    <span className="block truncate text-[10px] text-white/50">
+                      {tier} Member
+                    </span>
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-white/70 transition hover:bg-white/10 hover:text-white"
+                >
+                  <LogOut className="h-4 w-4" /> Logout
+                </button>
+                <p className="mt-2 px-3 font-mono text-[10px] text-white/35">
+                  {APP_VERSION}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

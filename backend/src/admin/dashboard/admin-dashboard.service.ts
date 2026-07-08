@@ -8,6 +8,18 @@ import {
   AdminAuditLog,
   AdminAuditLogDocument,
 } from '../schemas/admin-audit-log.schema';
+import {
+  ContributionGroup,
+  ContributionGroupDocument,
+} from '../../contributions/schemas/contribution-group.schema';
+import {
+  PayoutRequest,
+  PayoutRequestDocument,
+} from '../../contributions/schemas/payout-request.schema';
+import {
+  GroupProposal,
+  GroupProposalDocument,
+} from '../../contributions/schemas/group-proposal.schema';
 
 /**
  * Domains whose collections are not yet live. The frontend renders "module not
@@ -21,7 +33,6 @@ const PLACEHOLDER_MODULES = [
   'equipment',
   'services',
   'marketplace',
-  'adashe',
   'agents',
 ] as const;
 
@@ -35,21 +46,30 @@ export class AdminDashboardService {
     private readonly adminRoleModel: Model<AdminRoleDocument>,
     @InjectModel(AdminAuditLog.name)
     private readonly auditModel: Model<AdminAuditLogDocument>,
+    @InjectModel(ContributionGroup.name)
+    private readonly groupModel: Model<ContributionGroupDocument>,
+    @InjectModel(PayoutRequest.name)
+    private readonly payoutModel: Model<PayoutRequestDocument>,
+    @InjectModel(GroupProposal.name)
+    private readonly proposalModel: Model<GroupProposalDocument>,
   ) {}
 
   async getOverview() {
-    const [userStats, adminBlock, recentActivity] = await Promise.all([
+    const [userStats, adminBlock, recentActivity, adashe] = await Promise.all([
       this.usersService.getDashboardStats(),
       this.getAdminBlock(),
       this.getRecentActivity(),
+      this.getAdasheBlock(),
     ]);
 
     const modules = PLACEHOLDER_MODULES.reduce<
-      Record<string, { available: false }>
+      Record<string, { available: boolean }>
     >((acc, key) => {
       acc[key] = { available: false };
       return acc;
     }, {});
+    // Adashe is live — flip its readiness flag on.
+    modules.adashe = { available: true };
 
     return {
       users: {
@@ -62,9 +82,53 @@ export class AdminDashboardService {
         newLast30d: userStats.newLast30d,
       },
       admins: adminBlock,
+      adashe,
       recentActivity,
       modules,
       signupsTrend: userStats.signupsTrend,
+    };
+  }
+
+  /**
+   * Live Adashe (contribution circles) aggregates for the dashboard overview.
+   * All read-only counts/sums — no permission trimming here because the
+   * overview endpoint is gated as a whole by `dashboard:view`, matching how the
+   * other live blocks (users, admins) are surfaced.
+   */
+  private async getAdasheBlock(): Promise<{
+    available: true;
+    activeGroups: number;
+    totalGroups: number;
+    poolBalance: number;
+    payoutRequestsDue: number;
+    slotShiftsAwaiting: number;
+  }> {
+    const [
+      activeGroups,
+      totalGroups,
+      poolAgg,
+      payoutRequestsDue,
+      slotShiftsAwaiting,
+    ] = await Promise.all([
+      this.groupModel.countDocuments({ status: 'ACTIVE' }),
+      this.groupModel.countDocuments({}),
+      this.groupModel.aggregate<{ _id: null; total: number }>([
+        { $group: { _id: null, total: { $sum: '$poolBalance' } } },
+      ]),
+      this.payoutModel.countDocuments({ status: 'REQUESTED' }),
+      this.proposalModel.countDocuments({
+        kind: 'SLOT_SHIFT',
+        status: 'AWAITING_ADMIN',
+      }),
+    ]);
+
+    return {
+      available: true,
+      activeGroups,
+      totalGroups,
+      poolBalance: poolAgg[0]?.total ?? 0,
+      payoutRequestsDue,
+      slotShiftsAwaiting,
     };
   }
 

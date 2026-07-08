@@ -11,8 +11,6 @@ import {
   PiggyBank,
   ShoppingCart,
   BadgeCheck,
-  Tractor,
-  Users2,
   Percent,
   Settings,
 } from "lucide-react";
@@ -122,40 +120,6 @@ export function AdminMembershipTiersSection() {
           "Bronze / Silver / Gold / Platinum tier editor",
           "Pricing, discounts and share caps",
           "Membership application review",
-        ]}
-      />
-    </PermissionGate>
-  );
-}
-
-export function AdminEquipmentSection() {
-  return (
-    <PermissionGate anyOf={["equipment:view"]}>
-      <AdminSectionPlaceholder
-        title="Equipment Booking"
-        description="Equipment inventory, GPS units and booking oversight."
-        icon={Tractor}
-        bullets={[
-          "Equipment inventory & rate configuration",
-          "Booking calendar and utilization",
-          "Damage/deposit settlement (Super Admin)",
-        ]}
-      />
-    </PermissionGate>
-  );
-}
-
-export function AdminAdasheSection() {
-  return (
-    <PermissionGate anyOf={["adashe-groups:view"]}>
-      <AdminSectionPlaceholder
-        title="Adashe Contributions"
-        description="Rotating savings groups, pool balances and payout rotations."
-        icon={Users2}
-        bullets={[
-          "Group directory & moderation",
-          "Pool balances and rotation schedules",
-          "Process rotation payouts (Super Admin)",
         ]}
       />
     </PermissionGate>

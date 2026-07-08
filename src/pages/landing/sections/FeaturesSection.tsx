@@ -64,13 +64,13 @@ export default function FeaturesSection() {
     <section id="features" className="relative py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#135D39]">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary">
             Everything in one portal
           </span>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#1A2421] sm:text-4xl">
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
             The full cooperative toolkit
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-[#5C6460]">
+          <p className="mt-4 text-base leading-relaxed text-muted">
             Eight connected modules that move money, grow savings and power
             agri-services — all sharing one wallet and one membership.
           </p>
@@ -79,14 +79,14 @@ export default function FeaturesSection() {
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map(({ icon: Icon, title, text }, i) => (
             <Reveal key={title} delay={(i % 4) * 0.06}>
-              <div className="group h-full rounded-3xl border border-[#E6E5DF] bg-white/70 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#135D39]/20 hover:shadow-xl hover:shadow-[#135D39]/10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#135D39]/10 text-[#135D39] transition-colors duration-300 group-hover:bg-[#135D39] group-hover:text-white">
+              <div className="group h-full rounded-3xl border border-border bg-surface/70 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl hover:shadow-[#135D39]/10">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
                   <Icon className="h-5.5 w-5.5" aria-hidden />
                 </div>
-                <h3 className="mt-5 font-display text-lg font-semibold text-[#1A2421]">
+                <h3 className="mt-5 font-display text-lg font-semibold text-ink">
                   {title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#5C6460]">{text}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{text}</p>
               </div>
             </Reveal>
           ))}

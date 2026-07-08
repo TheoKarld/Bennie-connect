@@ -103,10 +103,10 @@ export default function SignupPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1.5">
-        <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+        <h2 className="font-display text-2xl font-semibold text-ink">
           Create your account
         </h2>
-        <p className="text-sm text-[#5C6460]">
+        <p className="text-sm text-muted">
           Join the cooperative and start building farm wealth today.
         </p>
       </div>
@@ -116,7 +116,7 @@ export default function SignupPage() {
           initial={reduce ? false : { opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           role="alert"
-          className="flex items-start gap-2 rounded-2xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600"
+          className="flex items-start gap-2 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 px-4 py-3 text-sm text-red-600 dark:text-red-400"
         >
           <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
           <span>{shownError}</span>
@@ -127,7 +127,7 @@ export default function SignupPage() {
         <div className="grid grid-cols-2 gap-3">
           <Field label="First name" htmlFor="firstName" error={fieldErrors.firstName}>
             <div className="relative">
-              <User className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]" aria-hidden />
+              <User className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden />
               <Input
                 id="firstName"
                 autoComplete="given-name"
@@ -157,7 +157,7 @@ export default function SignupPage() {
 
         <Field label="Email" htmlFor="email" error={fieldErrors.email}>
           <div className="relative">
-            <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]" aria-hidden />
+            <Mail className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden />
             <Input
               id="email"
               type="email"
@@ -180,7 +180,7 @@ export default function SignupPage() {
           hint="Nigerian number in +234 format."
         >
           <div className="relative">
-            <Phone className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]" aria-hidden />
+            <Phone className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden />
             <Input
               id="phone"
               type="tel"
@@ -199,7 +199,7 @@ export default function SignupPage() {
 
         <Field label="Password" htmlFor="password" error={fieldErrors.password}>
           <div className="relative">
-            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]" aria-hidden />
+            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden />
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -218,7 +218,7 @@ export default function SignupPage() {
               onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? "Hide password" : "Show password"}
               aria-pressed={showPassword}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#9AA29D] hover:text-[#135D39] hover:bg-[#135D39]/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-muted hover:text-primary hover:bg-primary/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -234,7 +234,7 @@ export default function SignupPage() {
           error={fieldErrors.confirmPassword}
         >
           <div className="relative">
-            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]" aria-hidden />
+            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden />
             <Input
               id="confirmPassword"
               type={showConfirm ? "text" : "password"}
@@ -252,7 +252,7 @@ export default function SignupPage() {
               onClick={() => setShowConfirm((v) => !v)}
               aria-label={showConfirm ? "Hide password" : "Show password"}
               aria-pressed={showConfirm}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#9AA29D] hover:text-[#135D39] hover:bg-[#135D39]/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-muted hover:text-primary hover:bg-primary/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
             >
               {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -276,15 +276,15 @@ export default function SignupPage() {
               checked={acceptedTerms}
               onChange={(e) => setAcceptedTerms(e.target.checked)}
               aria-invalid={!!fieldErrors.terms}
-              className="mt-0.5 h-4 w-4 rounded border-[#E6E5DF] text-[#135D39] accent-[#135D39] focus:ring-2 focus:ring-[#135D39]/25"
+              className="mt-0.5 h-4 w-4 rounded border-border text-primary accent-[#135D39] focus:ring-2 focus:ring-[#135D39]/25"
             />
-            <span className="text-xs text-[#5C6460] leading-relaxed">
+            <span className="text-xs text-muted leading-relaxed">
               I agree to the{" "}
-              <Link to="/terms" className="font-semibold text-[#135D39] hover:underline">
+              <Link to="/terms" className="font-semibold text-primary hover:underline">
                 cooperative terms
               </Link>{" "}
               and{" "}
-              <Link to="/privacy" className="font-semibold text-[#135D39] hover:underline">
+              <Link to="/privacy" className="font-semibold text-primary hover:underline">
                 privacy policy
               </Link>
               .
@@ -301,11 +301,11 @@ export default function SignupPage() {
       </form>
 
       <div className="flex items-center gap-3">
-        <span className="h-px flex-1 bg-[#E6E5DF]" />
-        <span className="text-[11px] uppercase tracking-wider text-[#9AA29D] font-semibold">
+        <span className="h-px flex-1 bg-border" />
+        <span className="text-[11px] uppercase tracking-wider text-muted font-semibold">
           or sign up with
         </span>
-        <span className="h-px flex-1 bg-[#E6E5DF]" />
+        <span className="h-px flex-1 bg-border" />
       </div>
 
       <GoogleAuthButton
@@ -317,9 +317,9 @@ export default function SignupPage() {
         }
       />
 
-      <p className="text-center text-sm text-[#5C6460]">
+      <p className="text-center text-sm text-muted">
         Already a member?{" "}
-        <Link to="/login" className="font-semibold text-[#135D39] hover:underline">
+        <Link to="/login" className="font-semibold text-primary hover:underline">
           Sign in
         </Link>
       </p>

@@ -117,10 +117,10 @@ export default function CooperativeSharesView({
       
       {/* Title */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-display font-medium text-[#1A2421] tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-display font-medium text-ink tracking-tight">
           Cooperative Share Trading
         </h1>
-        <p className="text-sm text-[#5C6460] mt-1">
+        <p className="text-sm text-muted mt-1">
           Invest directly in high-performance agro-cooperative initiatives. Trade shares and accumulate dividends.
         </p>
       </div>
@@ -129,43 +129,43 @@ export default function CooperativeSharesView({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         
         {/* Share Price */}
-        <div className="bg-white rounded-3xl p-5 border border-[#E6E5DF] shadow-sm">
-          <span className="text-[10px] text-[#5C6460] uppercase tracking-widest font-bold">Standard Share Value</span>
-          <h3 className="font-mono text-2xl font-bold text-[#1A2421] mt-1">
-            ₦{sharePrice.toLocaleString()} <span className="text-xs text-[#5C6460]">/ unit</span>
+        <div className="bg-surface rounded-3xl p-5 border border-border shadow-sm">
+          <span className="text-[10px] text-muted uppercase tracking-widest font-bold">Standard Share Value</span>
+          <h3 className="font-mono text-2xl font-bold text-ink mt-1">
+            ₦{sharePrice.toLocaleString()} <span className="text-xs text-muted">/ unit</span>
           </h3>
-          <p className="text-xs text-[#135D39] font-bold flex items-center gap-1 mt-1.5 font-sans">
+          <p className="text-xs text-primary font-bold flex items-center gap-1 mt-1.5 font-sans">
             <ArrowUpRight className="w-3.5 h-3.5" /> +13.4% this cycle
           </p>
         </div>
 
         {/* Portfolio Valuation */}
-        <div className="bg-white rounded-3xl p-5 border border-[#E6E5DF] shadow-sm">
-          <span className="text-[10px] text-[#5C6460] uppercase tracking-widest font-bold">My Portfolio Value</span>
-          <h3 className="font-mono text-2xl font-bold text-[#1A2421] mt-1">
+        <div className="bg-surface rounded-3xl p-5 border border-border shadow-sm">
+          <span className="text-[10px] text-muted uppercase tracking-widest font-bold">My Portfolio Value</span>
+          <h3 className="font-mono text-2xl font-bold text-ink mt-1">
             {formatCurrency(totalValuation)}
           </h3>
-          <p className="text-xs text-[#5C6460] mt-1.5 font-semibold">
-            Total units owned: <span className="font-bold text-[#1A2421]">{state.shares.sharesOwned.toLocaleString()}</span>
+          <p className="text-xs text-muted mt-1.5 font-semibold">
+            Total units owned: <span className="font-bold text-ink">{state.shares.sharesOwned.toLocaleString()}</span>
           </p>
         </div>
 
         {/* Capital Earnings / Paper Profit */}
-        <div className="bg-white rounded-3xl p-5 border border-[#E6E5DF] shadow-sm">
-          <span className="text-[10px] text-[#5C6460] uppercase tracking-widest font-bold">Capital Value Growth</span>
-          <h3 className="font-mono text-2xl font-bold text-emerald-700 mt-1">
+        <div className="bg-surface rounded-3xl p-5 border border-border shadow-sm">
+          <span className="text-[10px] text-muted uppercase tracking-widest font-bold">Capital Value Growth</span>
+          <h3 className="font-mono text-2xl font-bold text-emerald-700 dark:text-emerald-400 mt-1">
             +{formatCurrency(paperProfit)}
           </h3>
-          <p className="text-xs text-[#135D39] font-bold flex items-center gap-1 mt-1.5 font-sans">
+          <p className="text-xs text-primary font-bold flex items-center gap-1 mt-1.5 font-sans">
             <Percent className="w-3.5 h-3.5" /> +{profitPct}% Net Yield
           </p>
         </div>
 
         {/* Dividends Earned */}
-        <div className="bg-white rounded-3xl p-5 border border-[#E6E5DF] shadow-sm flex flex-col justify-between">
+        <div className="bg-surface rounded-3xl p-5 border border-border shadow-sm flex flex-col justify-between">
           <div>
-            <span className="text-[10px] text-[#5C6460] uppercase tracking-widest font-bold">Cooperative Dividends</span>
-            <h3 className="font-mono text-2xl font-bold text-[#1A2421] mt-1">
+            <span className="text-[10px] text-muted uppercase tracking-widest font-bold">Cooperative Dividends</span>
+            <h3 className="font-mono text-2xl font-bold text-ink mt-1">
               {formatCurrency(state.shares.totalDividendsEarned)}
             </h3>
           </div>
@@ -173,9 +173,9 @@ export default function CooperativeSharesView({
           {state.shares.totalDividendsEarned > 0 && (
             <button 
               onClick={handleClaimImmediateDividends}
-              className="mt-3 text-xs font-bold text-[#135D39] hover:text-[#0f4a2d] flex items-center gap-1.5 self-start bg-[#135D39]/10 px-3 py-1 rounded-xl border border-[#135D39]/15 cursor-pointer transition"
+              className="mt-3 text-xs font-bold text-primary hover:text-[#0f4a2d] flex items-center gap-1.5 self-start bg-primary/10 px-3 py-1 rounded-xl border border-primary/15 cursor-pointer transition"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#E7A13C] animate-spin" /> Claim to Wallet
+              <Sparkles className="w-3.5 h-3.5 text-accent animate-spin" /> Claim to Wallet
             </button>
           )}
         </div>
@@ -189,15 +189,15 @@ export default function CooperativeSharesView({
         <div className="lg:col-span-8 space-y-8">
           
           {/* Share Growth chart component */}
-          <div className="bg-white border border-[#E6E5DF] rounded-3xl p-6 shadow-sm">
-            <div className="flex justify-between items-center border-b border-[#E6E5DF] pb-4 mb-4 flex-wrap gap-4">
+          <div className="bg-surface border border-border rounded-3xl p-6 shadow-sm">
+            <div className="flex justify-between items-center border-b border-border pb-4 mb-4 flex-wrap gap-4">
               <div>
-                <h3 className="font-display font-semibold text-[#1A2421] text-base">Cooperative Share Price Growth</h3>
-                <p className="text-xs text-[#5C6460] mt-0.5 font-semibold">Historical price trend per cooperative share (Oct 2025 - Present)</p>
+                <h3 className="font-display font-semibold text-ink text-base">Cooperative Share Price Growth</h3>
+                <p className="text-xs text-muted mt-0.5 font-semibold">Historical price trend per cooperative share (Oct 2025 - Present)</p>
               </div>
 
               {/* Annualized Returns Metric */}
-              <div className="bg-[#135D39]/10 text-[#135D39] px-3 py-1 rounded-full border border-[#135D39]/15 text-xs font-bold flex items-center gap-1">
+              <div className="bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/15 text-xs font-bold flex items-center gap-1">
                 <Percent className="w-3.5 h-3.5" /> {state.shares.annualReturnsRate}% Annual Return (CAGR)
               </div>
             </div>
@@ -261,7 +261,7 @@ export default function CooperativeSharesView({
                         textAnchor="middle" 
                         fontSize="9" 
                         fontWeight="bold" 
-                        fill="#1A2421"
+                        fill="var(--ink)"
                         className="opacity-0 group-hover:opacity-100 transition-opacity font-mono"
                       >
                         ₦{p.price}
@@ -273,7 +273,7 @@ export default function CooperativeSharesView({
                         textAnchor="middle" 
                         fontSize="8" 
                         fontWeight="bold" 
-                        fill="#5C6460"
+                        fill="var(--muted)"
                         className="font-sans"
                       >
                         {p.date}
@@ -286,18 +286,18 @@ export default function CooperativeSharesView({
           </div>
 
           {/* Share trading ledger records */}
-          <div className="bg-white border border-[#E6E5DF] rounded-3xl p-6 shadow-sm">
-            <h3 className="font-display font-semibold text-[#1A2421] text-base mb-4 flex items-center gap-2">
-              <History className="w-5 h-5 text-[#5C6460]" /> Share Ledger Transactions
+          <div className="bg-surface border border-border rounded-3xl p-6 shadow-sm">
+            <h3 className="font-display font-semibold text-ink text-base mb-4 flex items-center gap-2">
+              <History className="w-5 h-5 text-muted" /> Share Ledger Transactions
             </h3>
 
             {state.shares.history.length === 0 ? (
-              <p className="text-xs text-[#5C6460] py-6 text-center font-medium">No share trading records found</p>
+              <p className="text-xs text-muted py-6 text-center font-medium">No share trading records found</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-[#E6E5DF] text-[#5C6460] font-medium">
+                    <tr className="border-b border-border text-muted font-medium">
                       <th className="py-2.5 font-semibold">Trade ID</th>
                       <th className="py-2.5 font-semibold">Execution Date</th>
                       <th className="py-2.5 font-semibold">Type</th>
@@ -306,21 +306,21 @@ export default function CooperativeSharesView({
                       <th className="py-2.5 font-semibold text-right">Volume Fee</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#E6E5DF] text-[#5C6460]">
+                  <tbody className="divide-y divide-border text-muted">
                     {state.shares.history.map((tx) => (
-                      <tr key={tx.id} className="hover:bg-[#FAF8F5] transition-all text-[#1A2421]">
-                        <td className="py-2.5 font-mono text-[#5C6460] font-semibold">{tx.id}</td>
-                        <td className="py-2.5 font-mono text-[#5C6460]">{new Date(tx.date).toLocaleDateString() || "Recent"}</td>
+                      <tr key={tx.id} className="hover:bg-surface-2 transition-all text-ink">
+                        <td className="py-2.5 font-mono text-muted font-semibold">{tx.id}</td>
+                        <td className="py-2.5 font-mono text-muted">{new Date(tx.date).toLocaleDateString() || "Recent"}</td>
                         <td className="py-2.5">
                           <span className={`text-[9px] uppercase font-bold px-1.5 py-0.5 rounded ${
-                            tx.type === "buy" ? "bg-emerald-50 text-[#135D39] border border-emerald-150" : "bg-rose-50 text-rose-700 border border-thin border-rose-150"
+                            tx.type === "buy" ? "bg-emerald-50 dark:bg-emerald-500/10 text-primary dark:text-emerald-300 border border-emerald-150 dark:border-emerald-500/25" : "bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-thin border-rose-150 dark:border-rose-500/25"
                           }`}>
                             {tx.type}
                           </span>
                         </td>
                         <td className="py-2.5 font-bold font-mono">{tx.sharesCount.toLocaleString()} Shares</td>
-                        <td className="py-2.5 font-mono text-[#5C6460]">₦{tx.pricePerShare}/unit</td>
-                        <td className="py-2.5 text-right font-mono font-bold text-[#1A2421]">
+                        <td className="py-2.5 font-mono text-muted">₦{tx.pricePerShare}/unit</td>
+                        <td className="py-2.5 text-right font-mono font-bold text-ink">
                           {formatCurrency(tx.totalAmount)}
                         </td>
                       </tr>
@@ -336,21 +336,21 @@ export default function CooperativeSharesView({
         {/* Right Panel - Trading Desk */}
         <div className="lg:col-span-4 space-y-6 flex flex-col justify-between">
           
-          <div className="bg-white border border-[#E6E5DF] rounded-3xl p-6 shadow-sm">
-            <h3 className="font-display font-semibold text-[#1A2421] text-base">Agro-Investment Desk</h3>
-            <p className="text-xs text-[#5C6460] mt-1 pr-2">Purchase mutual shares to raise capital yields or liquidate holding assets.</p>
+          <div className="bg-surface border border-border rounded-3xl p-6 shadow-sm">
+            <h3 className="font-display font-semibold text-ink text-base">Agro-Investment Desk</h3>
+            <p className="text-xs text-muted mt-1 pr-2">Purchase mutual shares to raise capital yields or liquidate holding assets.</p>
 
             <form onSubmit={handleTradingActionSubmit} className="mt-6 space-y-5">
               
               {/* Buy or Sell Switchers */}
-              <div className="flex bg-[#FAF8F5] p-1.5 rounded-2xl border border-[#E6E5DF]">
+              <div className="flex bg-surface-2 p-1.5 rounded-2xl border border-border">
                 <button
                   type="button"
                   onClick={() => setTradeType("buy")}
                   className={`flex-1 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 transition cursor-pointer ${
                     tradeType === "buy" 
-                      ? "bg-[#135D39] text-white shadow-sm font-bold" 
-                      : "text-[#5C6460] hover:text-[#1A2421]"
+                      ? "bg-primary text-white shadow-sm font-bold" 
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   <PlusCircle className="w-3.5 h-3.5" /> Buy Units
@@ -361,7 +361,7 @@ export default function CooperativeSharesView({
                   className={`flex-1 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 transition cursor-pointer ${
                     tradeType === "sell" 
                       ? "bg-rose-700 text-white shadow-sm font-bold" 
-                      : "text-[#5C6460] hover:text-[#1A2421]"
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   <MinusCircle className="w-3.5 h-3.5" /> Liquidate
@@ -370,37 +370,37 @@ export default function CooperativeSharesView({
 
               {/* Shares input details */}
               <div className="space-y-1.5">
-                <label className="text-xs text-[#5C6460] font-bold uppercase tracking-wider block">Quantity of Share Units</label>
+                <label className="text-xs text-muted font-bold uppercase tracking-wider block">Quantity of Share Units</label>
                 <input 
                   type="number" 
                   required
                   placeholder="e.g. 100"
                   value={sharesVol}
                   onChange={(e) => setSharesVol(e.target.value === "" ? "" : Number(e.target.value))}
-                  className="w-full bg-[#FAF8F5] border border-[#E6E5DF] focus:outline-[#135D39]/30 p-2.5 rounded-xl font-mono text-sm font-bold text-[#1A2421]"
+                  className="w-full bg-surface-2 border border-border focus:outline-primary/30 p-2.5 rounded-xl font-mono text-sm font-bold text-ink"
                 />
               </div>
 
               {/* Valuation details */}
-              <div className="bg-[#FAF8F5] border border-[#E6E5DF] p-3.5 rounded-2xl space-y-2 text-xs text-[#5C6460]">
+              <div className="bg-surface-2 border border-border p-3.5 rounded-2xl space-y-2 text-xs text-muted">
                 <div className="flex justify-between">
                   <span>Current unit Valuation:</span>
-                  <span className="font-mono text-[#1A2421] font-bold">₦{sharePrice}/unit</span>
+                  <span className="font-mono text-ink font-bold">₦{sharePrice}/unit</span>
                 </div>
-                <div className="flex justify-between pt-1.5 border-t border-[#E6E5DF]">
-                  <span className="font-semibold text-[#1A2421]">{tradeType === "buy" ? "Total Cost Outflow" : "Total Cash Proceeds"}:</span>
-                  <span className="font-mono font-bold text-[#135D39] text-sm">
+                <div className="flex justify-between pt-1.5 border-t border-border">
+                  <span className="font-semibold text-ink">{tradeType === "buy" ? "Total Cost Outflow" : "Total Cash Proceeds"}:</span>
+                  <span className="font-mono font-bold text-primary text-sm">
                     {sharesVol ? formatCurrency(totalCostBasisOrProceeds) : "₦0.00"}
                   </span>
                 </div>
               </div>
 
               {/* Portfolio stats */}
-              <div className="text-[10.5px] text-[#5C6460] font-medium leading-relaxed">
+              <div className="text-[10.5px] text-muted font-medium leading-relaxed">
                 {tradeType === "buy" ? (
-                  <span>Available digital wallet: <b className="font-mono text-[#1A2421]">{formatCurrency(state.walletBalance)}</b></span>
+                  <span>Available digital wallet: <b className="font-mono text-ink">{formatCurrency(state.walletBalance)}</b></span>
                 ) : (
-                  <span>Valued shares holding: <b className="font-mono text-[#1A2421]">{state.shares.sharesOwned} Shares ({formatCurrency(totalValuation)})</b></span>
+                  <span>Valued shares holding: <b className="font-mono text-ink">{state.shares.sharesOwned} Shares ({formatCurrency(totalValuation)})</b></span>
                 )}
               </div>
 
@@ -408,7 +408,7 @@ export default function CooperativeSharesView({
                 type="submit"
                 className={`w-full font-bold py-3 px-4 rounded-xl text-xs transition border border-transparent shadow-sm cursor-pointer ${
                   tradeType === "buy" 
-                    ? "bg-[#135D39] text-white hover:bg-[#0f4a2d] border-[#135D39]/15" 
+                    ? "bg-primary text-white hover:bg-[#0f4a2d] border-primary/15" 
                     : "bg-rose-700 text-white hover:bg-rose-800"
                 }`}
               >
@@ -419,11 +419,11 @@ export default function CooperativeSharesView({
           </div>
 
           {/* Investment disclaimer protection */}
-          <div className="bg-[#FAF8F5] text-[#5C6460] rounded-3xl p-5 text-xs space-y-2 border border-[#E6E5DF] mt-4 shadow-sm">
-            <h4 className="font-bold text-[#1A2421] flex items-center gap-1.5">
-              <AlertCircle className="w-4 h-4 text-[#E7A13C] shrink-0" /> Co-Op Trust Compliance
+          <div className="bg-surface-2 text-muted rounded-3xl p-5 text-xs space-y-2 border border-border mt-4 shadow-sm">
+            <h4 className="font-bold text-ink flex items-center gap-1.5">
+              <AlertCircle className="w-4 h-4 text-accent shrink-0" /> Co-Op Trust Compliance
             </h4>
-            <p className="leading-relaxed text-[#5C6460] text-[11px] font-semibold">
+            <p className="leading-relaxed text-muted text-[11px] font-semibold">
               Cooperative shares fluctuate according to seasonal harvest outputs and global commodity indices. Dividends are declared quarterly by the executive steering committee.
             </p>
           </div>

@@ -45,7 +45,7 @@ import AdminNotificationProvider from "../../providers/AdminNotificationProvider
 import { useAdminNotificationStore } from "../../store/adminNotificationStore";
 import type { ServerNotification } from "../../store/adminNotificationStore";
 import { notificationPermission } from "../../lib/firebase";
-import { Toaster } from "../ui";
+import { Toaster, ThemeToggle, ThemeToggleButton } from "../ui";
 
 const SIDEBAR_PREF_KEY = "bennie_admin_sidebar";
 const APP_VERSION = "v0.1.0";
@@ -83,10 +83,18 @@ const NOTIF_TONE: Record<
   string,
   { icon: React.ComponentType<{ className?: string }>; color: string; bg: string }
 > = {
-  success: { icon: CheckCircle2, color: "text-[#135D39]", bg: "bg-[#135D39]/10" },
-  info: { icon: Info, color: "text-[#135D39]", bg: "bg-[#135D39]/10" },
-  warning: { icon: AlertTriangle, color: "text-[#a6701c]", bg: "bg-[#E7A13C]/15" },
-  alert: { icon: Bell, color: "text-red-500", bg: "bg-red-50" },
+  success: { icon: CheckCircle2, color: "text-primary", bg: "bg-primary/10" },
+  info: { icon: Info, color: "text-primary", bg: "bg-primary/10" },
+  warning: {
+    icon: AlertTriangle,
+    color: "text-[#a6701c] dark:text-accent",
+    bg: "bg-accent/15",
+  },
+  alert: {
+    icon: Bell,
+    color: "text-danger",
+    bg: "bg-danger/10",
+  },
 };
 
 export default function AdminLayout() {
@@ -245,14 +253,14 @@ export default function AdminLayout() {
       className="flex items-center gap-2.5 group"
       aria-label="Bennie Connect Admin — Dashboard"
     >
-      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#135D39] ring-1 ring-white/10 shadow-sm transition-transform group-hover:scale-105">
+      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary ring-1 ring-white/10 shadow-sm transition-transform group-hover:scale-105">
         <Sprout className="h-5 w-5 text-white" />
       </span>
       <span className="hidden sm:block leading-none">
-        <span className="block font-display text-[15px] font-semibold tracking-tight text-[#1A2421]">
+        <span className="block font-display text-[15px] font-semibold tracking-tight text-ink">
           Bennie Connect
         </span>
-        <span className="mt-0.5 block text-[9px] font-bold uppercase tracking-[0.16em] text-[#135D39]">
+        <span className="mt-0.5 block text-[9px] font-bold uppercase tracking-[0.16em] text-primary">
           Admin Console
         </span>
       </span>
@@ -260,7 +268,7 @@ export default function AdminLayout() {
   );
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#1A2421] selection:bg-[#135D39]/10 selection:text-[#135D39]">
+    <div className="min-h-screen bg-canvas text-ink selection:bg-primary/10 selection:text-primary">
       {/* Realtime + web-push runtime (in-app socket + FCM) for the admin plane */}
       <AdminNotificationProvider />
       {/* Toast stack for live notification arrivals (mounted once) */}
@@ -269,7 +277,7 @@ export default function AdminLayout() {
       {/* Skip link */}
       <a
         href="#admin-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#135D39] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
       >
         Skip to content
       </a>
@@ -339,14 +347,14 @@ export default function AdminLayout() {
         {/* MAIN COLUMN */}
         <div className="flex min-h-screen w-full min-w-0 flex-col">
           {/* TOP NAVBAR */}
-          <header className="sticky top-0 z-40 flex h-16 items-center justify-between gap-3 border-b border-[#E6E5DF] bg-[#FAF8F5]/85 px-4 backdrop-blur-md sm:px-6">
+          <header className="sticky top-0 z-40 flex h-16 items-center justify-between gap-3 border-b border-border bg-canvas/85 px-4 backdrop-blur-md sm:px-6">
             <div className="flex min-w-0 items-center gap-3">
               {/* Mobile hamburger */}
               <button
                 ref={hamburgerRef}
                 type="button"
                 onClick={() => setDrawerOpen(true)}
-                className="rounded-xl p-2 text-[#1A2421] transition hover:bg-[#135D39]/5 focus:outline-none focus:ring-2 focus:ring-[#135D39]/25 md:hidden"
+                className="rounded-xl p-2 text-ink transition hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/25 md:hidden"
                 aria-label="Open navigation"
                 aria-expanded={drawerOpen}
               >
@@ -357,7 +365,7 @@ export default function AdminLayout() {
               <button
                 type="button"
                 onClick={() => setCollapsed((v) => !v)}
-                className="hidden rounded-xl p-2 text-[#5C6460] transition hover:bg-[#135D39]/5 hover:text-[#1A2421] focus:outline-none focus:ring-2 focus:ring-[#135D39]/25 md:inline-flex"
+                className="hidden rounded-xl p-2 text-muted transition hover:bg-primary/5 hover:text-ink focus:outline-none focus:ring-2 focus:ring-primary/25 md:inline-flex"
                 aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
                 {collapsed ? (
@@ -375,17 +383,20 @@ export default function AdminLayout() {
                 aria-label="Breadcrumb"
                 className="hidden min-w-0 items-center gap-2 md:flex"
               >
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#9AA29D]">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-muted">
                   Admin
                 </span>
-                <ChevronRight className="h-3.5 w-3.5 text-[#C9CCC7]" />
-                <span className="truncate font-display text-sm font-semibold text-[#1A2421]">
+                <ChevronRight className="h-3.5 w-3.5 text-muted/60" />
+                <span className="truncate font-display text-sm font-semibold text-ink">
                   {pageTitle}
                 </span>
               </nav>
             </div>
 
             <div className="flex items-center gap-1.5 sm:gap-2">
+              {/* Theme toggle (cycles light / dark / system) */}
+              <ThemeToggleButton />
+
               {/* Notifications */}
               <div className="relative" ref={notifRef}>
                 <button
@@ -394,7 +405,7 @@ export default function AdminLayout() {
                     setNotifOpen((v) => !v);
                     setIdentityOpen(false);
                   }}
-                  className="relative rounded-xl p-2 text-[#5C6460] transition hover:bg-[#135D39]/5 hover:text-[#135D39] focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+                  className="relative rounded-xl p-2 text-muted transition hover:bg-primary/5 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/25"
                   aria-label={
                     unreadCount > 0
                       ? `Notifications, ${unreadCount} unread`
@@ -407,7 +418,7 @@ export default function AdminLayout() {
                   {unreadCount > 0 && (
                     <span
                       aria-hidden
-                      className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#E7A13C] px-1 text-[10px] font-bold leading-none text-white ring-2 ring-[#FAF8F5]"
+                      className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold leading-none text-white ring-2 ring-canvas"
                     >
                       {unreadCount > 9 ? "9+" : unreadCount}
                     </span>
@@ -422,13 +433,13 @@ export default function AdminLayout() {
                       transition={{ duration: 0.16 }}
                       role="menu"
                       aria-label="Notifications"
-                      className="absolute right-0 top-full mt-2 w-[22rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-[#E6E5DF] bg-white shadow-xl shadow-[#135D39]/10"
+                      className="absolute right-0 top-full mt-2 w-[22rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-border bg-surface text-ink shadow-xl shadow-primary/10"
                     >
-                      <div className="flex items-center justify-between gap-2 border-b border-[#E6E5DF] px-4 py-3">
-                        <span className="flex items-center gap-2 font-display text-sm font-semibold">
+                      <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
+                        <span className="flex items-center gap-2 font-display text-sm font-semibold text-ink">
                           Notifications
                           {unreadCount > 0 && (
-                            <span className="rounded-full bg-[#135D39]/10 px-2 py-0.5 text-[10px] font-bold text-[#135D39]">
+                            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
                               {unreadCount} new
                             </span>
                           )}
@@ -437,7 +448,7 @@ export default function AdminLayout() {
                           <button
                             type="button"
                             onClick={() => void markAllRead()}
-                            className="flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-semibold text-[#135D39] transition hover:bg-[#135D39]/5"
+                            className="flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-semibold text-primary transition hover:bg-primary/5"
                           >
                             <CheckCheck className="h-3.5 w-3.5" /> Mark all read
                           </button>
@@ -449,16 +460,16 @@ export default function AdminLayout() {
                         <button
                           type="button"
                           onClick={handleEnablePush}
-                          className="flex w-full items-center gap-2.5 border-b border-[#E6E5DF] bg-[#135D39]/[0.03] px-4 py-2.5 text-left transition hover:bg-[#135D39]/[0.06]"
+                          className="flex w-full items-center gap-2.5 border-b border-border bg-primary/[0.03] px-4 py-2.5 text-left transition hover:bg-primary/[0.06]"
                         >
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#135D39]/10 text-[#135D39]">
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                             <BellRing className="h-4 w-4" />
                           </span>
                           <span className="min-w-0 leading-tight">
-                            <span className="block text-xs font-semibold text-[#1A2421]">
+                            <span className="block text-xs font-semibold text-ink">
                               Enable push notifications
                             </span>
-                            <span className="block text-[11px] text-[#9AA29D]">
+                            <span className="block text-[11px] text-muted">
                               Get alerts even when this tab is closed.
                             </span>
                           </span>
@@ -468,17 +479,17 @@ export default function AdminLayout() {
                       <div className="max-h-[22rem] overflow-y-auto">
                         {sortedNotifs.length === 0 ? (
                           <div className="px-4 py-8 text-center">
-                            <Bell className="mx-auto mb-2 h-6 w-6 text-[#C9CCC7]" />
-                            <p className="text-sm font-medium text-[#5C6460]">
+                            <Bell className="mx-auto mb-2 h-6 w-6 text-muted/50" />
+                            <p className="text-sm font-medium text-muted">
                               You're all caught up
                             </p>
-                            <p className="mt-1 text-xs text-[#9AA29D]">
+                            <p className="mt-1 text-xs text-muted">
                               New activity — like farmer sign-ups — shows up here
                               in real time.
                             </p>
                           </div>
                         ) : (
-                          <ul className="divide-y divide-[#F0EFEA]">
+                          <ul className="divide-y divide-border">
                             {sortedNotifs.map((n) => {
                               const tone = NOTIF_TONE[n.type] ?? NOTIF_TONE.info;
                               const ToneIcon = tone.icon;
@@ -487,8 +498,8 @@ export default function AdminLayout() {
                                   <button
                                     type="button"
                                     onClick={() => handleNotifClick(n)}
-                                    className={`flex w-full items-start gap-3 px-4 py-3 text-left transition hover:bg-[#135D39]/[0.04] ${
-                                      n.isRead ? "" : "bg-[#135D39]/[0.02]"
+                                    className={`flex w-full items-start gap-3 px-4 py-3 text-left transition hover:bg-primary/[0.04] ${
+                                      n.isRead ? "" : "bg-primary/[0.03]"
                                     }`}
                                   >
                                     <span
@@ -501,18 +512,18 @@ export default function AdminLayout() {
                                         <span
                                           className={`truncate text-[13px] ${
                                             n.isRead
-                                              ? "font-medium text-[#5C6460]"
-                                              : "font-semibold text-[#1A2421]"
+                                              ? "font-medium text-muted"
+                                              : "font-semibold text-ink"
                                           }`}
                                         >
                                           {n.title}
                                         </span>
-                                        <span className="shrink-0 text-[10px] font-medium text-[#9AA29D]">
+                                        <span className="shrink-0 text-[10px] font-medium text-muted">
                                           {relativeTime(n.createdAt)}
                                         </span>
                                       </span>
                                       {n.message && (
-                                        <span className="mt-0.5 block line-clamp-2 text-xs text-[#5C6460]">
+                                        <span className="mt-0.5 block line-clamp-2 text-xs text-muted">
                                           {n.message}
                                         </span>
                                       )}
@@ -520,7 +531,7 @@ export default function AdminLayout() {
                                     {!n.isRead && (
                                       <span
                                         aria-hidden
-                                        className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#E7A13C]"
+                                        className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent"
                                       />
                                     )}
                                   </button>
@@ -543,15 +554,15 @@ export default function AdminLayout() {
                     setIdentityOpen((v) => !v);
                     setNotifOpen(false);
                   }}
-                  className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 transition hover:bg-[#135D39]/5 focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+                  className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 transition hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/25"
                   aria-label="Account menu"
                   aria-expanded={identityOpen}
                   aria-haspopup="true"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#135D39] text-[11px] font-bold uppercase text-white ring-2 ring-[#135D39]/10">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold uppercase text-white ring-2 ring-primary/10">
                     {initials}
                   </span>
-                  <ChevronDown className="hidden h-4 w-4 text-[#9AA29D] sm:block" />
+                  <ChevronDown className="hidden h-4 w-4 text-muted sm:block" />
                 </button>
                 <AnimatePresence>
                   {identityOpen && (
@@ -561,32 +572,39 @@ export default function AdminLayout() {
                       exit={reduce ? undefined : { opacity: 0, y: -6, scale: 0.98 }}
                       transition={{ duration: 0.16 }}
                       role="menu"
-                      className="absolute right-0 top-full mt-2 w-64 overflow-hidden rounded-2xl border border-[#E6E5DF] bg-white shadow-xl shadow-[#135D39]/10"
+                      className="absolute right-0 top-full mt-2 w-64 overflow-hidden rounded-2xl border border-border bg-surface text-ink shadow-xl shadow-primary/10"
                     >
-                      <div className="border-b border-[#E6E5DF] px-4 py-3.5">
-                        <p className="truncate text-sm font-semibold text-[#1A2421]">
+                      <div className="border-b border-border px-4 py-3.5">
+                        <p className="truncate text-sm font-semibold text-ink">
                           {fullName}
                         </p>
-                        <p className="truncate font-mono text-[11px] text-[#9AA29D]">
+                        <p className="truncate font-mono text-[11px] text-muted">
                           {admin?.email}
                         </p>
                         <span
                           className={`mt-2 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${
                             isSuperAdmin
-                              ? "bg-[#E7A13C]/15 text-[#a6701c]"
-                              : "bg-[#135D39]/10 text-[#135D39]"
+                              ? "bg-accent/15 text-[#a6701c] dark:text-accent"
+                              : "bg-primary/10 text-primary"
                           }`}
                         >
                           <ShieldAlert className="h-3 w-3" />
                           {roleName}
                         </span>
                       </div>
+                      {/* Theme preference (light / dark / system) */}
+                      <div className="border-b border-border px-3 py-3">
+                        <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-wider text-muted">
+                          Appearance
+                        </p>
+                        <ThemeToggle compact className="w-full justify-between" />
+                      </div>
                       <div className="p-1.5">
                         <button
                           type="button"
                           role="menuitem"
                           onClick={() => navigate("/bennie/change-password")}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-[#5C6460] transition hover:bg-[#135D39]/5 hover:text-[#1A2421]"
+                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-muted transition hover:bg-primary/5 hover:text-ink"
                         >
                           <KeyRound className="h-4 w-4" /> Change password
                         </button>
@@ -594,7 +612,7 @@ export default function AdminLayout() {
                           type="button"
                           role="menuitem"
                           onClick={handleLogout}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-red-500 transition hover:bg-red-50"
+                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-danger transition hover:bg-danger/10"
                         >
                           <LogOut className="h-4 w-4" /> Logout
                         </button>
@@ -621,7 +639,7 @@ export default function AdminLayout() {
       {/* MOBILE BOTTOM NAV */}
       <nav
         aria-label="Mobile"
-        className="fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t border-[#E6E5DF] bg-[#FAF8F5]/95 backdrop-blur-md md:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t border-border bg-canvas/95 backdrop-blur-md md:hidden"
       >
         {bottomItems.map(({ label, to, icon: Icon, end }) => (
           <NavLink
@@ -630,7 +648,7 @@ export default function AdminLayout() {
             end={end}
             className={({ isActive }) =>
               `flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-[10px] font-semibold transition ${
-                isActive ? "text-[#135D39]" : "text-[#9AA29D]"
+                isActive ? "text-primary" : "text-muted"
               }`
             }
           >
@@ -641,7 +659,7 @@ export default function AdminLayout() {
         <button
           type="button"
           onClick={() => setDrawerOpen(true)}
-          className="flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-[10px] font-semibold text-[#9AA29D] transition hover:text-[#135D39]"
+          className="flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-[10px] font-semibold text-muted transition hover:text-primary"
           aria-label="More sections"
         >
           <MoreHorizontal className="h-5 w-5" />
@@ -659,7 +677,7 @@ export default function AdminLayout() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="absolute inset-0 bg-[#1A2421]/50 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
               onClick={() => setDrawerOpen(false)}
             />
             <motion.div

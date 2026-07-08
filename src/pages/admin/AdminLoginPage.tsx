@@ -95,10 +95,10 @@ export default function AdminLoginPage() {
     <AdminAuthShell>
       <div className="space-y-6">
         <div className="space-y-1.5">
-          <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+          <h2 className="font-display text-2xl font-semibold text-ink">
             Admin sign-in
           </h2>
-          <p className="text-sm text-[#5C6460]">
+          <p className="text-sm text-muted">
             Access the Bennie Connect operations console.
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function AdminLoginPage() {
             initial={reduce ? false : { opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             role="alert"
-            className="flex items-start gap-2 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600"
+            className="flex items-start gap-2 rounded-2xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger"
           >
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
             <span>{error}</span>
@@ -119,7 +119,7 @@ export default function AdminLoginPage() {
           <Field label="Email" htmlFor="admin-email" error={emailErr ?? undefined}>
             <div className="relative">
               <Mail
-                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9AA29D]"
+                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                 aria-hidden
               />
               <Input
@@ -144,7 +144,7 @@ export default function AdminLoginPage() {
           >
             <div className="relative">
               <Lock
-                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9AA29D]"
+                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                 aria-hidden
               />
               <Input
@@ -164,7 +164,7 @@ export default function AdminLoginPage() {
                 onClick={() => setShowPassword((v) => !v)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
                 aria-pressed={showPassword}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-[#9AA29D] transition hover:bg-[#135D39]/5 hover:text-[#135D39] focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-muted transition hover:bg-primary/5 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/25"
               >
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />
@@ -180,7 +180,7 @@ export default function AdminLoginPage() {
           </Button>
         </form>
 
-        <p className="text-center text-[11px] leading-relaxed text-[#9AA29D]">
+        <p className="text-center text-[11px] leading-relaxed text-muted">
           Admin accounts are provisioned by a Super Admin. There is no
           self-registration.
         </p>

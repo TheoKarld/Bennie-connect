@@ -1,9 +1,11 @@
 import {
   BadRequestException,
   ForbiddenException,
+  Inject,
   Injectable,
   Logger,
   UnauthorizedException,
+  forwardRef,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -16,6 +18,7 @@ import { UsersService } from '../users/users.service';
 import { UserDocument } from '../users/schemas/user.schema';
 import { MailService } from '../mail/mail.service';
 import { NotificationService } from '../notifications/notification.service';
+import { WalletService } from '../wallet/wallet.service';
 import {
   RefreshToken,
   RefreshTokenDocument,
@@ -58,6 +61,8 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly mailService: MailService,
     private readonly notificationService: NotificationService,
+    @Inject(forwardRef(() => WalletService))
+    private readonly walletService: WalletService,
     @InjectModel(RefreshToken.name)
     private readonly refreshTokenModel: Model<RefreshTokenDocument>,
   ) {}
@@ -102,6 +107,11 @@ export class AuthService {
     }
 
     const tokens = await this.issueTokens(user, meta);
+
+    // Auto-create the wallet — best-effort, never blocks or fails registration.
+    this.walletService
+      .ensureWalletSafe(user._id, user.email)
+      .catch(() => undefined);
 
     // Best-effort mail — never blocks or fails registration.
     this.mailService
@@ -209,6 +219,10 @@ export class AuthService {
       });
       // Only on first creation (not returning Google login). Best-effort.
       this.notifyAdminsOfSignup(user);
+      // Auto-create the wallet for the new Google user — best-effort.
+      this.walletService
+        .ensureWalletSafe(user._id, user.email)
+        .catch(() => undefined);
     }
 
     if (user.isSuspended || !user.isActive) {

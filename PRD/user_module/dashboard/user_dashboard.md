@@ -7,12 +7,14 @@
 (`src/pages/users/DashboardView.tsx` + `DashboardPage.tsx`).
 **Owner:** user-prd-enricher (docs) · user-dev (code)
 
-> **Scope reality.** Only the **Users / Auth** backend is live. On this screen the
+> **Scope reality.** Only the **Users / Auth** backend is live today; the
 > **identity/greeting is the live part** (first name from `useAuth()`; tier is
-> read from client state). Every **financial widget** (wallet, savings, shares,
-> bookings, Adashe, notifications, rates) runs on **per-user client `appStore`
-> state that is seeded**, not a real API — until the wallet/savings/shares/
-> equipment/contributions backend modules ship. See
+> read from client state). The remaining **financial widgets** (wallet, savings,
+> shares, bookings, notifications, rates) still run on **seeded per-user client
+> `appStore` state**, not a real API — until those backend modules ship. The
+> **Adashe widget (§4 / §4.1) is specified as the LIVE, server-backed target**
+> (PRD 09, `/api/v1/contribution-groups/*`); the mock `state.contributionGroups`
+> path is **superseded** and kept only as an offline fallback. See
 > [§8 Future: live backend wiring](#8-future-live-backend-wiring).
 
 ---
@@ -74,7 +76,8 @@ name which comes from `useAuth()`.
 | Cooperative savings (total) | `flexSaveBalance` + Σ ongoing `targetGoals.currentAmount` + Σ locked `fixedLocks.amount` + Σ active `harvestPlans.amountSaved` | computed in `DashboardView` |
 | Shares owned | `state.shares.sharesOwned` | `formatNumber()` + " Units" |
 | Active bookings | `state.bookings[]` | list or empty state |
-| Adashe circle | `state.contributionGroups[]` | see §4 |
+| Adashe circle(s) | LIVE: `/api/v1/contribution-groups/my-groups` (mock: `state.contributionGroups[]`) | see §4 |
+| Pending slot-shift requests | LIVE: proposals awaiting my vote + slot-shifts awaiting admin | see §4.1 |
 | Bulletins / notifications | `state.notifications[]` | unread = `filter(!isRead)` |
 | Rates index | `COOP_RATES` (`src/lib/constants.ts`) | 3 rows |
 | Booking discount copy | `MEMBER_BOOKING_DISCOUNT` | tier-scoped callout |
@@ -94,22 +97,57 @@ member's tier gets `MEMBER_BOOKING_DISCOUNT` (10%) off equipment/milling booking
 
 ---
 
-## 4. Adashe Circle Card (live from real `contributionGroups`)
+## 4. Adashe Circle Card (LIVE from the server)
 
-Derived from `state.contributionGroups` (typed `ContributionGroup`, `src/types.ts`):
+> **As-built target.** The dashboard now shows **LIVE Adashe** sourced from the
+> server-backed module (PRD 09,
+> [`adashesu-contributions.md`](../adashesu-contributions/adashesu-contributions.md)),
+> **not** the client `appStore`. The mock `state.contributionGroups` path
+> (`ContributionGroup`, `src/types.ts` §1.6 of `data_structure.md`) is
+> **superseded** and kept only as an offline/seed fallback until wiring completes.
 
-- **Group selection:** prefer the group the user has joined
-  (`groups.find(g => g.hasJoined)`), else the first group (`groups[0]`), else
-  `null`.
-- **Progress:** `min(100, round(currentPool / totalPayoutPool * 100))`; returns
-  `0` when there is no group or `totalPayoutPool <= 0` (guards divide-by-zero).
-- **Card content (when a group exists):** `name`; "Next payout {nextPayoutDate} ·
-  {userRank}"; `{memberCount} members` chip; animated progress bar
-  (`formatNaira(currentPool) / formatNaira(totalPayoutPool) met` + `%`); footer
-  "{cycleAmount} / {frequency ?? "cycle"} contribution" + an **"Open"** button →
-  `onNavigate("adashe")`.
-- **Empty state (no groups):** "Join an Adashe circle" prompt with explainer copy
-  and an **"Explore Adashe circles"** button → `onNavigate("adashe")`.
+Data source: `GET /api/v1/contribution-groups/my-groups` (the member's circles) via
+`adashe.service.ts` / `adasheStore`. Each summary carries `name`, `type`, `status`,
+`currentCycle/maxSlots`, `poolBalance`, `myPosition`, `myStatus`, `isMyTurn`, and
+`pendingActionCount`.
+
+- **Group selection:** prefer the circle where it is the member's turn (`isMyTurn`),
+  else the most-recently-active `ACTIVE` circle, else the first, else `null`.
+- **Progress:** `min(100, round(poolBalance / (contributionAmount * maxSlots) * 100))`;
+  returns `0` when there is no group or the denominator is `<= 0` (guards
+  divide-by-zero).
+- **Card content (when a circle exists):** `name`; `type` + `status` chips; "Cycle
+  {currentCycle} of {maxSlots}"; a "You are Slot #{myPosition}" chip; animated pool
+  progress bar (`formatNaira(poolBalance)` met + `%`); footer "{contributionAmount} /
+  {frequency} contribution". Contextual CTA:
+  - if `isMyTurn` and no open payout request → **"Claim my payout"** → `/app/adashe/{id}`
+    (Rotations tab);
+  - if a payout request is `MARKED_SENT` for me → **"Confirm received"** → workspace;
+  - else **"Open"** → `onNavigate("adashe")` / `/app/adashe/{id}`.
+- **Empty state (no circles):** "Join an Adashe circle" prompt + **"Explore Adashe
+  circles"** button → `onNavigate("adashe")` (`/app/adashe`). If the member has
+  **pending invitations**, show an **"You have {n} invitation(s)"** chip linking to
+  `/app/adashe` to accept/decline.
+
+### 4.1 Pending slot-shift requests widget (LIVE)
+
+A dedicated widget surfaces Adashe items **needing the member's attention**, derived
+from the LIVE proposals across all the member's `ACTIVE` circles:
+
+- **Proposals awaiting my vote** — `groupProposals` with `status: "ACTIVE"` where the
+  caller has **not** yet cast a vote (both `GENERAL` and `SLOT_SHIFT`). Each row shows
+  the circle name, proposal `title`/kind, running `tally`, and **"Vote"** →
+  `/app/adashe/{groupId}` (Proposals & Voting tab).
+- **Slot-shifts awaiting admin decision** — `SLOT_SHIFT` proposals in
+  `AWAITING_ADMIN` that involve the member (as requester or target), shown read-only
+  with an **"Awaiting admin"** status pill so the member knows the swap is pending
+  approval.
+- Data source: `my-groups` summaries expose `pendingActionCount`; the widget expands
+  via the per-group proposals endpoint
+  (`GET /api/v1/contribution-groups/:id/proposals`) filtered client-side to the two
+  buckets above.
+- **Empty state:** hidden (or a subtle "No pending circle actions") when there is
+  nothing to vote on or awaiting admin.
 
 ---
 
@@ -173,8 +211,12 @@ Container: `space-y-8`, `max-w-7xl mx-auto`, responsive gutters.
 - ✅ Greeting shows the live auth first name (fallback "Farmer"); tier badge from state.
 - ✅ Hero 3-metric row shows wallet balance, computed savings total, and shares units.
 - ✅ Savings total matches the §3 formula (only ongoing/locked/active buckets count).
-- ✅ Adashe card prefers a joined group, guards divide-by-zero, and shows the
-     empty state when no groups exist.
+- ✅ Adashe card sources LIVE circles from `/contribution-groups/my-groups`, prefers
+     the member's turn, guards divide-by-zero, shows the contextual CTA
+     (Claim/Confirm/Open), and shows the empty state (with an invitations chip when
+     pending) when no circles exist.
+- ✅ The pending slot-shift widget lists proposals awaiting the member's vote and
+     slot-shifts awaiting admin decision, and hides when there is nothing pending.
 - ✅ Bookings and Notifications each render a correct empty state.
 - ✅ "Mark read" appears only for unread items and clears the unread badge count.
 - ✅ "Clear All Notifications" empties the list.
@@ -192,7 +234,9 @@ APIs as their modules ship:
 - **Cooperative savings total** (Flex/Target/Fixed/Harvest) → Savings — PRD 04.
 - **Shares owned / value** → Shares & Dividends — PRD 05.
 - **Active bookings** → Equipment (and Services) — PRD 06 / 07.
-- **Adashe circle** (`contributionGroups`) → Contributions/Adashe — PRD 09.
+- **Adashe circle(s) + pending slot-shift widget** → LIVE Contributions/Adashe —
+  PRD 09 (`/contribution-groups/my-groups` + per-group proposals). The mock
+  `state.contributionGroups`/`appStore` path is **superseded**.
 - **Cooperative bulletins** (notifications, mark-read, clear) → notifications API.
 - **Rates index** (`COOP_RATES`) → cooperative rates/config service (so APY is
   server-driven, not a client constant).
@@ -226,3 +270,5 @@ APIs as their modules ship:
 - `src/hooks/useAppState.ts` (zustand `appStore` accessor)
 - `src/routes/ProtectedRoute.tsx` (gating)
 - `src/App.tsx` (route wiring)
+- LIVE Adashe (PRD 09): `src/store/adasheStore.ts` + `src/services/adashe.service.ts`
+  (`/contribution-groups/my-groups` + per-group proposals feeding §4 / §4.1)

@@ -3,14 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { 
-  FarmerAppState, 
+import {
+  FarmerAppState,
   MembershipTierStr,
   ServiceCategory,
-  Product,
-  ServiceBooking,
-  ProductOrder,
-  CartItem
+  ServiceBooking
 } from "./types";
 
 export const MEMBERSHIP_TIERS: Record<MembershipTierStr, { name: string; cost: number; benefits: string[]; color: string; badgeBg: string }> = {
@@ -359,9 +356,6 @@ export const INITIAL_APP_STATE: FarmerAppState = {
   ],
   serviceCategories: [],
   serviceBookings: [],
-  products: [],
-  orders: [],
-  cart: [],
   // Module 7 Fallbacks
   agentLevel: "Bronze Agent",
   registeredFarmers: [

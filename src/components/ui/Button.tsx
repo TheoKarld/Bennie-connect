@@ -17,15 +17,15 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANTS: Record<Variant, string> = {
   primary:
-    "bg-[#135D39] text-white hover:bg-[#0f4c2f] shadow-md shadow-[#135D39]/15 disabled:bg-[#135D39]/50",
+    "bg-primary text-white hover:brightness-110 shadow-md shadow-primary/15 disabled:bg-primary/50",
   accent:
-    "bg-[#E7A13C] text-[#1A2421] hover:bg-[#d8912d] shadow-md shadow-[#E7A13C]/20 disabled:opacity-50",
+    "bg-accent text-[#1A2421] hover:brightness-105 shadow-md shadow-accent/20 disabled:opacity-50",
   secondary:
-    "bg-[#135D39]/8 text-[#135D39] hover:bg-[#135D39]/15 disabled:opacity-50",
+    "bg-primary/10 text-primary hover:bg-primary/20 disabled:opacity-50",
   outline:
-    "border border-[#135D39]/30 text-[#135D39] hover:bg-[#135D39]/5 disabled:opacity-50",
+    "border border-primary/30 text-primary hover:bg-primary/5 disabled:opacity-50",
   ghost:
-    "text-[#5C6460] hover:text-[#1A2421] hover:bg-[#135D39]/5 disabled:opacity-50",
+    "text-muted hover:text-ink hover:bg-primary/5 disabled:opacity-50",
 };
 
 const SIZES: Record<Size, string> = {
@@ -46,7 +46,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 rounded-full font-semibold transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/30 disabled:cursor-not-allowed ${
+      className={`inline-flex items-center justify-center gap-2 rounded-full font-semibold transition focus:outline-none focus:ring-2 focus:ring-primary/30 disabled:cursor-not-allowed ${
         VARIANTS[variant]
       } ${SIZES[size]} ${fullWidth ? "w-full" : ""} ${className}`}
       disabled={disabled || loading}

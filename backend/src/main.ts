@@ -16,8 +16,8 @@ import { AppModule } from './app.module';
 const dnsServers =
   process.env.DNS_SERVERS !== undefined
     ? process.env.DNS_SERVERS.split(',')
-      .map((s) => s.trim())
-      .filter(Boolean)
+        .map((s) => s.trim())
+        .filter(Boolean)
     : ['8.8.8.8', '1.1.1.1'];
 if (dnsServers.length > 0) {
   try {

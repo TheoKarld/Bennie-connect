@@ -15,9 +15,6 @@ import {
   HarvestSavePlan,
   AgriBooking,
   ServiceBooking,
-  Product,
-  CartItem,
-  ProductOrder,
   RegisteredFarmer,
   CommissionReward,
   AgentLevel,
@@ -26,8 +23,6 @@ import { INITIAL_APP_STATE, MEMBERSHIP_TIERS } from "../data";
 import {
   DEFAULT_SERVICE_CATEGORIES,
   DEFAULT_SERVICE_BOOKINGS,
-  DEFAULT_PRODUCTS,
-  DEFAULT_ORDERS,
 } from "../default_marketplace_data";
 
 /**
@@ -175,19 +170,8 @@ interface AppActions {
     comment: string
   ) => void;
 
-  // Marketplace
-  handleAddToCart: (productId: string) => void;
-  handleUpdateCartQty: (cartItemId: string, qty: number) => void;
-  handleRemoveFromCart: (cartItemId: string) => void;
-  handleCheckoutMarketplace: (deliveryAddress: string) => void;
-  handleMerchantAddProduct: (
-    product: Omit<Product, "id" | "merchantId" | "merchantName">
-  ) => void;
-  handleMerchantUpdateStock: (productId: string, newStock: number) => void;
-  handleMerchantUpdateOrderStatus: (
-    orderId: string,
-    status: ProductOrder["status"]
-  ) => void;
+  // Marketplace — SUPERSEDED: the live server-backed marketplace now lives in
+  // `src/store/marketplaceStore.ts` + `src/store/merchantStore.ts`.
 
   // Agent
   handleRegisterFarmer: (
@@ -216,15 +200,9 @@ function buildInitialState(): FarmerAppState {
   if (!baseState.serviceBookings || baseState.serviceBookings.length === 0) {
     baseState.serviceBookings = DEFAULT_SERVICE_BOOKINGS;
   }
-  if (!baseState.products || baseState.products.length === 0) {
-    baseState.products = DEFAULT_PRODUCTS;
-  }
-  if (!baseState.orders || baseState.orders.length === 0) {
-    baseState.orders = DEFAULT_ORDERS;
-  }
-  if (!baseState.cart) {
-    baseState.cart = [];
-  }
+  // NOTE: older persisted shapes may still carry `products` / `orders` /
+  // `cart` keys from the removed marketplace mock — they are simply ignored
+  // on rehydrate (the live marketplace is server-backed, no seeding).
   return baseState;
 }
 
@@ -1481,224 +1459,6 @@ export const useAppStore = create<AppStore>()(
         });
       },
 
-      // MODULE 5: AGRICULTURAL MARKETPLACE ACTIONS
-      handleAddToCart: (productId) => {
-        set((prev) => {
-          const cartList = prev.cart || [];
-          const existingItem = cartList.find((item) => item.productId === productId);
-          const targetP = (prev.products || []).find((p) => p.id === productId);
-
-          if (!targetP || targetP.stock <= 0) {
-            alert("Sorry, this item is out of stock.");
-            return prev;
-          }
-
-          let updatedCart: CartItem[] = [];
-          if (existingItem) {
-            if (existingItem.quantity >= targetP.stock) {
-              alert(`Cannot add more. Retailer only has ${targetP.stock} items in stock.`);
-              return prev;
-            }
-            updatedCart = cartList.map((item) =>
-              item.productId === productId
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            );
-          } else {
-            updatedCart = [
-              ...cartList,
-              {
-                id: "ci_" + Math.random().toString(36).substring(2, 6),
-                productId,
-                quantity: 1,
-              },
-            ];
-          }
-
-          return {
-            ...prev,
-            cart: updatedCart,
-          };
-        });
-      },
-
-      handleUpdateCartQty: (cartItemId, qty) => {
-        set((prev) => {
-          const cartList = prev.cart || [];
-          const item = cartList.find((i) => i.id === cartItemId);
-          if (!item) return prev;
-
-          const targetP = (prev.products || []).find((p) => p.id === item.productId);
-          if (!targetP) return prev;
-
-          if (qty > targetP.stock) {
-            alert(
-              `Insufficient merchant stock! Selected quantity matches caps of ${targetP.stock}.`
-            );
-            return prev;
-          }
-
-          const updatedCart = cartList.map((i) =>
-            i.id === cartItemId ? { ...i, quantity: qty } : i
-          );
-
-          return {
-            ...prev,
-            cart: updatedCart,
-          };
-        });
-      },
-
-      handleRemoveFromCart: (cartItemId) => {
-        set((prev) => ({
-          ...prev,
-          cart: (prev.cart || []).filter((i) => i.id !== cartItemId),
-        }));
-      },
-
-      handleCheckoutMarketplace: (deliveryAddress) => {
-        set((prev) => {
-          const cartList = prev.cart || [];
-          if (cartList.length === 0) return prev;
-
-          const productsList = prev.products || [];
-
-          // Calculate total
-          let totalAmount = 0;
-          const orderItems = [];
-
-          for (const item of cartList) {
-            const prod = productsList.find((p) => p.id === item.productId);
-            if (!prod || prod.stock < item.quantity) {
-              alert(`Mismatched inventory: ${prod?.name || "Product"} is out of stock.`);
-              return prev;
-            }
-            totalAmount += prod.price * item.quantity;
-            orderItems.push({
-              productId: item.productId,
-              productName: prod.name,
-              quantity: item.quantity,
-              priceAtPurchase: prod.price,
-            });
-          }
-
-          if (prev.walletBalance < totalAmount) {
-            alert("Insufficient wallet balance.");
-            return prev;
-          }
-
-          // Deduct stock levels mapping
-          const updatedProducts = productsList.map((p) => {
-            const cItem = cartList.find((it) => it.productId === p.id);
-            if (cItem) {
-              return { ...p, stock: Math.max(0, p.stock - cItem.quantity) };
-            }
-            return p;
-          });
-
-          // Assemble Order
-          const newOrderId = "ord_" + Math.floor(100000 + Math.random() * 900000);
-          const newOrder: ProductOrder = {
-            id: newOrderId,
-            farmerId: "aliyu_coop",
-            farmerName: "Aliyu (You)",
-            deliveryAddress,
-            items: orderItems,
-            totalAmount,
-            orderDate: new Date().toISOString(),
-            status: "pending",
-          };
-
-          const ledgerTx = appendTx(
-            "withdraw",
-            totalAmount,
-            `Marketplace Purchase checkout: Order #${newOrderId}`
-          );
-
-          return {
-            ...prev,
-            walletBalance: prev.walletBalance - totalAmount,
-            products: updatedProducts,
-            orders: [newOrder, ...(prev.orders || [])],
-            cart: [], // Clear Cart
-            walletTransactions: [ledgerTx, ...prev.walletTransactions],
-            notifications: [
-              appendNotification(
-                "Marketplace Checkout Placed 🛒",
-                `Order #${newOrderId} totaling ₦${totalAmount.toLocaleString()} has been safely booked with digital wallet.`,
-                "success"
-              ),
-              ...prev.notifications,
-            ],
-          };
-        });
-      },
-
-      handleMerchantAddProduct: (product) => {
-        set((prev) => {
-          const newPId = "p_mer_" + Math.random().toString(36).substring(2, 6);
-          const newProduct: Product = {
-            ...product,
-            id: newPId,
-            merchantId: "merch_current_user",
-            merchantName: "Aliyu Comrade Traders",
-          };
-
-          return {
-            ...prev,
-            products: [newProduct, ...(prev.products || [])],
-          };
-        });
-      },
-
-      handleMerchantUpdateStock: (productId, newStock) => {
-        set((prev) => {
-          const updatedProducts = (prev.products || []).map((p) =>
-            p.id === productId ? { ...p, stock: newStock } : p
-          );
-          return {
-            ...prev,
-            products: updatedProducts,
-          };
-        });
-      },
-
-      handleMerchantUpdateOrderStatus: (orderId, status) => {
-        set((prev) => {
-          const ordersList = prev.orders || [];
-          const updatedOrders = ordersList.map((o) =>
-            o.id === orderId ? { ...o, status } : o
-          );
-
-          const targetOrder = ordersList.find((o) => o.id === orderId);
-          const updatedNotifs = [...prev.notifications];
-
-          if (targetOrder) {
-            let statusText = "";
-            if (status === "processing")
-              statusText = "is packed and placed on shipping queue";
-            if (status === "shipped") statusText = "is dispatched in transit";
-            if (status === "delivered")
-              statusText = "arrived safely under cooperative checkoff";
-            if (status === "cancelled") statusText = "was cancelled by merchant node";
-
-            updatedNotifs.unshift(
-              appendNotification(
-                `Order Update: #${orderId} 📦`,
-                `Your active purchase of inputs ${statusText}.`,
-                status === "delivered" ? "success" : "info"
-              )
-            );
-          }
-
-          return {
-            ...prev,
-            orders: updatedOrders,
-            notifications: updatedNotifs,
-          };
-        });
-      },
-
       // MODULE 7: AGENT SYSTEM ACTIONS
       handleRegisterFarmer: (farmer) => {
         set((prev) => {
@@ -1860,9 +1620,6 @@ export const useAppStore = create<AppStore>()(
         notifications: s.notifications,
         serviceCategories: s.serviceCategories,
         serviceBookings: s.serviceBookings,
-        products: s.products,
-        orders: s.orders,
-        cart: s.cart,
         agentLevel: s.agentLevel,
         registeredFarmers: s.registeredFarmers,
         commissionRewards: s.commissionRewards,
@@ -1878,15 +1635,6 @@ export const useAppStore = create<AppStore>()(
         }
         if (!merged.serviceBookings || merged.serviceBookings.length === 0) {
           merged.serviceBookings = DEFAULT_SERVICE_BOOKINGS;
-        }
-        if (!merged.products || merged.products.length === 0) {
-          merged.products = DEFAULT_PRODUCTS;
-        }
-        if (!merged.orders || merged.orders.length === 0) {
-          merged.orders = DEFAULT_ORDERS;
-        }
-        if (!merged.cart) {
-          merged.cart = [];
         }
         return merged;
       },

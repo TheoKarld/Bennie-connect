@@ -104,21 +104,21 @@ export default function HeroSection() {
         <motion.div variants={container} initial="hidden" animate="show" className="text-center lg:text-left">
           <motion.span
             variants={item}
-            className="inline-flex items-center gap-2 rounded-full border border-[#135D39]/15 bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#135D39] shadow-sm backdrop-blur"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-surface/70 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm backdrop-blur"
           >
-            <Sparkles className="h-3.5 w-3.5 text-[#E7A13C]" /> Cooperative finance for Nigerian farmers
+            <Sparkles className="h-3.5 w-3.5 text-accent" /> Cooperative finance for Nigerian farmers
           </motion.span>
 
           <motion.h1
             variants={item}
-            className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight text-[#1A2421] sm:text-5xl lg:text-[3.5rem]"
+            className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-[3.5rem]"
           >
             Grow farm wealth <span className="lp-text-gradient">together</span>, the cooperative way.
           </motion.h1>
 
           <motion.p
             variants={item}
-            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-[#5C6460] sm:text-lg lg:mx-0"
+            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg lg:mx-0"
           >
             One Naira-native portal for savings, a digital wallet, cooperative shares &amp;
             dividends, Adashe thrift circles, equipment booking, an input marketplace, and a
@@ -131,14 +131,14 @@ export default function HeroSection() {
           >
             <Link
               to={isAuthed ? "/app" : "/signup"}
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#135D39] px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#135D39]/25 transition hover:bg-[#0f4c2f] hover:shadow-xl hover:shadow-[#135D39]/30 focus:outline-none focus:ring-2 focus:ring-[#135D39]/40 sm:w-auto"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#135D39]/25 transition hover:bg-[#0f4c2f] hover:shadow-xl hover:shadow-[#135D39]/30 focus:outline-none focus:ring-2 focus:ring-[#135D39]/40 sm:w-auto"
             >
               {isAuthed ? "Go to dashboard" : "Get started free"}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
             </Link>
             <a
               href="#features"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#135D39]/25 bg-white/60 px-7 py-3.5 text-base font-semibold text-[#135D39] backdrop-blur transition hover:bg-[#135D39]/5 focus:outline-none focus:ring-2 focus:ring-[#135D39]/30 sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/25 bg-surface/60 px-7 py-3.5 text-base font-semibold text-primary backdrop-blur transition hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-[#135D39]/30 sm:w-auto"
             >
               Explore features
             </a>
@@ -146,18 +146,18 @@ export default function HeroSection() {
 
           {/* Trust strip */}
           <motion.div variants={item} className="mt-10">
-            <p className="text-xs font-medium uppercase tracking-wider text-[#5C6460]/80">
+            <p className="text-xs font-medium uppercase tracking-wider text-muted/80">
               Trusted by cooperatives across Nigeria
             </p>
             <div className="mt-4 flex items-center justify-center gap-6 sm:gap-9 lg:justify-start">
               {TRUST.map((t) => (
                 <div key={t.label} className="text-center lg:text-left">
-                  <div className="font-mono text-xl font-semibold text-[#135D39] sm:text-2xl">{t.value}</div>
-                  <div className="mt-0.5 text-[11px] text-[#5C6460]">{t.label}</div>
+                  <div className="font-mono text-xl font-semibold text-primary sm:text-2xl">{t.value}</div>
+                  <div className="mt-0.5 text-[11px] text-muted">{t.label}</div>
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-[10px] italic text-[#5C6460]/60">Figures illustrative.</p>
+            <p className="mt-3 text-[10px] italic text-muted/60">Figures illustrative.</p>
           </motion.div>
         </motion.div>
 
@@ -172,60 +172,60 @@ export default function HeroSection() {
           <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-br from-[#135D39]/20 via-transparent to-[#E7A13C]/20 blur-2xl" aria-hidden />
 
           {/* Main wallet card */}
-          <div className="lp-float relative rounded-[2rem] border border-white/60 bg-white/80 p-6 shadow-2xl shadow-[#135D39]/15 backdrop-blur-xl">
+          <div className="lp-float relative rounded-[2rem] border border-border bg-surface/90 p-6 shadow-2xl shadow-[#135D39]/15 backdrop-blur-xl">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#135D39] text-white">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white">
                   <Wallet className="h-4.5 w-4.5" />
                 </div>
-                <span className="text-sm font-semibold text-[#1A2421]">Digital Wallet</span>
+                <span className="text-sm font-semibold text-ink">Digital Wallet</span>
               </div>
-              <span className="rounded-full bg-[#135D39]/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#135D39]">
+              <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
                 NGN
               </span>
             </div>
             <div className="mt-5">
-              <p className="text-xs text-[#5C6460]">Available balance</p>
-              <p className="mt-1 font-mono text-3xl font-semibold text-[#1A2421]">₦184,500.00</p>
+              <p className="text-xs text-muted">Available balance</p>
+              <p className="mt-1 font-mono text-3xl font-semibold text-ink">₦184,500.00</p>
             </div>
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-[#E6E5DF] bg-[#FAF8F5] p-3">
+              <div className="rounded-2xl border border-border bg-surface-2 p-3">
                 <div className="flex items-center gap-2">
-                  <PiggyBank className="h-4 w-4 text-[#135D39]" />
-                  <span className="text-[11px] font-medium text-[#5C6460]">Flex Save</span>
+                  <PiggyBank className="h-4 w-4 text-primary" />
+                  <span className="text-[11px] font-medium text-muted">Flex Save</span>
                 </div>
-                <p className="mt-1 font-mono text-sm font-semibold text-[#1A2421]">₦420,000</p>
+                <p className="mt-1 font-mono text-sm font-semibold text-ink">₦420,000</p>
               </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-[#E6E5DF] bg-[#FAF8F5] p-3">
+              <div className="flex items-center gap-3 rounded-2xl border border-border bg-surface-2 p-3">
                 <SavingsRing pct={60} />
                 <div>
-                  <p className="text-[11px] font-medium text-[#5C6460]">Target</p>
-                  <p className="font-mono text-sm font-semibold text-[#135D39]">60%</p>
+                  <p className="text-[11px] font-medium text-muted">Target</p>
+                  <p className="font-mono text-sm font-semibold text-primary">60%</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Floating shares card */}
-          <div className="lp-float-slow absolute -bottom-8 -left-4 w-52 rounded-2xl border border-white/60 bg-white/85 p-4 shadow-xl shadow-[#135D39]/10 backdrop-blur-xl sm:-left-8">
+          <div className="lp-float-slow absolute -bottom-8 -left-4 w-52 rounded-2xl border border-border bg-surface/95 p-4 shadow-xl shadow-[#135D39]/10 backdrop-blur-xl sm:-left-8">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#1A2421]">Coop Shares</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-[#135D39]/10 px-2 py-0.5 text-[10px] font-bold text-[#135D39]">
+              <span className="text-xs font-semibold text-ink">Coop Shares</span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
                 <TrendingUp className="h-3 w-3" /> +18.2%
               </span>
             </div>
             <Sparkline />
-            <p className="mt-1 font-mono text-sm font-semibold text-[#1A2421]">₦500 / share</p>
+            <p className="mt-1 font-mono text-sm font-semibold text-ink">₦500 / share</p>
           </div>
 
           {/* Floating dividend chip */}
-          <div className="lp-float absolute -right-2 -top-5 flex items-center gap-2 rounded-2xl border border-white/60 bg-white/85 px-4 py-3 shadow-xl shadow-[#E7A13C]/15 backdrop-blur-xl sm:-right-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#E7A13C]/15 text-[#a6701c]">
+          <div className="lp-float absolute -right-2 -top-5 flex items-center gap-2 rounded-2xl border border-border bg-surface/95 px-4 py-3 shadow-xl shadow-[#E7A13C]/15 backdrop-blur-xl sm:-right-6">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent/15 text-[#a6701c] dark:text-accent">
               <ShieldCheck className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-[10px] font-medium text-[#5C6460]">Dividend paid</p>
-              <p className="font-mono text-sm font-semibold text-[#135D39]">₦18,400</p>
+              <p className="text-[10px] font-medium text-muted">Dividend paid</p>
+              <p className="font-mono text-sm font-semibold text-primary">₦18,400</p>
             </div>
           </div>
         </motion.div>

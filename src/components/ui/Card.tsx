@@ -9,11 +9,11 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-/** Rounded, cream-on-white surface used across feature views. */
+/** Rounded surface used across feature views. */
 export default function Card({ children, className = "", ...rest }: CardProps) {
   return (
     <div
-      className={`rounded-3xl border border-[#E6E5DF] bg-white/70 p-6 shadow-sm ${className}`}
+      className={`rounded-3xl border border-border bg-surface p-6 shadow-sm ${className}`}
       {...rest}
     >
       {children}

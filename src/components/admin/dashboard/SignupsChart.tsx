@@ -42,7 +42,7 @@ export default function SignupsChart({
 
   if (!hasData) {
     return (
-      <div className="flex h-[200px] items-center justify-center rounded-2xl border border-dashed border-[#E6E5DF] text-sm text-[#9AA29D]">
+      <div className="flex h-[200px] items-center justify-center rounded-2xl border border-dashed border-border text-sm text-muted">
         No signups in this window yet.
       </div>
     );

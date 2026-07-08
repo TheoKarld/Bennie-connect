@@ -13,7 +13,7 @@ export default function CtaSection() {
     <section className="relative py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-[#135D39] px-6 py-16 text-center shadow-2xl shadow-[#135D39]/25 sm:px-12">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-6 py-16 text-center shadow-2xl shadow-[#135D39]/25 sm:px-12">
             {/* Decorative gradient wash */}
             <div
               className="lp-mesh pointer-events-none absolute inset-0 opacity-70"
@@ -25,7 +25,7 @@ export default function CtaSection() {
             />
             <div className="relative z-10 mx-auto max-w-2xl">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white/90 backdrop-blur">
-                <Sprout className="h-3.5 w-3.5 text-[#E7A13C]" /> Join the cooperative
+                <Sprout className="h-3.5 w-3.5 text-accent" /> Join the cooperative
               </span>
               <h2 className="mt-6 font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Your harvest, your wealth, your community.

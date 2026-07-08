@@ -6,17 +6,11 @@
 import React from "react";
 
 import DigitalWalletView from "./DigitalWalletView";
-import { useAppState } from "../../hooks/useAppState";
 
+/**
+ * The wallet feature is fully LIVE against the backend. The view reads/writes
+ * `useWalletStore` directly, so this page is just a mount point (no mock props).
+ */
 export default function DigitalWalletPage() {
-  const store = useAppState();
-
-  return (
-    <DigitalWalletView
-      state={store}
-      onDeposit={store.handleDeposit}
-      onWithdraw={store.handleWithdrawToBank}
-      onTransfer={store.handleTransferToMember}
-    />
-  );
+  return <DigitalWalletView />;
 }

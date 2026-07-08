@@ -57,10 +57,10 @@ export default function LoginPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1.5">
-        <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+        <h2 className="font-display text-2xl font-semibold text-ink">
           Welcome back
         </h2>
-        <p className="text-sm text-[#5C6460]">
+        <p className="text-sm text-muted">
           Sign in to your cooperative farming portal.
         </p>
       </div>
@@ -70,7 +70,7 @@ export default function LoginPage() {
           initial={reduce ? false : { opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           role="alert"
-          className="flex items-start gap-2 rounded-2xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600"
+          className="flex items-start gap-2 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 px-4 py-3 text-sm text-red-600 dark:text-red-400"
         >
           <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
           <span>{shownError}</span>
@@ -81,7 +81,7 @@ export default function LoginPage() {
         <Field label="Email" htmlFor="email">
           <div className="relative">
             <Mail
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"
               aria-hidden
             />
             <Input
@@ -101,7 +101,7 @@ export default function LoginPage() {
         <Field label="Password" htmlFor="password">
           <div className="relative">
             <Lock
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"
               aria-hidden
             />
             <Input
@@ -120,7 +120,7 @@ export default function LoginPage() {
               onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? "Hide password" : "Show password"}
               aria-pressed={showPassword}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#9AA29D] hover:text-[#135D39] hover:bg-[#135D39]/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-muted hover:text-primary hover:bg-primary/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
             >
               {showPassword ? (
                 <EyeOff className="w-4 h-4" />
@@ -134,7 +134,7 @@ export default function LoginPage() {
         <div className="flex justify-end -mt-1">
           <Link
             to="/forgot-password"
-            className="text-xs font-semibold text-[#135D39] hover:underline"
+            className="text-xs font-semibold text-primary hover:underline"
           >
             Forgot password?
           </Link>
@@ -146,11 +146,11 @@ export default function LoginPage() {
       </form>
 
       <div className="flex items-center gap-3">
-        <span className="h-px flex-1 bg-[#E6E5DF]" />
-        <span className="text-[11px] uppercase tracking-wider text-[#9AA29D] font-semibold">
+        <span className="h-px flex-1 bg-border" />
+        <span className="text-[11px] uppercase tracking-wider text-muted font-semibold">
           or continue with
         </span>
-        <span className="h-px flex-1 bg-[#E6E5DF]" />
+        <span className="h-px flex-1 bg-border" />
       </div>
 
       <GoogleAuthButton
@@ -162,11 +162,11 @@ export default function LoginPage() {
         }
       />
 
-      <p className="text-center text-sm text-[#5C6460]">
+      <p className="text-center text-sm text-muted">
         New to the cooperative?{" "}
         <Link
           to="/signup"
-          className="font-semibold text-[#135D39] hover:underline"
+          className="font-semibold text-primary hover:underline"
         >
           Create an account
         </Link>

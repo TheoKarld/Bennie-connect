@@ -24,23 +24,23 @@ export default function Modal({
   if (!open) return null;
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-[#1A2421]/40 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className={`w-full max-w-lg rounded-3xl border border-[#E6E5DF] bg-[#FAF8F5] p-6 shadow-2xl ${className}`}
+        className={`w-full max-w-lg rounded-3xl border border-border bg-surface p-6 shadow-2xl ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {(title || onClose) && (
           <div className="mb-4 flex items-center justify-between">
             {title && (
-              <h3 className="font-display text-lg font-semibold text-[#1A2421]">
+              <h3 className="font-display text-lg font-semibold text-ink">
                 {title}
               </h3>
             )}
             <button
               onClick={onClose}
-              className="ml-auto rounded-xl p-1.5 text-[#5C6460] transition hover:bg-[#135D39]/5 hover:text-[#1A2421]"
+              className="ml-auto rounded-xl p-1.5 text-muted transition hover:bg-primary/5 hover:text-ink"
               aria-label="Close"
             >
               <X className="h-5 w-5" />

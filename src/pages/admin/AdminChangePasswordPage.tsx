@@ -98,14 +98,14 @@ export default function AdminChangePasswordPage() {
     <AdminAuthShell>
       <div className="space-y-6">
         <div className="space-y-1.5">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E7A13C]/15 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#a6701c]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/15 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#a6701c] dark:text-accent">
             <ShieldCheck className="h-3 w-3" />
             Security · Required
           </span>
-          <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+          <h2 className="font-display text-2xl font-semibold text-ink">
             Set a new password
           </h2>
-          <p className="text-sm text-[#5C6460]">
+          <p className="text-sm text-muted">
             {admin?.firstName ? `${admin.firstName}, y` : "Y"}our account requires
             a password change before you can continue.
           </p>
@@ -116,7 +116,7 @@ export default function AdminChangePasswordPage() {
             initial={reduce ? false : { opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             role="alert"
-            className="flex items-start gap-2 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600"
+            className="flex items-start gap-2 rounded-2xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger"
           >
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
             <span>{error}</span>
@@ -131,7 +131,7 @@ export default function AdminChangePasswordPage() {
           >
             <div className="relative">
               <Lock
-                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9AA29D]"
+                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                 aria-hidden
               />
               <Input
@@ -149,7 +149,7 @@ export default function AdminChangePasswordPage() {
                 type="button"
                 onClick={() => setShowCurrent((v) => !v)}
                 aria-label={showCurrent ? "Hide password" : "Show password"}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-[#9AA29D] transition hover:bg-[#135D39]/5 hover:text-[#135D39] focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-muted transition hover:bg-primary/5 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/25"
               >
                 {showCurrent ? (
                   <EyeOff className="h-4 w-4" />
@@ -163,7 +163,7 @@ export default function AdminChangePasswordPage() {
           <Field label="New password" htmlFor="new-pw">
             <div className="relative">
               <Lock
-                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9AA29D]"
+                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                 aria-hidden
               />
               <Input
@@ -180,7 +180,7 @@ export default function AdminChangePasswordPage() {
                 type="button"
                 onClick={() => setShowNew((v) => !v)}
                 aria-label={showNew ? "Hide password" : "Show password"}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-[#9AA29D] transition hover:bg-[#135D39]/5 hover:text-[#135D39] focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-muted transition hover:bg-primary/5 hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/25"
               >
                 {showNew ? (
                   <EyeOff className="h-4 w-4" />
@@ -199,7 +199,7 @@ export default function AdminChangePasswordPage() {
           >
             <div className="relative">
               <Lock
-                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9AA29D]"
+                className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
                 aria-hidden
               />
               <Input
@@ -214,7 +214,7 @@ export default function AdminChangePasswordPage() {
                 required
               />
               {matches && (
-                <CheckCircle2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#135D39]" />
+                <CheckCircle2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
               )}
             </div>
           </Field>
@@ -230,7 +230,7 @@ export default function AdminChangePasswordPage() {
           </Button>
         </form>
 
-        <p className="text-center text-[11px] text-[#9AA29D]">
+        <p className="text-center text-[11px] text-muted">
           For your security, all other admin actions are blocked until this is
           done.
         </p>

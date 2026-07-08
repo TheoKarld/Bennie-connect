@@ -19,3 +19,8 @@ export {
   isPasswordValid,
 } from "./PasswordStrength";
 export type { PasswordChecks } from "./PasswordStrength";
+export {
+  default as ThemeToggle,
+  ThemeToggle as ThemeToggleSegmented,
+  ThemeToggleButton,
+} from "./ThemeToggle";

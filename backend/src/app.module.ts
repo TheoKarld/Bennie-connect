@@ -7,8 +7,13 @@ import configuration from './config/configuration';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import { UsersModule } from './users/users.module';
+import { WalletModule } from './wallet/wallet.module';
 import { MailModule } from './mail/mail.module';
 import { NotificationModule } from './notifications/notification.module';
+import { ContributionsModule } from './contributions/contributions.module';
+import { EquipmentModule } from './equipment/equipment.module';
+import { StorageModule } from './storage/storage.module';
+import { MarketplaceModule } from './marketplace/marketplace.module';
 import { createMongooseOptions } from './database/mongodb.providers';
 
 @Module({
@@ -36,8 +41,13 @@ import { createMongooseOptions } from './database/mongodb.providers';
     AuthModule,
     AdminModule,
     UsersModule,
+    WalletModule,
     MailModule,
     NotificationModule,
+    ContributionsModule,
+    EquipmentModule,
+    StorageModule,
+    MarketplaceModule,
   ],
   providers: [
     {

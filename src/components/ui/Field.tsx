@@ -28,16 +28,16 @@ export default function Field({
       {label && (
         <label
           htmlFor={htmlFor}
-          className="block text-xs font-semibold uppercase tracking-wider text-[#5C6460]"
+          className="block text-xs font-semibold uppercase tracking-wider text-muted"
         >
           {label}
         </label>
       )}
       {children}
       {error ? (
-        <p className="text-xs font-medium text-red-500">{error}</p>
+        <p className="text-xs font-medium text-danger">{error}</p>
       ) : hint ? (
-        <p className="text-xs text-[#9AA29D]">{hint}</p>
+        <p className="text-xs text-muted/80">{hint}</p>
       ) : null}
     </div>
   );

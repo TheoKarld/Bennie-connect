@@ -1,8 +1,8 @@
 {
   "C:\\karldworld\\Bennie-connect\\src\\App.tsx": {
-    "mtime": 1782945845.7791965,
-    "ast_hash": "b9be234da47937bc43cc7ae2b8b24ce6",
-    "semantic_hash": "b9be234da47937bc43cc7ae2b8b24ce6"
+    "mtime": 1783016982.423528,
+    "ast_hash": "5027b7d58129fb11d3b98a0298233b6a",
+    "semantic_hash": "5027b7d58129fb11d3b98a0298233b6a"
   },
   "C:\\karldworld\\Bennie-connect\\src\\data.ts": {
     "mtime": 1782902427.6999824,
@@ -30,19 +30,19 @@
     "semantic_hash": "f993462125a473d9e5140a737b288b89"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\package.json": {
-    "mtime": 1782942819.7125797,
-    "ast_hash": "8d951294e54722054a296f5500f2b574",
-    "semantic_hash": "8d951294e54722054a296f5500f2b574"
+    "mtime": 1782998435.3220205,
+    "ast_hash": "2030606cccde1b41d16e6a6f0e2ed61a",
+    "semantic_hash": "2030606cccde1b41d16e6a6f0e2ed61a"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\app.module.ts": {
-    "mtime": 1782943321.6155639,
-    "ast_hash": "a1c6917cb1559a65eb72bfd55104aea2",
-    "semantic_hash": "a1c6917cb1559a65eb72bfd55104aea2"
+    "mtime": 1783011964.1491313,
+    "ast_hash": "5ace073c93a64a6020171218285344ac",
+    "semantic_hash": "5ace073c93a64a6020171218285344ac"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\config\\configuration.ts": {
-    "mtime": 1782943062.1648662,
-    "ast_hash": "7c6b532a34ac1fb6aae4366740c4564b",
-    "semantic_hash": "7c6b532a34ac1fb6aae4366740c4564b"
+    "mtime": 1783011383.481941,
+    "ast_hash": "3dfc630003c5b6a0f163916bd1bf02a1",
+    "semantic_hash": "3dfc630003c5b6a0f163916bd1bf02a1"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\config\\index.ts": {
     "mtime": 1782910549.5871568,
@@ -60,9 +60,9 @@
     "semantic_hash": "c2c17ac916fcf085022c47f00a07357e"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\main.ts": {
-    "mtime": 1782943410.1729202,
-    "ast_hash": "e24ccfb3b64f829f97790de549772100",
-    "semantic_hash": "e24ccfb3b64f829f97790de549772100"
+    "mtime": 1782955707.8507519,
+    "ast_hash": "edd8d869d40a128d46363b0992fc71b5",
+    "semantic_hash": "edd8d869d40a128d46363b0992fc71b5"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\users\\dto\\create-user.dto.ts": {
     "mtime": 1782910549.5877695,
@@ -95,9 +95,9 @@
     "semantic_hash": "f4bbd975f04a6207d1d790a6f195e97c"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\users\\users.service.ts": {
-    "mtime": 1782944896.4988542,
-    "ast_hash": "8af221468a20a080cc31cc325e3145df",
-    "semantic_hash": "8af221468a20a080cc31cc325e3145df"
+    "mtime": 1782995882.2613385,
+    "ast_hash": "0cae7638ebae5add37644868b24ea0ff",
+    "semantic_hash": "0cae7638ebae5add37644868b24ea0ff"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\tsconfig.json": {
     "mtime": 1782902427.686122,
@@ -115,9 +115,9 @@
     "semantic_hash": "778ac4d1e78a1d1126483827faa1eff6"
   },
   "C:\\karldworld\\Bennie-connect\\.claude\\settings.local.json": {
-    "mtime": 1782947479.5800445,
-    "ast_hash": "6d2a5d2bbdae44d5efe6eaccb8a8adfe",
-    "semantic_hash": "6d2a5d2bbdae44d5efe6eaccb8a8adfe"
+    "mtime": 1783019294.3149905,
+    "ast_hash": "603d2b920bb8c32c284f3cf4f8b83c97",
+    "semantic_hash": "603d2b920bb8c32c284f3cf4f8b83c97"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\.eslintrc.js": {
     "mtime": 1782910469.4888394,
@@ -145,9 +145,9 @@
     "semantic_hash": "55d91f00f224a1db997ec86f2449c78b"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\admin\\admin.module.ts": {
-    "mtime": 1782944695.4110546,
-    "ast_hash": "8ea9f5c427bb88a06d872305128741c7",
-    "semantic_hash": "8ea9f5c427bb88a06d872305128741c7"
+    "mtime": 1782989618.1906934,
+    "ast_hash": "d20ec430879d9e1e083c15de293c23bb",
+    "semantic_hash": "d20ec430879d9e1e083c15de293c23bb"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\admin\\auth\\admin-auth.controller.ts": {
     "mtime": 1782943480.898222,
@@ -170,9 +170,9 @@
     "semantic_hash": "032928180e030fe9f8558fe26b3cb962"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\admin\\dashboard\\admin-dashboard.service.ts": {
-    "mtime": 1782944674.69437,
-    "ast_hash": "d75b1218accf3eb2574c45e75abfa166",
-    "semantic_hash": "d75b1218accf3eb2574c45e75abfa166"
+    "mtime": 1782989646.3785655,
+    "ast_hash": "28c3f4850dc10c3533b13e5b4538966e",
+    "semantic_hash": "28c3f4850dc10c3533b13e5b4538966e"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\admin\\decorators\\current-admin.decorator.ts": {
     "mtime": 1782943142.6937728,
@@ -225,14 +225,14 @@
     "semantic_hash": "22cc10c03628964fa89c554466df5d93"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\auth\\auth.module.ts": {
-    "mtime": 1782910216.960599,
-    "ast_hash": "110d597783912efd0744d79a434e27a7",
-    "semantic_hash": "110d597783912efd0744d79a434e27a7"
+    "mtime": 1782955632.4701483,
+    "ast_hash": "47d2f42ab5c52905b2167801263ee087",
+    "semantic_hash": "47d2f42ab5c52905b2167801263ee087"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\auth\\auth.service.ts": {
-    "mtime": 1782943385.7366774,
-    "ast_hash": "40b9ce181dbfc828f83ebaa87b6145b5",
-    "semantic_hash": "40b9ce181dbfc828f83ebaa87b6145b5"
+    "mtime": 1782955618.2188342,
+    "ast_hash": "7644979539192562927c5347f70e83cd",
+    "semantic_hash": "7644979539192562927c5347f70e83cd"
   },
   "C:\\karldworld\\Bennie-connect\\backend\\src\\auth\\decorators\\current-user.decorator.ts": {
     "mtime": 1782910047.006331,
@@ -320,24 +320,24 @@
     "semantic_hash": "f5147bb864607df5959400d6d554fbee"
   },
   "C:\\karldworld\\Bennie-connect\\package.json": {
-    "mtime": 1782917745.6436381,
-    "ast_hash": "f231c5c6ceaed7dde9ed0b020a68973d",
-    "semantic_hash": "f231c5c6ceaed7dde9ed0b020a68973d"
+    "mtime": 1782950301.2467053,
+    "ast_hash": "08d7d6a057c415e76e97dcea6159f1e3",
+    "semantic_hash": "08d7d6a057c415e76e97dcea6159f1e3"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\admin\\AdminAuthShell.tsx": {
-    "mtime": 1782945644.5142536,
-    "ast_hash": "38d0376295ba294053cfbca3598fe982",
-    "semantic_hash": "38d0376295ba294053cfbca3598fe982"
+    "mtime": 1783001961.8141382,
+    "ast_hash": "f062f5621c9d559ee00174b21c9f1438",
+    "semantic_hash": "f062f5621c9d559ee00174b21c9f1438"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\admin\\AdminLayout.tsx": {
-    "mtime": 1782945598.9259517,
-    "ast_hash": "41c960392387007d761f6dc6760397ec",
-    "semantic_hash": "41c960392387007d761f6dc6760397ec"
+    "mtime": 1783001934.194906,
+    "ast_hash": "926cee08b969984544a888cc10543df8",
+    "semantic_hash": "926cee08b969984544a888cc10543df8"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\admin\\AdminSectionPlaceholder.tsx": {
-    "mtime": 1782945716.4371483,
-    "ast_hash": "727e113af4cbfb2ba2c569a186766dd0",
-    "semantic_hash": "727e113af4cbfb2ba2c569a186766dd0"
+    "mtime": 1783001987.8214056,
+    "ast_hash": "4760cc9069e62c268bc130211b5ce950",
+    "semantic_hash": "4760cc9069e62c268bc130211b5ce950"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\admin\\AdminSidebarNav.tsx": {
     "mtime": 1782945522.6727507,
@@ -345,9 +345,9 @@
     "semantic_hash": "a3dbd529ecf6ba9ad232bd6490fdf152"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\admin\\PermissionGate.tsx": {
-    "mtime": 1782945726.7487304,
-    "ast_hash": "c5baeee39330eee59225eac88b049ce5",
-    "semantic_hash": "c5baeee39330eee59225eac88b049ce5"
+    "mtime": 1783001996.8588524,
+    "ast_hash": "79585bdb2edd978356234283816fa498",
+    "semantic_hash": "79585bdb2edd978356234283816fa498"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\admin\\adminNav.ts": {
     "mtime": 1782945503.4629304,
@@ -355,39 +355,39 @@
     "semantic_hash": "60a2fddbdcd750a6c507177cfc8c1beb"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\admin\\dashboard\\SignupsChart.tsx": {
-    "mtime": 1782945768.4206538,
-    "ast_hash": "8b69c3d07608a999124036a243db3315",
-    "semantic_hash": "8b69c3d07608a999124036a243db3315"
+    "mtime": 1783002006.8040752,
+    "ast_hash": "79276abe6fdb223b099aac89545ccadd",
+    "semantic_hash": "79276abe6fdb223b099aac89545ccadd"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\layout\\AppShell.tsx": {
-    "mtime": 1782919841.4894576,
-    "ast_hash": "9d391a3a9ac4b40af9452245d9e7442c",
-    "semantic_hash": "9d391a3a9ac4b40af9452245d9e7442c"
+    "mtime": 1783001835.7046015,
+    "ast_hash": "718ad18c86549a050f1eaf5479a58da0",
+    "semantic_hash": "718ad18c86549a050f1eaf5479a58da0"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\layout\\AuthLayout.tsx": {
-    "mtime": 1782919841.336879,
-    "ast_hash": "bdd244209ec9849ea0fee8d1554c4c04",
-    "semantic_hash": "bdd244209ec9849ea0fee8d1554c4c04"
+    "mtime": 1783002147.7241268,
+    "ast_hash": "747e502f5e559a2b358f628a50d36f87",
+    "semantic_hash": "747e502f5e559a2b358f628a50d36f87"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Badge.tsx": {
-    "mtime": 1782917271.1688046,
-    "ast_hash": "d1d1468ee13fd1a59f2bce68ee451987",
-    "semantic_hash": "d1d1468ee13fd1a59f2bce68ee451987"
+    "mtime": 1783000877.6173632,
+    "ast_hash": "dbb188d1359a95c18bb39d8c32f0a40e",
+    "semantic_hash": "dbb188d1359a95c18bb39d8c32f0a40e"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Button.tsx": {
-    "mtime": 1782917256.204292,
-    "ast_hash": "3da6513ef009b0398cf695691df25587",
-    "semantic_hash": "3da6513ef009b0398cf695691df25587"
+    "mtime": 1783000846.1624167,
+    "ast_hash": "7f04049f73d65b974d9320c6a2bf2ce3",
+    "semantic_hash": "7f04049f73d65b974d9320c6a2bf2ce3"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Card.tsx": {
-    "mtime": 1782917266.0726106,
-    "ast_hash": "34236c502c207a5771126d12af6fec1e",
-    "semantic_hash": "34236c502c207a5771126d12af6fec1e"
+    "mtime": 1783000852.7588506,
+    "ast_hash": "413d73be76a82a831596303c5fd416b7",
+    "semantic_hash": "413d73be76a82a831596303c5fd416b7"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Field.tsx": {
-    "mtime": 1782917263.409274,
-    "ast_hash": "1a2f8fd0ea40bbcdb39992e4064c8464",
-    "semantic_hash": "1a2f8fd0ea40bbcdb39992e4064c8464"
+    "mtime": 1783000865.299783,
+    "ast_hash": "4ce82dd9191a358b7871c080c1489a85",
+    "semantic_hash": "4ce82dd9191a358b7871c080c1489a85"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\GoogleAuthButton.tsx": {
     "mtime": 1782932963.017829,
@@ -395,14 +395,14 @@
     "semantic_hash": "92985eac7e92502d68c6a51d8156ff0f"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Input.tsx": {
-    "mtime": 1782917259.952536,
-    "ast_hash": "48cd2550403ca15164fe2e3a099ad8ec",
-    "semantic_hash": "48cd2550403ca15164fe2e3a099ad8ec"
+    "mtime": 1783000859.2062597,
+    "ast_hash": "241f228762482511c1b89620ed4ee6af",
+    "semantic_hash": "241f228762482511c1b89620ed4ee6af"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Modal.tsx": {
-    "mtime": 1782917275.037905,
-    "ast_hash": "055f732b2ea754f8f83e53db41f0fe5e",
-    "semantic_hash": "055f732b2ea754f8f83e53db41f0fe5e"
+    "mtime": 1783000886.168721,
+    "ast_hash": "35d6ecf0d1ff7bddf5e83c9d14acda2e",
+    "semantic_hash": "35d6ecf0d1ff7bddf5e83c9d14acda2e"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\PasswordStrength.tsx": {
     "mtime": 1782931658.8161664,
@@ -410,14 +410,14 @@
     "semantic_hash": "2d144cfd9f4f069557595638f027848c"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Spinner.tsx": {
-    "mtime": 1782917247.6713662,
-    "ast_hash": "b3954bb95dc0f60b1f1e33dd7768df2a",
-    "semantic_hash": "b3954bb95dc0f60b1f1e33dd7768df2a"
+    "mtime": 1783000891.5227752,
+    "ast_hash": "568fe5927155da981678c17d06e0fa83",
+    "semantic_hash": "568fe5927155da981678c17d06e0fa83"
   },
   "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\index.ts": {
-    "mtime": 1782932970.3252892,
-    "ast_hash": "471a15c1f4143c3fd907c9f554815064",
-    "semantic_hash": "471a15c1f4143c3fd907c9f554815064"
+    "mtime": 1783000831.12315,
+    "ast_hash": "23fa6d7c095abe1dc66d07b92e7cea5c",
+    "semantic_hash": "23fa6d7c095abe1dc66d07b92e7cea5c"
   },
   "C:\\karldworld\\Bennie-connect\\src\\hooks\\useAdminAuth.ts": {
     "mtime": 1782945485.8364112,
@@ -435,59 +435,49 @@
     "semantic_hash": "998f331a0f9a967fd1fdcffc5f184e2b"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\AdminChangePasswordPage.tsx": {
-    "mtime": 1782945699.9799094,
-    "ast_hash": "8e4dc6886daa3b511399b9cfdba5ed08",
-    "semantic_hash": "8e4dc6886daa3b511399b9cfdba5ed08"
+    "mtime": 1783002262.9209814,
+    "ast_hash": "e505219fc7b31224d9c7d38d223031bb",
+    "semantic_hash": "e505219fc7b31224d9c7d38d223031bb"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\AdminDashboard.tsx": {
-    "mtime": 1782945829.2164378,
-    "ast_hash": "7440b7fbc60cc11508205ed457cdbb12",
-    "semantic_hash": "7440b7fbc60cc11508205ed457cdbb12"
+    "mtime": 1783002167.058127,
+    "ast_hash": "bd7b027b718622115796997a00c00e92",
+    "semantic_hash": "bd7b027b718622115796997a00c00e92"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\AdminHome.tsx": {
-    "mtime": 1782917423.344751,
-    "ast_hash": "aea1d5faaae077b8c790698da4027e5a",
-    "semantic_hash": "aea1d5faaae077b8c790698da4027e5a"
+    "mtime": 1783002185.061423,
+    "ast_hash": "423cba71bb11a8be6e9decc8f77b6881",
+    "semantic_hash": "423cba71bb11a8be6e9decc8f77b6881"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\AdminLoginPage.tsx": {
-    "mtime": 1782945666.9347117,
-    "ast_hash": "8b0e6de84d5753a3cf3126c3d4e6ad33",
-    "semantic_hash": "8b0e6de84d5753a3cf3126c3d4e6ad33"
+    "mtime": 1783002222.9651425,
+    "ast_hash": "9b6dfe02fe978894fda9f9765c47831d",
+    "semantic_hash": "9b6dfe02fe978894fda9f9765c47831d"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\sections.tsx": {
-    "mtime": 1782945750.176942,
-    "ast_hash": "d9d369297aa88201937ba2ad56d49597",
-    "semantic_hash": "d9d369297aa88201937ba2ad56d49597"
+    "mtime": 1783016999.2673657,
+    "ast_hash": "c4ca20c15567a9ea16ce896e8befc95e",
+    "semantic_hash": "c4ca20c15567a9ea16ce896e8befc95e"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\auth\\ForgotPasswordPage.tsx": {
-    "mtime": 1782931742.5922291,
-    "ast_hash": "28ec4fc6204befef711fbd9539188456",
-    "semantic_hash": "28ec4fc6204befef711fbd9539188456"
+    "mtime": 1783002315.2086189,
+    "ast_hash": "739b39874b91c883971b50606972608f",
+    "semantic_hash": "739b39874b91c883971b50606972608f"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\auth\\LoginPage.tsx": {
-    "mtime": 1782933007.9185343,
-    "ast_hash": "1a10e064b5adba8f6ef88358fd14184c",
-    "semantic_hash": "1a10e064b5adba8f6ef88358fd14184c"
+    "mtime": 1783002197.4554513,
+    "ast_hash": "779e2737f7d42414f5aa473fa30e2c75",
+    "semantic_hash": "779e2737f7d42414f5aa473fa30e2c75"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\auth\\ResetPasswordPage.tsx": {
-    "mtime": 1782931774.0756483,
-    "ast_hash": "e146e11c9ffacad830cb32959c27dac5",
-    "semantic_hash": "e146e11c9ffacad830cb32959c27dac5"
+    "mtime": 1783002386.8864307,
+    "ast_hash": "bff115480d1ffa2b87fba8ceaee3b3a5",
+    "semantic_hash": "bff115480d1ffa2b87fba8ceaee3b3a5"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\auth\\SignupPage.tsx": {
-    "mtime": 1782933027.687059,
-    "ast_hash": "e65c91cfebdf37cadbd0dcb274d65236",
-    "semantic_hash": "e65c91cfebdf37cadbd0dcb274d65236"
-  },
-  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\AdashePage.tsx": {
-    "mtime": 1782917535.8735616,
-    "ast_hash": "f845d32326688e8287c48e3802d2c3eb",
-    "semantic_hash": "f845d32326688e8287c48e3802d2c3eb"
-  },
-  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\AdasheView.tsx": {
-    "mtime": 1782915761.640908,
-    "ast_hash": "3fa180e00c77862ad35c20c8fb85645f",
-    "semantic_hash": "3fa180e00c77862ad35c20c8fb85645f"
+    "mtime": 1783002249.2463796,
+    "ast_hash": "af5065712ee20186207e5a480e61cf32",
+    "semantic_hash": "af5065712ee20186207e5a480e61cf32"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\AgentDashboardPage.tsx": {
     "mtime": 1782917538.1675427,
@@ -495,9 +485,9 @@
     "semantic_hash": "a9f71b57ac11faf42768a787d03f1387"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\AgentDashboardView.tsx": {
-    "mtime": 1782915761.7787724,
-    "ast_hash": "609ee84d56f03344e2ad9bb3934e2241",
-    "semantic_hash": "609ee84d56f03344e2ad9bb3934e2241"
+    "mtime": 1783003916.1229987,
+    "ast_hash": "37593c0101c48aae02680b35b3a9ae9f",
+    "semantic_hash": "37593c0101c48aae02680b35b3a9ae9f"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\CooperativeSharesPage.tsx": {
     "mtime": 1782917455.4759402,
@@ -505,9 +495,9 @@
     "semantic_hash": "c635e327f0ea97845780d3d679f5b778"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\CooperativeSharesView.tsx": {
-    "mtime": 1782915761.5888486,
-    "ast_hash": "2250b2de3b16d8567d1d2da35be8176f",
-    "semantic_hash": "2250b2de3b16d8567d1d2da35be8176f"
+    "mtime": 1783002658.3010936,
+    "ast_hash": "5a510259288e49dec551c7d775c83d72",
+    "semantic_hash": "5a510259288e49dec551c7d775c83d72"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\MembershipPage.tsx": {
     "mtime": 1782917453.5662127,
@@ -515,44 +505,44 @@
     "semantic_hash": "2ef4bb0b616c26339fbdde68188cf500"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\MembershipView.tsx": {
-    "mtime": 1782915761.6136327,
-    "ast_hash": "d609e0d0af77d1f8fd40898dfc2b216f",
-    "semantic_hash": "d609e0d0af77d1f8fd40898dfc2b216f"
+    "mtime": 1783002427.724754,
+    "ast_hash": "d6ab33745daa433cfba5cf775da7e30d",
+    "semantic_hash": "d6ab33745daa433cfba5cf775da7e30d"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\LandingPage.tsx": {
-    "mtime": 1782918759.5470803,
-    "ast_hash": "6015a84fcc890a1ef7ba54be59222713",
-    "semantic_hash": "6015a84fcc890a1ef7ba54be59222713"
+    "mtime": 1783001795.7218814,
+    "ast_hash": "ac39420c061696ca5c92a1145921da7b",
+    "semantic_hash": "ac39420c061696ca5c92a1145921da7b"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\CtaSection.tsx": {
-    "mtime": 1782918735.247971,
-    "ast_hash": "815be74488a98867bd7fdfbdc3cf6d18",
-    "semantic_hash": "815be74488a98867bd7fdfbdc3cf6d18"
+    "mtime": 1783002040.5557141,
+    "ast_hash": "43b1eb5efe9383b0ee3f6e7245bb35ba",
+    "semantic_hash": "43b1eb5efe9383b0ee3f6e7245bb35ba"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\FeaturesSection.tsx": {
-    "mtime": 1782918487.2583635,
-    "ast_hash": "eb7d6a1bda485f7484c3b3a8aa7d5069",
-    "semantic_hash": "eb7d6a1bda485f7484c3b3a8aa7d5069"
+    "mtime": 1783001923.3455336,
+    "ast_hash": "f343af9201ef165dd619c053c87e1ba6",
+    "semantic_hash": "f343af9201ef165dd619c053c87e1ba6"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\HeroSection.tsx": {
-    "mtime": 1782918460.585154,
-    "ast_hash": "2a6fe6693d39f73a6f7060fc6a6e188a",
-    "semantic_hash": "2a6fe6693d39f73a6f7060fc6a6e188a"
+    "mtime": 1783001909.7307546,
+    "ast_hash": "08fdfd738c32d93dc68b74abc13e5f15",
+    "semantic_hash": "08fdfd738c32d93dc68b74abc13e5f15"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\HowItWorksSection.tsx": {
-    "mtime": 1782918502.787743,
-    "ast_hash": "7965f67b86f1454b5714d386ffa6152f",
-    "semantic_hash": "7965f67b86f1454b5714d386ffa6152f"
+    "mtime": 1783001952.8978317,
+    "ast_hash": "c5f4f2f3ff5838513b49f5681482c57c",
+    "semantic_hash": "c5f4f2f3ff5838513b49f5681482c57c"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\LandingFooter.tsx": {
-    "mtime": 1782924783.554196,
-    "ast_hash": "4324b0082e39e0b3843719584cec713c",
-    "semantic_hash": "4324b0082e39e0b3843719584cec713c"
+    "mtime": 1783002126.268714,
+    "ast_hash": "f9bfd627adac3d532871e0427c4410ed",
+    "semantic_hash": "f9bfd627adac3d532871e0427c4410ed"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\LandingNav.tsx": {
-    "mtime": 1782918415.2010145,
-    "ast_hash": "2d17ff770ab46e47be53f757fd36070a",
-    "semantic_hash": "2d17ff770ab46e47be53f757fd36070a"
+    "mtime": 1783001844.5091085,
+    "ast_hash": "d1e77b53ee617cdb6f7daa65adcddf22",
+    "semantic_hash": "d1e77b53ee617cdb6f7daa65adcddf22"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\Reveal.tsx": {
     "mtime": 1782918385.6728399,
@@ -560,14 +550,14 @@
     "semantic_hash": "a63bfb4f211bea0b256ee4154c78dc5a"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\SocialProofSection.tsx": {
-    "mtime": 1782918718.080428,
-    "ast_hash": "e06cacfc631d0c503999fbe412421fc7",
-    "semantic_hash": "e06cacfc631d0c503999fbe412421fc7"
+    "mtime": 1783002030.2727213,
+    "ast_hash": "94e897c9ac45765221dc9072b3d8864b",
+    "semantic_hash": "94e897c9ac45765221dc9072b3d8864b"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\landing\\sections\\TiersSection.tsx": {
-    "mtime": 1782918524.610216,
-    "ast_hash": "4cc01dccc58c06e23bfb0cae78818ca5",
-    "semantic_hash": "4cc01dccc58c06e23bfb0cae78818ca5"
+    "mtime": 1783002005.4494607,
+    "ast_hash": "adf9b640a344ca6634c628e14134ced0",
+    "semantic_hash": "adf9b640a344ca6634c628e14134ced0"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\AgriculturalMarketplacePage.tsx": {
     "mtime": 1782917447.252772,
@@ -575,9 +565,9 @@
     "semantic_hash": "9b36c720e624fb3af2796f2dd8f80bb6"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\AgriculturalMarketplaceView.tsx": {
-    "mtime": 1782915761.7424324,
-    "ast_hash": "9907fbb32574d19514d0e879183462d4",
-    "semantic_hash": "9907fbb32574d19514d0e879183462d4"
+    "mtime": 1783002314.9567587,
+    "ast_hash": "9e9579f4f141b9db895f59d545927fba",
+    "semantic_hash": "9e9579f4f141b9db895f59d545927fba"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\AgriculturalServicesPage.tsx": {
     "mtime": 1782917443.6412892,
@@ -585,9 +575,9 @@
     "semantic_hash": "bd83e788a79403fa363769b808198d5d"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\AgriculturalServicesView.tsx": {
-    "mtime": 1782915761.7049108,
-    "ast_hash": "67d3bb3684e5dff1f0ba28c878c8de2e",
-    "semantic_hash": "67d3bb3684e5dff1f0ba28c878c8de2e"
+    "mtime": 1783002220.6284902,
+    "ast_hash": "3d784a7c73cc08cb303265ddc521f34a",
+    "semantic_hash": "3d784a7c73cc08cb303265ddc521f34a"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\DashboardPage.tsx": {
     "mtime": 1782917432.3281739,
@@ -595,29 +585,19 @@
     "semantic_hash": "81525a97c1d1d0852f24843d419e61ba"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\DashboardView.tsx": {
-    "mtime": 1782919193.3306391,
-    "ast_hash": "fd98c0af7eecc6acb48b7fe066978beb",
-    "semantic_hash": "fd98c0af7eecc6acb48b7fe066978beb"
+    "mtime": 1783002169.7223217,
+    "ast_hash": "d0b391df574603043b41833035a1e0be",
+    "semantic_hash": "d0b391df574603043b41833035a1e0be"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\DigitalWalletPage.tsx": {
-    "mtime": 1782917434.6868708,
-    "ast_hash": "83c7e92a43ec550dc5d624a0fdd2fa4f",
-    "semantic_hash": "83c7e92a43ec550dc5d624a0fdd2fa4f"
+    "mtime": 1782956420.5597029,
+    "ast_hash": "222944b494f8f4df1be81f0727202293",
+    "semantic_hash": "222944b494f8f4df1be81f0727202293"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\DigitalWalletView.tsx": {
-    "mtime": 1782917866.6609955,
-    "ast_hash": "e8a986b6d3fab537c44c28258b083855",
-    "semantic_hash": "e8a986b6d3fab537c44c28258b083855"
-  },
-  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\EquipmentBookingPage.tsx": {
-    "mtime": 1782917440.8006186,
-    "ast_hash": "db99b7aa9604a33f6c28fdacd1a3ce67",
-    "semantic_hash": "db99b7aa9604a33f6c28fdacd1a3ce67"
-  },
-  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\EquipmentBookingView.tsx": {
-    "mtime": 1782915761.671596,
-    "ast_hash": "87d8deb55e1821aadc9d581d1634f65a",
-    "semantic_hash": "87d8deb55e1821aadc9d581d1634f65a"
+    "mtime": 1783002419.6472633,
+    "ast_hash": "25316d2f39273432820f9987a4054218",
+    "semantic_hash": "25316d2f39273432820f9987a4054218"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\SavingsProductsPage.tsx": {
     "mtime": 1782917437.9844048,
@@ -625,9 +605,9 @@
     "semantic_hash": "91fc8f43f0d83fb65467727c5740e6d2"
   },
   "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\SavingsProductsView.tsx": {
-    "mtime": 1782917890.2243273,
-    "ast_hash": "3dffd97a1ca3bda609965f3a3dcb438f",
-    "semantic_hash": "3dffd97a1ca3bda609965f3a3dcb438f"
+    "mtime": 1783002434.5431776,
+    "ast_hash": "865b7cf210238deaf33697fd49afdece",
+    "semantic_hash": "865b7cf210238deaf33697fd49afdece"
   },
   "C:\\karldworld\\Bennie-connect\\src\\routes\\AdminProtectedRoute.tsx": {
     "mtime": 1782945616.4839766,
@@ -665,9 +645,9 @@
     "semantic_hash": "f9bedb3fa3d32ce0755d363b3108129d"
   },
   "C:\\karldworld\\Bennie-connect\\src\\types\\admin.ts": {
-    "mtime": 1782945384.2502012,
-    "ast_hash": "bbf6a296843a78a3beab77d7d78eec49",
-    "semantic_hash": "bbf6a296843a78a3beab77d7d78eec49"
+    "mtime": 1782991291.0751922,
+    "ast_hash": "fc8e4dc4f943b85c4ef1037eb0dbc62e",
+    "semantic_hash": "fc8e4dc4f943b85c4ef1037eb0dbc62e"
   },
   "C:\\karldworld\\Bennie-connect\\src\\vite-env.d.ts": {
     "mtime": 1782916948.1008334,
@@ -695,14 +675,14 @@
     "semantic_hash": "4e83572725f0ae886fdd83f7f5541fe9"
   },
   "C:\\karldworld\\Bennie-connect\\.claude\\agents\\backend-dev.md": {
-    "mtime": 1782941033.970179,
-    "ast_hash": "ea4eacb41387b4e0f4fb5bfeba51d6c5",
-    "semantic_hash": "ea4eacb41387b4e0f4fb5bfeba51d6c5"
+    "mtime": 1782953250.110796,
+    "ast_hash": "a5079e6d7a4750463ef9061e6d72b664",
+    "semantic_hash": "a5079e6d7a4750463ef9061e6d72b664"
   },
   "C:\\karldworld\\Bennie-connect\\.claude\\agents\\user-dev.md": {
-    "mtime": 1782941976.1546702,
-    "ast_hash": "b73471fe5f863fefcee27f41c0eca9ad",
-    "semantic_hash": "b73471fe5f863fefcee27f41c0eca9ad"
+    "mtime": 1782953250.110796,
+    "ast_hash": "643e48cf78f2544590130447a52ca7bb",
+    "semantic_hash": "643e48cf78f2544590130447a52ca7bb"
   },
   "C:\\karldworld\\Bennie-connect\\.claude\\agents\\user-prd-enricher.md": {
     "mtime": 1782941555.7882872,
@@ -720,29 +700,29 @@
     "semantic_hash": "5ab816dda3120b959de949bc0698f0c3"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\README.md": {
-    "mtime": 1782942984.1600742,
-    "ast_hash": "9f84124e0a697045fbc23edcab8c0688",
-    "semantic_hash": "9f84124e0a697045fbc23edcab8c0688"
+    "mtime": 1782992376.2943492,
+    "ast_hash": "11a3e7479c8cf45a3a9389ac2d5c385f",
+    "semantic_hash": "11a3e7479c8cf45a3a9389ac2d5c385f"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\adas_hesu_contributions\\adas_hesu_contributions.md": {
-    "mtime": 1782940970.3629208,
-    "ast_hash": "3e83cc71a2125ecef1d7668beb1c592a",
-    "semantic_hash": "3e83cc71a2125ecef1d7668beb1c592a"
+    "mtime": 1782984406.9413698,
+    "ast_hash": "3cdc1e21d396196284b9dc4db226f0ec",
+    "semantic_hash": "3cdc1e21d396196284b9dc4db226f0ec"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\admin_dashboard\\admin_dashboard.md": {
-    "mtime": 1782942896.789967,
-    "ast_hash": "b5afada2d7149124fd09ed70ce55a3b4",
-    "semantic_hash": "b5afada2d7149124fd09ed70ce55a3b4"
+    "mtime": 1782984491.041391,
+    "ast_hash": "5d7b937a5cbcac83a1a746716baac87b",
+    "semantic_hash": "5d7b937a5cbcac83a1a746716baac87b"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\admin_layout\\admin_layout.md": {
-    "mtime": 1782942815.8591855,
-    "ast_hash": "2d12f184c97fd6d496b6bbb883880a98",
-    "semantic_hash": "2d12f184c97fd6d496b6bbb883880a98"
+    "mtime": 1783001940.0405703,
+    "ast_hash": "d6eaf877ce144549931343957b8c6320",
+    "semantic_hash": "d6eaf877ce144549931343957b8c6320"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\admin_prompt.md": {
-    "mtime": 1782928111.2290363,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1783032797.0836544,
+    "ast_hash": "7c533dddad800c4821429abd17fbda41",
+    "semantic_hash": "7c533dddad800c4821429abd17fbda41"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\admins\\admins.md": {
     "mtime": 1782940515.5822878,
@@ -770,9 +750,9 @@
     "semantic_hash": "e35ce286b72ab6177d74e8686e3c163a"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\equipment_booking\\equipment_booking.md": {
-    "mtime": 1782940854.406107,
-    "ast_hash": "dc7d563668a9010fb5d9fc1b9ab23c9f",
-    "semantic_hash": "dc7d563668a9010fb5d9fc1b9ab23c9f"
+    "mtime": 1783005389.8142052,
+    "ast_hash": "12746b4672adf52d642de93aa756cb59",
+    "semantic_hash": "12746b4672adf52d642de93aa756cb59"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\marketplace\\marketplace.md": {
     "mtime": 1782940781.404752,
@@ -800,9 +780,9 @@
     "semantic_hash": "fb9e7afbf710d8eb4e1bfed74f95e15c"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\data_structure.md": {
-    "mtime": 1782942977.5758908,
-    "ast_hash": "3e409cfe1526982931a2b409d3f20b6c",
-    "semantic_hash": "3e409cfe1526982931a2b409d3f20b6c"
+    "mtime": 1783005424.2200024,
+    "ast_hash": "c45abc8630750b260b544691b83baec1",
+    "semantic_hash": "c45abc8630750b260b544691b83baec1"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\landing_page.md": {
     "mtime": 1782924933.3752697,
@@ -815,14 +795,14 @@
     "semantic_hash": "65be597c70db541a25e83664312f2356"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\system_prompt.md": {
-    "mtime": 1782903028.45784,
-    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
-    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+    "mtime": 1782999075.365801,
+    "ast_hash": "a8baa84f373093d147a3783bc8ed8bce",
+    "semantic_hash": "a8baa84f373093d147a3783bc8ed8bce"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\adashesu-contributions\\adashesu-contributions.md": {
-    "mtime": 1782902427.6711438,
-    "ast_hash": "1f05f04c4c37535cfcd9a31cc4dce5e7",
-    "semantic_hash": "1f05f04c4c37535cfcd9a31cc4dce5e7"
+    "mtime": 1782984394.477008,
+    "ast_hash": "fd8807b085ca4d21de988096c8d100c1",
+    "semantic_hash": "fd8807b085ca4d21de988096c8d100c1"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\agent-dashboard-commission\\agent-dashboard-commission.md": {
     "mtime": 1782902427.672226,
@@ -850,9 +830,9 @@
     "semantic_hash": "312adab3029cec7fc44797219b9d8e56"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\dashboard\\user_dashboard.md": {
-    "mtime": 1782924992.1343448,
-    "ast_hash": "193579db08b093b3ff74cf26e03114a6",
-    "semantic_hash": "193579db08b093b3ff74cf26e03114a6"
+    "mtime": 1782984526.1579885,
+    "ast_hash": "26052805c12d7cf738bc0badf85d63f3",
+    "semantic_hash": "26052805c12d7cf738bc0badf85d63f3"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\ecommerce-marketplace\\ecommerce-marketplace.md": {
     "mtime": 1782902427.6705813,
@@ -860,9 +840,9 @@
     "semantic_hash": "619d22228bfcb29494bbbb6600cf2a1e"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\equipment-booking-gps\\equipment-booking-gps.md": {
-    "mtime": 1782902427.6689534,
-    "ast_hash": "c85eb8d382395ef35776b5418b6abb8e",
-    "semantic_hash": "c85eb8d382395ef35776b5418b6abb8e"
+    "mtime": 1783005360.4400153,
+    "ast_hash": "78c050d5614cac4c7fbe4a361b74563c",
+    "semantic_hash": "78c050d5614cac4c7fbe4a361b74563c"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\membership\\membership-management.md": {
     "mtime": 1782902427.6667986,
@@ -880,9 +860,9 @@
     "semantic_hash": "84df765001a1a26d744826806eab31d2"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\wallet\\digital-wallet-seerbit.md": {
-    "mtime": 1782902427.6651156,
-    "ast_hash": "ab4e4eedede1be38e1e3a6773d4cfd92",
-    "semantic_hash": "ab4e4eedede1be38e1e3a6773d4cfd92"
+    "mtime": 1782955096.6648214,
+    "ast_hash": "e1c0c60cca970392bb3b80a4096ca37e",
+    "semantic_hash": "e1c0c60cca970392bb3b80a4096ca37e"
   },
   "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\wallet\\user_wallet_prompt.md": {
     "mtime": 1782946821.0433369,
@@ -895,13 +875,938 @@
     "semantic_hash": "acd79b66b9e83518d341c759f3362802"
   },
   "C:\\karldworld\\Bennie-connect\\index.html": {
-    "mtime": 1782944706.6205807,
-    "ast_hash": "559e6712c8655eb0e2e0b61046144d18",
-    "semantic_hash": "559e6712c8655eb0e2e0b61046144d18"
+    "mtime": 1783015737.4607759,
+    "ast_hash": "048ad6a36e8c6dc5100b77b38e9fde2c",
+    "semantic_hash": "048ad6a36e8c6dc5100b77b38e9fde2c"
   },
   "C:\\karldworld\\Bennie-connect\\public\\ben_logo.png": {
     "mtime": 1782928524.7605803,
     "ast_hash": "5e9f93a1213cf90b85f89df49121ed0b",
     "semantic_hash": "5e9f93a1213cf90b85f89df49121ed0b"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\admin-notification.controller.ts": {
+    "mtime": 1782949783.279786,
+    "ast_hash": "2a2e7fde234d5b50f953b0c66952c735",
+    "semantic_hash": "2a2e7fde234d5b50f953b0c66952c735"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\dto\\index.ts": {
+    "mtime": 1782949751.75639,
+    "ast_hash": "f669a1987e6116563accbe884a3f5389",
+    "semantic_hash": "f669a1987e6116563accbe884a3f5389"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\dto\\list-notifications.dto.ts": {
+    "mtime": 1782949750.762917,
+    "ast_hash": "af4a1f0e63ec685b8607d7692644b50f",
+    "semantic_hash": "af4a1f0e63ec685b8607d7692644b50f"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\fcm.service.ts": {
+    "mtime": 1782950045.6681898,
+    "ast_hash": "3014c85c88eac646746c74ac28ed4ae8",
+    "semantic_hash": "3014c85c88eac646746c74ac28ed4ae8"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\notification.controller.ts": {
+    "mtime": 1782950011.839405,
+    "ast_hash": "de2a48015fd0df0898a9eb12c076e6f9",
+    "semantic_hash": "de2a48015fd0df0898a9eb12c076e6f9"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\notification.gateway.ts": {
+    "mtime": 1782951953.609782,
+    "ast_hash": "194fe08ddd98e03bfd41ce57c0659c87",
+    "semantic_hash": "194fe08ddd98e03bfd41ce57c0659c87"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\notification.module.ts": {
+    "mtime": 1782950011.8400214,
+    "ast_hash": "f3b5c020fb94bb989e91e3360e31bc0f",
+    "semantic_hash": "f3b5c020fb94bb989e91e3360e31bc0f"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\notification.service.ts": {
+    "mtime": 1782950011.8430312,
+    "ast_hash": "cd6479f6227d069d8b05a51e5c1e564b",
+    "semantic_hash": "cd6479f6227d069d8b05a51e5c1e564b"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\schemas\\index.ts": {
+    "mtime": 1782949652.1428587,
+    "ast_hash": "4cf720024fa228ef8908b36b76670fed",
+    "semantic_hash": "4cf720024fa228ef8908b36b76670fed"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\notifications\\schemas\\notification.schema.ts": {
+    "mtime": 1782949646.0196075,
+    "ast_hash": "16d53c7fc06f7c0c57206b8e5f810317",
+    "semantic_hash": "16d53c7fc06f7c0c57206b8e5f810317"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\constants\\nigerian-banks.ts": {
+    "mtime": 1782955390.60648,
+    "ast_hash": "bb65b76a17d6b4a1c8f884b3dfd5f192",
+    "semantic_hash": "bb65b76a17d6b4a1c8f884b3dfd5f192"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\dto\\index.ts": {
+    "mtime": 1782955717.8353386,
+    "ast_hash": "16e4ff9579a7f4cb56ef9e8569ce21b4",
+    "semantic_hash": "16e4ff9579a7f4cb56ef9e8569ce21b4"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\schemas\\bank-account.schema.ts": {
+    "mtime": 1782955376.5767424,
+    "ast_hash": "e163fa5368daa5153798b9060dc7a208",
+    "semantic_hash": "e163fa5368daa5153798b9060dc7a208"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\schemas\\deposit-request.schema.ts": {
+    "mtime": 1782955707.8507519,
+    "ast_hash": "e9145741019c3f7abbec6b6dc2db1bb6",
+    "semantic_hash": "e9145741019c3f7abbec6b6dc2db1bb6"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\schemas\\transaction.schema.ts": {
+    "mtime": 1782955707.8507519,
+    "ast_hash": "4342c2265cdd58cc0096f7a9d1a2ad42",
+    "semantic_hash": "4342c2265cdd58cc0096f7a9d1a2ad42"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\schemas\\wallet.schema.ts": {
+    "mtime": 1782955331.7841861,
+    "ast_hash": "2f978b919f3da805f74b48d5c2b4f70c",
+    "semantic_hash": "2f978b919f3da805f74b48d5c2b4f70c"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\schemas\\withdrawal-request.schema.ts": {
+    "mtime": 1782955707.851764,
+    "ast_hash": "7b430f2fe974199edcbc5bab6745dca4",
+    "semantic_hash": "7b430f2fe974199edcbc5bab6745dca4"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\seerbit.service.ts": {
+    "mtime": 1782978963.0875776,
+    "ast_hash": "1402d0e7632af91e2c8885186194c6eb",
+    "semantic_hash": "1402d0e7632af91e2c8885186194c6eb"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\wallet.controller.ts": {
+    "mtime": 1782955707.8507519,
+    "ast_hash": "c1142a8fddc9a5ad7d623b592928a4d9",
+    "semantic_hash": "c1142a8fddc9a5ad7d623b592928a4d9"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\wallet.errors.ts": {
+    "mtime": 1782955400.4823227,
+    "ast_hash": "a10f8309778a28d9d445a6dbccb1a0d1",
+    "semantic_hash": "a10f8309778a28d9d445a6dbccb1a0d1"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\wallet.module.ts": {
+    "mtime": 1782955641.5860586,
+    "ast_hash": "6284396c2a1b8e037dde656b36601a5e",
+    "semantic_hash": "6284396c2a1b8e037dde656b36601a5e"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\wallet.service.ts": {
+    "mtime": 1783011373.637173,
+    "ast_hash": "e84c0eaa14bdb756880f24767277aac8",
+    "semantic_hash": "e84c0eaa14bdb756880f24767277aac8"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\wallet\\webhook.controller.ts": {
+    "mtime": 1782955707.851764,
+    "ast_hash": "a410160b8f0d847fe43e1fb17554a5c5",
+    "semantic_hash": "a410160b8f0d847fe43e1fb17554a5c5"
+  },
+  "C:\\karldworld\\Bennie-connect\\public\\firebase-messaging-sw.js": {
+    "mtime": 1782950378.0956075,
+    "ast_hash": "9d46f4bbddb57cb7b3a68b5a32f1ca8e",
+    "semantic_hash": "9d46f4bbddb57cb7b3a68b5a32f1ca8e"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\components\\layout\\NotificationBell.tsx": {
+    "mtime": 1783002448.5736597,
+    "ast_hash": "e61beb1726819d051638b5797c243833",
+    "semantic_hash": "e61beb1726819d051638b5797c243833"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\Toast.tsx": {
+    "mtime": 1782950446.0975523,
+    "ast_hash": "23c76e478cd37f73b658ff37347f032d",
+    "semantic_hash": "23c76e478cd37f73b658ff37347f032d"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\adminApi.ts": {
+    "mtime": 1782953250.494018,
+    "ast_hash": "d686d96c55eec3e7516b1366b2f9a582",
+    "semantic_hash": "d686d96c55eec3e7516b1366b2f9a582"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\adminPermissions.ts": {
+    "mtime": 1782945412.5668688,
+    "ast_hash": "4825237bc45e7fde514285ef9330fd85",
+    "semantic_hash": "4825237bc45e7fde514285ef9330fd85"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\api.ts": {
+    "mtime": 1782953250.494018,
+    "ast_hash": "f112fa1c987b042b06a20fa81382a363",
+    "semantic_hash": "f112fa1c987b042b06a20fa81382a363"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\constants.ts": {
+    "mtime": 1782931635.3523543,
+    "ast_hash": "7a0c67a9d5452eab36276c7a39178502",
+    "semantic_hash": "7a0c67a9d5452eab36276c7a39178502"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\firebase.ts": {
+    "mtime": 1782950362.3305657,
+    "ast_hash": "bb3c683dbb465e4dbdf3151941065ce8",
+    "semantic_hash": "bb3c683dbb465e4dbdf3151941065ce8"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\format.ts": {
+    "mtime": 1782915769.8854685,
+    "ast_hash": "ad45c60883e4c8aea513b6f75d9b1b90",
+    "semantic_hash": "ad45c60883e4c8aea513b6f75d9b1b90"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\seerbit.ts": {
+    "mtime": 1782956361.0066664,
+    "ast_hash": "ffb24a6f188395ab86bf53e2b9ebdf5d",
+    "semantic_hash": "ffb24a6f188395ab86bf53e2b9ebdf5d"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\socket.ts": {
+    "mtime": 1782953250.494018,
+    "ast_hash": "6b60093949b428643f8f3a40d1010c25",
+    "semantic_hash": "6b60093949b428643f8f3a40d1010c25"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\storage.ts": {
+    "mtime": 1782944631.3574684,
+    "ast_hash": "38b21df28899aa132ad9c2325052e436",
+    "semantic_hash": "38b21df28899aa132ad9c2325052e436"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\providers\\AdminNotificationProvider.tsx": {
+    "mtime": 1782951476.404189,
+    "ast_hash": "1455479c89ef1703132810aafc43f81a",
+    "semantic_hash": "1455479c89ef1703132810aafc43f81a"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\providers\\NotificationProvider.tsx": {
+    "mtime": 1783015777.6959095,
+    "ast_hash": "4145e3c6b5bed67f7290b0843f190dd7",
+    "semantic_hash": "4145e3c6b5bed67f7290b0843f190dd7"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\services\\wallet.service.ts": {
+    "mtime": 1782956343.6679132,
+    "ast_hash": "9ce1a5354250d2bcb0642377afde625a",
+    "semantic_hash": "9ce1a5354250d2bcb0642377afde625a"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\store\\adminNotificationStore.ts": {
+    "mtime": 1782951446.8558855,
+    "ast_hash": "43b704282cf596ca64d05964deb8cb86",
+    "semantic_hash": "43b704282cf596ca64d05964deb8cb86"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\store\\notificationStore.ts": {
+    "mtime": 1782950421.2654717,
+    "ast_hash": "2fafcd2081914842a91c76e61e718a0f",
+    "semantic_hash": "2fafcd2081914842a91c76e61e718a0f"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\store\\walletStore.ts": {
+    "mtime": 1782956388.367041,
+    "ast_hash": "127c0036628e742495e9163a32522c18",
+    "semantic_hash": "127c0036628e742495e9163a32522c18"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\types\\wallet.ts": {
+    "mtime": 1782956327.827477,
+    "ast_hash": "c00ec5aed59125c45b7b660707481f01",
+    "semantic_hash": "c00ec5aed59125c45b7b660707481f01"
+  },
+  "C:\\karldworld\\Bennie-connect\\vercel.json": {
+    "mtime": 1765316857.1109662,
+    "ast_hash": "c395407017fa6a8332279c1f47e21f13",
+    "semantic_hash": "c395407017fa6a8332279c1f47e21f13"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\notification.md": {
+    "mtime": 1782949674.0794823,
+    "ast_hash": "e51b06b61071af30de5fe808e7af2356",
+    "semantic_hash": "e51b06b61071af30de5fe808e7af2356"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\socket.io.md": {
+    "mtime": 1782953250.110796,
+    "ast_hash": "76499f9b546db096d3d56af8f9f1dfaa",
+    "semantic_hash": "76499f9b546db096d3d56af8f9f1dfaa"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\admin-contributions.controller.ts": {
+    "mtime": 1782997253.0390823,
+    "ast_hash": "421fa0cfdaa812b48dee619fd2e623a0",
+    "semantic_hash": "421fa0cfdaa812b48dee619fd2e623a0"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\admin-contributions.service.ts": {
+    "mtime": 1782997150.3362598,
+    "ast_hash": "ca901c529d8155f206995bb1e3913373",
+    "semantic_hash": "ca901c529d8155f206995bb1e3913373"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\contributions.constants.ts": {
+    "mtime": 1782984395.8487382,
+    "ast_hash": "5a8da2d9336be093da8a63ca029498a0",
+    "semantic_hash": "5a8da2d9336be093da8a63ca029498a0"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\contributions.controller.ts": {
+    "mtime": 1782987095.911276,
+    "ast_hash": "7c14cc887e9acc09773d6a3b5fbeee90",
+    "semantic_hash": "7c14cc887e9acc09773d6a3b5fbeee90"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\contributions.gateway.ts": {
+    "mtime": 1782984460.955145,
+    "ast_hash": "74342164e4a7de7182916c12b8306836",
+    "semantic_hash": "74342164e4a7de7182916c12b8306836"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\contributions.module.ts": {
+    "mtime": 1782997185.7935758,
+    "ast_hash": "aa4701c809b877b616aa8a280c7a7178",
+    "semantic_hash": "aa4701c809b877b616aa8a280c7a7178"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\contributions.serializer.ts": {
+    "mtime": 1782991305.8064706,
+    "ast_hash": "fbd9a38063e240f6f14f61f25cd09aee",
+    "semantic_hash": "fbd9a38063e240f6f14f61f25cd09aee"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\contributions.service.ts": {
+    "mtime": 1782992621.571527,
+    "ast_hash": "528a9f0e81bfdb3dc9260c7c64768bba",
+    "semantic_hash": "528a9f0e81bfdb3dc9260c7c64768bba"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\admin-create-group.dto.ts": {
+    "mtime": 1782986892.7971733,
+    "ast_hash": "18fe194ede341bf20d13556214a2462f",
+    "semantic_hash": "18fe194ede341bf20d13556214a2462f"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\admin-list-groups.dto.ts": {
+    "mtime": 1782984423.4688382,
+    "ast_hash": "389caab6ed4486a2d2465ace2eb90c6a",
+    "semantic_hash": "389caab6ed4486a2d2465ace2eb90c6a"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\contribute.dto.ts": {
+    "mtime": 1782984409.1747625,
+    "ast_hash": "5467a0eaf19eaf8cdc8feef885c8ab1a",
+    "semantic_hash": "5467a0eaf19eaf8cdc8feef885c8ab1a"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\create-group.dto.ts": {
+    "mtime": 1782984403.916741,
+    "ast_hash": "2101740ec173d43408ae3cc16a5a2ca9",
+    "semantic_hash": "2101740ec173d43408ae3cc16a5a2ca9"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\create-proposal.dto.ts": {
+    "mtime": 1782984410.7570536,
+    "ast_hash": "75b729ff5d0cfa13f15205ceecbe698b",
+    "semantic_hash": "75b729ff5d0cfa13f15205ceecbe698b"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\decide-proposal.dto.ts": {
+    "mtime": 1782984427.1843972,
+    "ast_hash": "5181905b030731bc7765fc5cc9801b2d",
+    "semantic_hash": "5181905b030731bc7765fc5cc9801b2d"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\invite-member.dto.ts": {
+    "mtime": 1782984407.4937754,
+    "ast_hash": "ff6b54efc015c0d4cb66cad01586a2b6",
+    "semantic_hash": "ff6b54efc015c0d4cb66cad01586a2b6"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\list-messages.dto.ts": {
+    "mtime": 1782984433.2286,
+    "ast_hash": "29cb455f9218f8fe7199b185e1e42b7e",
+    "semantic_hash": "29cb455f9218f8fe7199b185e1e42b7e"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\request-slot-shift.dto.ts": {
+    "mtime": 1782984415.1280124,
+    "ast_hash": "8e01bf6ee68c706e83fed78af890e7a8",
+    "semantic_hash": "8e01bf6ee68c706e83fed78af890e7a8"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\suspend-group.dto.ts": {
+    "mtime": 1782996088.267286,
+    "ast_hash": "146331ee5d78538d8ff46ca4aeb90f67",
+    "semantic_hash": "146331ee5d78538d8ff46ca4aeb90f67"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\update-rules.dto.ts": {
+    "mtime": 1782984431.8137276,
+    "ast_hash": "cca7accf4a296e32d1df10b41864d6f0",
+    "semantic_hash": "cca7accf4a296e32d1df10b41864d6f0"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\dto\\vote.dto.ts": {
+    "mtime": 1782984414.8678248,
+    "ast_hash": "c96fb6994aa85d5a6aecc0326e958bd0",
+    "semantic_hash": "c96fb6994aa85d5a6aecc0326e958bd0"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\contribution-group.schema.ts": {
+    "mtime": 1782984307.9215229,
+    "ast_hash": "a99ea73851b7a0ac1afde92a05a3aad9",
+    "semantic_hash": "a99ea73851b7a0ac1afde92a05a3aad9"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\group-activity-log.schema.ts": {
+    "mtime": 1782984373.3735087,
+    "ast_hash": "48ca9846bdbdc6d06b14c3d2f3b372a8",
+    "semantic_hash": "48ca9846bdbdc6d06b14c3d2f3b372a8"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\group-attendance.schema.ts": {
+    "mtime": 1782984353.7550623,
+    "ast_hash": "2b7b66ae14ed7de7d9d7f6e6f661abb5",
+    "semantic_hash": "2b7b66ae14ed7de7d9d7f6e6f661abb5"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\group-invitation.schema.ts": {
+    "mtime": 1782984326.8270538,
+    "ast_hash": "a0e7cdfc1f9a5c0010fb0597673d7a78",
+    "semantic_hash": "a0e7cdfc1f9a5c0010fb0597673d7a78"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\group-member.schema.ts": {
+    "mtime": 1782987095.911276,
+    "ast_hash": "62a5b45bd44b8ae22ddb1d1ea5f78ef2",
+    "semantic_hash": "62a5b45bd44b8ae22ddb1d1ea5f78ef2"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\group-message.schema.ts": {
+    "mtime": 1782984332.704311,
+    "ast_hash": "10cb9d0b3905a344f7657d64a0d4dfde",
+    "semantic_hash": "10cb9d0b3905a344f7657d64a0d4dfde"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\group-proposal.schema.ts": {
+    "mtime": 1782984346.837703,
+    "ast_hash": "b3c877717090c28214baf9b34521e7e5",
+    "semantic_hash": "b3c877717090c28214baf9b34521e7e5"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\contributions\\schemas\\payout-request.schema.ts": {
+    "mtime": 1782996286.9903162,
+    "ast_hash": "2481ddcb8e1dfc3d32f88d504426fe2a",
+    "semantic_hash": "2481ddcb8e1dfc3d32f88d504426fe2a"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\admin-equipment.controller.ts": {
+    "mtime": 1783012027.3019485,
+    "ast_hash": "4616cb2e3b1680ce90f8d3fd7682b8b4",
+    "semantic_hash": "4616cb2e3b1680ce90f8d3fd7682b8b4"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\admin-equipment.service.ts": {
+    "mtime": 1783012027.3019485,
+    "ast_hash": "b722021e81b6b8874b7b1f8b75de3058",
+    "semantic_hash": "b722021e81b6b8874b7b1f8b75de3058"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\dto\\admin-booking.dto.ts": {
+    "mtime": 1783011555.9412477,
+    "ast_hash": "989d551363fee1185631e834a9f26f34",
+    "semantic_hash": "989d551363fee1185631e834a9f26f34"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\dto\\admin-equipment.dto.ts": {
+    "mtime": 1783011540.5667346,
+    "ast_hash": "a43323aba83925854cdfad98840be95d",
+    "semantic_hash": "a43323aba83925854cdfad98840be95d"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\dto\\admin-gps.dto.ts": {
+    "mtime": 1783011571.1083224,
+    "ast_hash": "82f0641c8c1117b3657d2b9ac7e3b268",
+    "semantic_hash": "82f0641c8c1117b3657d2b9ac7e3b268"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\dto\\create-booking.dto.ts": {
+    "mtime": 1783011512.462983,
+    "ast_hash": "ce0686ce6768faa4bcb101b6e5573b95",
+    "semantic_hash": "ce0686ce6768faa4bcb101b6e5573b95"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\dto\\list-equipment.dto.ts": {
+    "mtime": 1783011502.7658162,
+    "ast_hash": "ebc307bbb863af76736f05a6ff0d46eb",
+    "semantic_hash": "ebc307bbb863af76736f05a6ff0d46eb"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\dto\\user-booking.dto.ts": {
+    "mtime": 1783011520.5824223,
+    "ast_hash": "efac3c93299f313bb6767d2b4f38d18e",
+    "semantic_hash": "efac3c93299f313bb6767d2b4f38d18e"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\equipment-gps.service.ts": {
+    "mtime": 1783012027.3045042,
+    "ast_hash": "908d01193ec5a765cba73557264513b5",
+    "semantic_hash": "908d01193ec5a765cba73557264513b5"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\equipment.controller.ts": {
+    "mtime": 1783012027.3045042,
+    "ast_hash": "8f0bec65e32adeb27a2868c42ec845b4",
+    "semantic_hash": "8f0bec65e32adeb27a2868c42ec845b4"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\equipment.errors.ts": {
+    "mtime": 1783011483.0993102,
+    "ast_hash": "af2aaa606e7d9a31fcb140dc19e70ca5",
+    "semantic_hash": "af2aaa606e7d9a31fcb140dc19e70ca5"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\equipment.gateway.ts": {
+    "mtime": 1783012027.3045042,
+    "ast_hash": "862ef82611c03b5f4ac7d17c82beed8a",
+    "semantic_hash": "862ef82611c03b5f4ac7d17c82beed8a"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\equipment.module.ts": {
+    "mtime": 1783011954.6226506,
+    "ast_hash": "94a380f6adea5e154d4ed5f32d88cbf5",
+    "semantic_hash": "94a380f6adea5e154d4ed5f32d88cbf5"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\equipment.serializer.ts": {
+    "mtime": 1783011492.6568394,
+    "ast_hash": "88480d38ebff2a322381d0dbf98a4d3d",
+    "semantic_hash": "88480d38ebff2a322381d0dbf98a4d3d"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\equipment.service.ts": {
+    "mtime": 1783012039.2728958,
+    "ast_hash": "1f0c64f124def6804933ff0c3b5f311d",
+    "semantic_hash": "1f0c64f124def6804933ff0c3b5f311d"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\schemas\\equipment-booking.schema.ts": {
+    "mtime": 1783011439.411664,
+    "ast_hash": "912698ee85d07d525343ed8e507402fa",
+    "semantic_hash": "912698ee85d07d525343ed8e507402fa"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\schemas\\equipment-rate-config.schema.ts": {
+    "mtime": 1783012027.306475,
+    "ast_hash": "c93ea85f441fd6dcaff62b23d10ee896",
+    "semantic_hash": "c93ea85f441fd6dcaff62b23d10ee896"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\schemas\\equipment.schema.ts": {
+    "mtime": 1783012027.306475,
+    "ast_hash": "43795c856b0f5f48db02780eef8c337f",
+    "semantic_hash": "43795c856b0f5f48db02780eef8c337f"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\schemas\\geofence.schema.ts": {
+    "mtime": 1783011457.877754,
+    "ast_hash": "5a578327199529d232fd3bfe7b37ce94",
+    "semantic_hash": "5a578327199529d232fd3bfe7b37ce94"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\equipment\\schemas\\gps-alert.schema.ts": {
+    "mtime": 1783012027.3074436,
+    "ast_hash": "2bc2df907af5d993f9012e509a1e77a3",
+    "semantic_hash": "2bc2df907af5d993f9012e509a1e77a3"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\admin-upload.controller.ts": {
+    "mtime": 1782999611.3640013,
+    "ast_hash": "dad1332ed6e6e6c3e8e42891dcc42232",
+    "semantic_hash": "dad1332ed6e6e6c3e8e42891dcc42232"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\dto\\index.ts": {
+    "mtime": 1782998570.5715575,
+    "ast_hash": "7203dbf038637bb758c3ebefb6b07838",
+    "semantic_hash": "7203dbf038637bb758c3ebefb6b07838"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\dto\\list-media.dto.ts": {
+    "mtime": 1782998567.9484272,
+    "ast_hash": "a3bfac982156cd720f80fbc27e924319",
+    "semantic_hash": "a3bfac982156cd720f80fbc27e924319"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\gcs.service.ts": {
+    "mtime": 1782998562.4586794,
+    "ast_hash": "92924d20f23a52ced149d0081b4aed8e",
+    "semantic_hash": "92924d20f23a52ced149d0081b4aed8e"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\multer-exception.filter.ts": {
+    "mtime": 1782998772.6947317,
+    "ast_hash": "6fa112ab48d0ecbe2c6d47dc34106120",
+    "semantic_hash": "6fa112ab48d0ecbe2c6d47dc34106120"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\schemas\\file.schema.ts": {
+    "mtime": 1782999421.2579465,
+    "ast_hash": "e240d54702b3d06fa1481765b017b3f7",
+    "semantic_hash": "e240d54702b3d06fa1481765b017b3f7"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\storage.constants.ts": {
+    "mtime": 1782998534.675401,
+    "ast_hash": "a24e8b4a1e8fd1e5e33f384722c3cfa9",
+    "semantic_hash": "a24e8b4a1e8fd1e5e33f384722c3cfa9"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\storage.module.ts": {
+    "mtime": 1782999514.6069443,
+    "ast_hash": "f6951ec142917c7f42677e93e5c45212",
+    "semantic_hash": "f6951ec142917c7f42677e93e5c45212"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\upload.controller.ts": {
+    "mtime": 1782999484.2747998,
+    "ast_hash": "4792cb2b53e4eac1019910248e59a259",
+    "semantic_hash": "4792cb2b53e4eac1019910248e59a259"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\upload.multer.ts": {
+    "mtime": 1782999462.0474637,
+    "ast_hash": "73a847d75ffbbaaa9799e28ed77d1bfb",
+    "semantic_hash": "73a847d75ffbbaaa9799e28ed77d1bfb"
+  },
+  "C:\\karldworld\\Bennie-connect\\backend\\src\\storage\\upload.service.ts": {
+    "mtime": 1782999441.284092,
+    "ast_hash": "e3ff46ffa69d5d6c96244e231febc3bd",
+    "semantic_hash": "e3ff46ffa69d5d6c96244e231febc3bd"
+  },
+  "C:\\karldworld\\Bennie-connect\\eqharness.tsx": {
+    "mtime": 1783019011.3968987,
+    "ast_hash": "77480e48dfb108e0923eb2507555664a",
+    "semantic_hash": "77480e48dfb108e0923eb2507555664a"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\components\\layout\\userNav.ts": {
+    "mtime": 1783001769.2924845,
+    "ast_hash": "419608538907000b770d9df75d91212e",
+    "semantic_hash": "419608538907000b770d9df75d91212e"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\components\\ui\\ThemeToggle.tsx": {
+    "mtime": 1783000826.410881,
+    "ast_hash": "1dc7b3d52034551d31a0e70ba58f1149",
+    "semantic_hash": "1dc7b3d52034551d31a0e70ba58f1149"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\hooks\\useAdminFleetSocket.ts": {
+    "mtime": 1783016439.4848628,
+    "ast_hash": "98e33f935fc0aad17fc7c77ec493f57d",
+    "semantic_hash": "98e33f935fc0aad17fc7c77ec493f57d"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\hooks\\useAdminGroupSocket.ts": {
+    "mtime": 1782990877.156899,
+    "ast_hash": "eb831f42b7eacb3b8846b689d2965333",
+    "semantic_hash": "eb831f42b7eacb3b8846b689d2965333"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\hooks\\useGroupSocket.ts": {
+    "mtime": 1782987847.6533957,
+    "ast_hash": "a83e807f76ec644a64f9eb09985e49ce",
+    "semantic_hash": "a83e807f76ec644a64f9eb09985e49ce"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\hooks\\useTheme.ts": {
+    "mtime": 1783000804.395692,
+    "ast_hash": "cefe4b9cc9ebb30a9d18f158f5304e4c",
+    "semantic_hash": "cefe4b9cc9ebb30a9d18f158f5304e4c"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\hooks\\useTrackingSocket.ts": {
+    "mtime": 1783015369.8083775,
+    "ast_hash": "e8a7851ce6538e9386b224f552d8421b",
+    "semantic_hash": "e8a7851ce6538e9386b224f552d8421b"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\lib\\googleMaps.ts": {
+    "mtime": 1783015284.3047464,
+    "ast_hash": "5ff82cd8a3d38b64b2bb773260ce9d90",
+    "semantic_hash": "5ff82cd8a3d38b64b2bb773260ce9d90"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\AdminAdasheGroupDetailPage.tsx": {
+    "mtime": 1783002810.637339,
+    "ast_hash": "0b4cc975cc565969335832b1b61ee0cd",
+    "semantic_hash": "0b4cc975cc565969335832b1b61ee0cd"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\AdminAdasheGroupsPage.tsx": {
+    "mtime": 1783002390.0900733,
+    "ast_hash": "09edb1a0f8d43a7dd07a18c54f7a9390",
+    "semantic_hash": "09edb1a0f8d43a7dd07a18c54f7a9390"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\ChatPanel.tsx": {
+    "mtime": 1783002651.9730926,
+    "ast_hash": "5912d0382294035d9f500a4c701a59d2",
+    "semantic_hash": "5912d0382294035d9f500a4c701a59d2"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\CreateCircleModal.tsx": {
+    "mtime": 1783002416.7974677,
+    "ast_hash": "ba706c3e18b0eedc4dd2862ba4dc3eb0",
+    "semantic_hash": "ba706c3e18b0eedc4dd2862ba4dc3eb0"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\InviteModal.tsx": {
+    "mtime": 1783002426.1380558,
+    "ast_hash": "bda943c43c8a9b039d8f98096df86ed8",
+    "semantic_hash": "bda943c43c8a9b039d8f98096df86ed8"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\MarkSentModal.tsx": {
+    "mtime": 1783002480.478738,
+    "ast_hash": "353f1207a6e3c9bcee94432ae8f8d211",
+    "semantic_hash": "353f1207a6e3c9bcee94432ae8f8d211"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\PayoutRequestCard.tsx": {
+    "mtime": 1783002515.6795557,
+    "ast_hash": "e78082fe8fe64e74206afbd7c34b5c0b",
+    "semantic_hash": "e78082fe8fe64e74206afbd7c34b5c0b"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\ProposalDecisionCard.tsx": {
+    "mtime": 1783002557.8123984,
+    "ast_hash": "2d931f89831a6728d690bec585f79f3b",
+    "semantic_hash": "2d931f89831a6728d690bec585f79f3b"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\ReasonModal.tsx": {
+    "mtime": 1783002451.1909454,
+    "ast_hash": "e80742c3d0c67858fc7e143fb62e90a1",
+    "semantic_hash": "e80742c3d0c67858fc7e143fb62e90a1"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\RotationView.tsx": {
+    "mtime": 1783002588.10946,
+    "ast_hash": "1ac0070629fcc0d563e7bdbb0d22f9fc",
+    "semantic_hash": "1ac0070629fcc0d563e7bdbb0d22f9fc"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\adashe\\components\\shared.tsx": {
+    "mtime": 1783002305.1553597,
+    "ast_hash": "2fc550ce13a10830d5e237c0c336c64d",
+    "semantic_hash": "2fc550ce13a10830d5e237c0c336c64d"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\AdminEquipmentDetailPage.tsx": {
+    "mtime": 1783016959.053874,
+    "ast_hash": "30273012c013257b35fb7f33603849b2",
+    "semantic_hash": "30273012c013257b35fb7f33603849b2"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\AdminEquipmentPage.tsx": {
+    "mtime": 1783017029.1247952,
+    "ast_hash": "ed12fba1b2774714e0d526aebc64fb02",
+    "semantic_hash": "ed12fba1b2774714e0d526aebc64fb02"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\ApproveBookingModal.tsx": {
+    "mtime": 1783016633.6491053,
+    "ast_hash": "5959c5009260ed061e6914a08a184206",
+    "semantic_hash": "5959c5009260ed061e6914a08a184206"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\BookingActions.tsx": {
+    "mtime": 1783016760.9835534,
+    "ast_hash": "02cdcec259fb175b51a652c5f28c50d5",
+    "semantic_hash": "02cdcec259fb175b51a652c5f28c50d5"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\BookingCard.tsx": {
+    "mtime": 1783016741.2405214,
+    "ast_hash": "a36b7f7a81b91e531e60e3a8f360504d",
+    "semantic_hash": "a36b7f7a81b91e531e60e3a8f360504d"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\CompleteBookingModal.tsx": {
+    "mtime": 1783016666.580123,
+    "ast_hash": "13771fab1cb7320cb6e467f5cba6e69f",
+    "semantic_hash": "13771fab1cb7320cb6e467f5cba6e69f"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\EquipmentFormModal.tsx": {
+    "mtime": 1783016611.6866772,
+    "ast_hash": "417728aab56084b5587ada4574040610",
+    "semantic_hash": "417728aab56084b5587ada4574040610"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\FleetMap.tsx": {
+    "mtime": 1783016714.991456,
+    "ast_hash": "57b172f12de1aa0fc061238798bb2fc3",
+    "semantic_hash": "57b172f12de1aa0fc061238798bb2fc3"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\FleetTable.tsx": {
+    "mtime": 1783016780.607489,
+    "ast_hash": "6125d2484750ad012eb2a5495a77318f",
+    "semantic_hash": "6125d2484750ad012eb2a5495a77318f"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\GeofenceModal.tsx": {
+    "mtime": 1783016806.8229039,
+    "ast_hash": "0d431519d7814c74176888982fe015c4",
+    "semantic_hash": "0d431519d7814c74176888982fe015c4"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\ImageUploader.tsx": {
+    "mtime": 1783016525.8212395,
+    "ast_hash": "236bf2cdd5cb24726f4b7c5fdce475f4",
+    "semantic_hash": "236bf2cdd5cb24726f4b7c5fdce475f4"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\MapPicker.tsx": {
+    "mtime": 1783016499.9197195,
+    "ast_hash": "36671c54073d3111a21c25c5bc8a57a0",
+    "semantic_hash": "36671c54073d3111a21c25c5bc8a57a0"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\ReasonModal.tsx": {
+    "mtime": 1783016557.6262467,
+    "ast_hash": "9a3d79f2b368a0b684d6a4c20184c18d",
+    "semantic_hash": "9a3d79f2b368a0b684d6a4c20184c18d"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\ScheduleMaintenanceModal.tsx": {
+    "mtime": 1783016683.5212102,
+    "ast_hash": "4025c83c3f79159a8d00a8166ccc5780",
+    "semantic_hash": "4025c83c3f79159a8d00a8166ccc5780"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\SpecificationsEditor.tsx": {
+    "mtime": 1783016541.1922455,
+    "ast_hash": "bd3667362ff165a75e9c987f0bc25cfd",
+    "semantic_hash": "bd3667362ff165a75e9c987f0bc25cfd"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\admin\\equipment\\components\\shared.tsx": {
+    "mtime": 1783016470.0644617,
+    "ast_hash": "ecbfa392946fde00a6f95dc33b0b220e",
+    "semantic_hash": "ecbfa392946fde00a6f95dc33b0b220e"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\AdasheListPage.tsx": {
+    "mtime": 1783002269.897635,
+    "ast_hash": "188fd542f6c50a13e1a8adc73ea66295",
+    "semantic_hash": "188fd542f6c50a13e1a8adc73ea66295"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\AdasheWorkspacePage.tsx": {
+    "mtime": 1783002306.0789714,
+    "ast_hash": "a68034af5c322ae4b54d122a4b8f4786",
+    "semantic_hash": "a68034af5c322ae4b54d122a4b8f4786"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\components\\ChatMessage.tsx": {
+    "mtime": 1783001819.0502467,
+    "ast_hash": "f694c7e782e9b0bdaf8692d6b7d76b61",
+    "semantic_hash": "f694c7e782e9b0bdaf8692d6b7d76b61"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\components\\CreateCircleModal.tsx": {
+    "mtime": 1783001897.6444545,
+    "ast_hash": "b6a86d287a67de084f6707694112222c",
+    "semantic_hash": "b6a86d287a67de084f6707694112222c"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\components\\InviteMembersModal.tsx": {
+    "mtime": 1783001922.6545055,
+    "ast_hash": "19cb921dc492be05eb4363eb449e44f4",
+    "semantic_hash": "19cb921dc492be05eb4363eb449e44f4"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\components\\ProposalCard.tsx": {
+    "mtime": 1783001862.1608264,
+    "ast_hash": "52540cfda50cd63fbcefada570f41d03",
+    "semantic_hash": "52540cfda50cd63fbcefada570f41d03"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\components\\RequestSlotShiftModal.tsx": {
+    "mtime": 1783001963.0518742,
+    "ast_hash": "a9392f00338101b2175ebf717f293ac6",
+    "semantic_hash": "a9392f00338101b2175ebf717f293ac6"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\components\\RotationList.tsx": {
+    "mtime": 1783001797.7168143,
+    "ast_hash": "03cb61744468e09e07c9598a47b8594d",
+    "semantic_hash": "03cb61744468e09e07c9598a47b8594d"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\workspace\\AttendanceTab.tsx": {
+    "mtime": 1783002165.3877623,
+    "ast_hash": "735822f8e78127703b31ad0db93db6ca",
+    "semantic_hash": "735822f8e78127703b31ad0db93db6ca"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\workspace\\ChatTab.tsx": {
+    "mtime": 1783002008.780748,
+    "ast_hash": "77697a4aba96615042d3850c40501ba3",
+    "semantic_hash": "77697a4aba96615042d3850c40501ba3"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\workspace\\PerformanceTab.tsx": {
+    "mtime": 1783002196.6633594,
+    "ast_hash": "3617d4fe73ce4418163aff29dc7158f7",
+    "semantic_hash": "3617d4fe73ce4418163aff29dc7158f7"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\workspace\\ProposalsTab.tsx": {
+    "mtime": 1783002141.5312376,
+    "ast_hash": "af4760f81601cc9f1261424548f4d909",
+    "semantic_hash": "af4760f81601cc9f1261424548f4d909"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\cooperative\\adashe\\workspace\\RotationsTab.tsx": {
+    "mtime": 1783002097.7600634,
+    "ast_hash": "af552fd5de329b3d440bb8311d3b3295",
+    "semantic_hash": "af552fd5de329b3d440bb8311d3b3295"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\BookingTrackingPage.tsx": {
+    "mtime": 1783015703.4385512,
+    "ast_hash": "91dcac7e90c744196df779b51024ef25",
+    "semantic_hash": "91dcac7e90c744196df779b51024ef25"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\EquipmentListPage.tsx": {
+    "mtime": 1783015581.3369522,
+    "ast_hash": "5b81dc37b055367d4b27d76efea455d2",
+    "semantic_hash": "5b81dc37b055367d4b27d76efea455d2"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\MyBookingsPage.tsx": {
+    "mtime": 1783015641.8779697,
+    "ast_hash": "e05c9b91583808a0b9ba6f36337218b4",
+    "semantic_hash": "e05c9b91583808a0b9ba6f36337218b4"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\components\\BookingRequestModal.tsx": {
+    "mtime": 1783015454.374782,
+    "ast_hash": "9bbe58f9e2686c154fa299004cf9ba04",
+    "semantic_hash": "9bbe58f9e2686c154fa299004cf9ba04"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\components\\BookingStatusBadge.tsx": {
+    "mtime": 1783015384.2235658,
+    "ast_hash": "f657a6ba172dd797d95062af448915fa",
+    "semantic_hash": "f657a6ba172dd797d95062af448915fa"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\components\\EquipmentCard.tsx": {
+    "mtime": 1783015419.5773778,
+    "ast_hash": "dbde4363c8c06918c0bb233dafb1a4cf",
+    "semantic_hash": "dbde4363c8c06918c0bb233dafb1a4cf"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\components\\EquipmentTrackingMap.tsx": {
+    "mtime": 1783015532.5708435,
+    "ast_hash": "654aae7da0ea7e50f580119be5dd6098",
+    "semantic_hash": "654aae7da0ea7e50f580119be5dd6098"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\components\\PaymentConfirmModal.tsx": {
+    "mtime": 1783015827.8199353,
+    "ast_hash": "f298d8cacbe8e853884b945c00a769cc",
+    "semantic_hash": "f298d8cacbe8e853884b945c00a769cc"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\components\\RateBookingModal.tsx": {
+    "mtime": 1783015496.4016268,
+    "ast_hash": "3153f0a63f274cde163cbc42dcfa4a68",
+    "semantic_hash": "3153f0a63f274cde163cbc42dcfa4a68"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\pages\\users\\equipment\\components\\equipmentMeta.ts": {
+    "mtime": 1783015398.661585,
+    "ast_hash": "83fbcdcb151e3d3449002921469689e7",
+    "semantic_hash": "83fbcdcb151e3d3449002921469689e7"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\services\\adashe.service.ts": {
+    "mtime": 1782987777.0618224,
+    "ast_hash": "033611c80ceacdff6e329707a1c2c1a0",
+    "semantic_hash": "033611c80ceacdff6e329707a1c2c1a0"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\services\\adminAdashe.service.ts": {
+    "mtime": 1782990800.4269056,
+    "ast_hash": "5c38ccce098da8bfba8cdd1faa9f5f6e",
+    "semantic_hash": "5c38ccce098da8bfba8cdd1faa9f5f6e"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\services\\adminEquipment.service.ts": {
+    "mtime": 1783016354.0601435,
+    "ast_hash": "1700ac774e69658a8b9addc49b11e442",
+    "semantic_hash": "1700ac774e69658a8b9addc49b11e442"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\services\\adminUpload.service.ts": {
+    "mtime": 1782999602.410452,
+    "ast_hash": "41cd581b4e4c90e560ed07eac07c14a6",
+    "semantic_hash": "41cd581b4e4c90e560ed07eac07c14a6"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\services\\equipment.service.ts": {
+    "mtime": 1783015314.065683,
+    "ast_hash": "8158814d323496ae2d9fe470e3a7c920",
+    "semantic_hash": "8158814d323496ae2d9fe470e3a7c920"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\services\\upload.service.ts": {
+    "mtime": 1782999445.0303402,
+    "ast_hash": "c1d337da1ae56b1af727c8202a9a2ecb",
+    "semantic_hash": "c1d337da1ae56b1af727c8202a9a2ecb"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\store\\adasheStore.ts": {
+    "mtime": 1782987823.8042297,
+    "ast_hash": "852dbc432acff1983fd1966bde313ff6",
+    "semantic_hash": "852dbc432acff1983fd1966bde313ff6"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\store\\adminAdasheStore.ts": {
+    "mtime": 1782990856.4251404,
+    "ast_hash": "fddfb1fcbb2786c2543c861ead160632",
+    "semantic_hash": "fddfb1fcbb2786c2543c861ead160632"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\store\\adminEquipmentStore.ts": {
+    "mtime": 1783016416.9884632,
+    "ast_hash": "330ffc30b4efdaa475df759c72c8043b",
+    "semantic_hash": "330ffc30b4efdaa475df759c72c8043b"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\store\\equipmentStore.ts": {
+    "mtime": 1783015349.6927938,
+    "ast_hash": "bfc70cb11e19a5b326041a73a0963441",
+    "semantic_hash": "bfc70cb11e19a5b326041a73a0963441"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\types\\adashe.ts": {
+    "mtime": 1782990767.7037375,
+    "ast_hash": "836eed4761ceab52a5d7bf276d900aa9",
+    "semantic_hash": "836eed4761ceab52a5d7bf276d900aa9"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\types\\adminEquipment.ts": {
+    "mtime": 1783016311.88828,
+    "ast_hash": "4a264c1eef3c7f1679fe15119732b599",
+    "semantic_hash": "4a264c1eef3c7f1679fe15119732b599"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\types\\equipment.ts": {
+    "mtime": 1783015260.7814302,
+    "ast_hash": "48c064109979c45df8d845f448077487",
+    "semantic_hash": "48c064109979c45df8d845f448077487"
+  },
+  "C:\\karldworld\\Bennie-connect\\src\\types\\upload.ts": {
+    "mtime": 1782999427.090695,
+    "ast_hash": "fe146a35f00ccc825e92ba6aee038a43",
+    "semantic_hash": "fe146a35f00ccc825e92ba6aee038a43"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\equipment_booking\\equipment_prompt.md": {
+    "mtime": 1783004284.9665012,
+    "ast_hash": "336233d8668ae40fcb4ff32513c90e25",
+    "semantic_hash": "336233d8668ae40fcb4ff32513c90e25"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\marketplace\\marketplace_prompt.md": {
+    "mtime": 1783013044.1853776,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\admin_module\\membership_tiers\\membership_prompt.md": {
+    "mtime": 1783002291.8572948,
+    "ast_hash": "760df682c89c6facc8309d039a29b840",
+    "semantic_hash": "760df682c89c6facc8309d039a29b840"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\gcp_upload.md": {
+    "mtime": 1782999759.4234927,
+    "ast_hash": "e3ddc8c6bc9f6e38cf7f878bf0e4d66f",
+    "semantic_hash": "e3ddc8c6bc9f6e38cf7f878bf0e4d66f"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\operator\\operator_overview.md": {
+    "mtime": 1783005457.0890112,
+    "ast_hash": "fd7e6077e094c59bab6f6347c6c526ad",
+    "semantic_hash": "fd7e6077e094c59bab6f6347c6c526ad"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\adashesu-contributions\\adashe_group_prompt.md": {
+    "mtime": 1782983364.0834327,
+    "ast_hash": "0a823af13dbdc8a7bc5f7838bf4924e9",
+    "semantic_hash": "0a823af13dbdc8a7bc5f7838bf4924e9"
+  },
+  "C:\\karldworld\\Bennie-connect\\PRD\\user_module\\user_layout\\user_layout.md": {
+    "mtime": 1783001902.6164436,
+    "ast_hash": "a85069738aeb652566de0204bcf0b244",
+    "semantic_hash": "a85069738aeb652566de0204bcf0b244"
+  },
+  "C:\\karldworld\\Bennie-connect\\eqharness.html": {
+    "mtime": 1783019011.553104,
+    "ast_hash": "eb86163c58218e947f8f2c933c815671",
+    "semantic_hash": "eb86163c58218e947f8f2c933c815671"
   }
 }

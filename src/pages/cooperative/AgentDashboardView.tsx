@@ -380,7 +380,7 @@ export default function AgentDashboardView({
 
         {/* Level Promotion Prompt if conditions met */}
         {nextPromotion && (
-          <div className="mt-6 p-4 rounded-xl bg-[#135D39]/25 border border-[#135D39] flex flex-col sm:flex-row justify-between items-center gap-4 animate-pulse">
+          <div className="mt-6 p-4 rounded-xl bg-primary/25 border border-primary flex flex-col sm:flex-row justify-between items-center gap-4 animate-pulse">
             <div className="flex items-center gap-3">
               <Sparkles className="w-6 h-6 text-[#E9A42F] shrink-0" />
               <div>
@@ -405,13 +405,13 @@ export default function AgentDashboardView({
       </div>
 
       {/* Navigation Sub-Tabs */}
-      <div className="flex border-b border-[#E6E5DF] pb-px overflow-x-auto gap-4 scrollbar-none">
+      <div className="flex border-b border-border pb-px overflow-x-auto gap-4 scrollbar-none">
         <button
           onClick={() => setActiveTab("dashboard")}
           className={`pb-3 text-xs uppercase tracking-wider font-bold border-b-2 transition shrink-0 cursor-pointer ${
             activeTab === "dashboard" 
-              ? "border-[#135D39] text-[#135D39]" 
-              : "border-transparent text-[#5C6460] hover:text-[#1A2421]"
+              ? "border-primary text-primary" 
+              : "border-transparent text-muted hover:text-ink"
           }`}
         >
           Overview & CRM
@@ -420,8 +420,8 @@ export default function AgentDashboardView({
           onClick={() => setActiveTab("register")}
           className={`pb-3 text-xs uppercase tracking-wider font-bold border-b-2 transition shrink-0 cursor-pointer ${
             activeTab === "register" 
-              ? "border-[#135D39] text-[#135D39]" 
-              : "border-transparent text-[#5C6460] hover:text-[#1A2421]"
+              ? "border-primary text-primary" 
+              : "border-transparent text-muted hover:text-ink"
           }`}
         >
           Farmer Registration
@@ -430,8 +430,8 @@ export default function AgentDashboardView({
           onClick={() => setActiveTab("commissions")}
           className={`pb-3 text-xs uppercase tracking-wider font-bold border-b-2 transition shrink-0 cursor-pointer ${
             activeTab === "commissions" 
-              ? "border-[#135D39] text-[#135D39]" 
-              : "border-transparent text-[#5C6460] hover:text-[#1A2421]"
+              ? "border-primary text-primary" 
+              : "border-transparent text-muted hover:text-ink"
           }`}
         >
           Commission Engine
@@ -440,8 +440,8 @@ export default function AgentDashboardView({
           onClick={() => setActiveTab("ranks")}
           className={`pb-3 text-xs uppercase tracking-wider font-bold border-b-2 transition shrink-0 cursor-pointer ${
             activeTab === "ranks" 
-              ? "border-[#135D39] text-[#135D39]" 
-              : "border-transparent text-[#5C6460] hover:text-[#1A2421]"
+              ? "border-primary text-primary" 
+              : "border-transparent text-muted hover:text-ink"
           }`}
         >
           Agent Levels
@@ -455,62 +455,62 @@ export default function AgentDashboardView({
           {/* Main counts section */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             
-            <div className="bg-white border border-[#E6E5DF] rounded-2xl p-5 shadow-sm">
+            <div className="bg-surface border border-border rounded-2xl p-5 shadow-sm">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-[#5C6460] tracking-wider block">Farmers Onboarded</span>
-                  <div className="font-mono text-2xl font-bold text-[#1A2421]">{farmers.length}</div>
+                  <span className="text-[10px] uppercase font-bold text-muted tracking-wider block">Farmers Onboarded</span>
+                  <div className="font-mono text-2xl font-bold text-ink">{farmers.length}</div>
                 </div>
-                <div className="p-2.5 rounded-xl bg-[#135D39]/5 border border-[#135D39]/10 text-[#135D39]">
+                <div className="p-2.5 rounded-xl bg-primary/5 border border-primary/10 text-primary">
                   <Users className="w-5 h-5" />
                 </div>
               </div>
-              <div className="text-[10px] text-[#135D39] font-medium mt-3 flex items-center gap-1">
-                <CheckCircle className="w-3.5 h-3.5 inline text-emerald-600" /> {verifiedFarmersCount} fully verified KYC entries
+              <div className="text-[10px] text-primary font-medium mt-3 flex items-center gap-1">
+                <CheckCircle className="w-3.5 h-3.5 inline text-emerald-600 dark:text-emerald-400" /> {verifiedFarmersCount} fully verified KYC entries
               </div>
             </div>
 
-            <div className="bg-white border border-[#E6E5DF] rounded-2xl p-5 shadow-sm">
+            <div className="bg-surface border border-border rounded-2xl p-5 shadow-sm">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-[#5C6460] tracking-wider block">Monthly Commissions</span>
-                  <div className="font-mono text-2xl font-bold text-[#1A2421]">₦{monthlyEarnings.toLocaleString()}</div>
+                  <span className="text-[10px] uppercase font-bold text-muted tracking-wider block">Monthly Commissions</span>
+                  <div className="font-mono text-2xl font-bold text-ink">₦{monthlyEarnings.toLocaleString()}</div>
                 </div>
-                <div className="p-2.5 rounded-xl bg-orange-50 border border-orange-100 text-orange-700">
+                <div className="p-2.5 rounded-xl bg-orange-50 dark:bg-orange-500/10 border border-orange-100 dark:border-orange-500/20 text-orange-700 dark:text-orange-300">
                   <TrendingUp className="w-5 h-5" />
                 </div>
               </div>
-              <div className="text-[10px] text-slate-500 mt-3">
-                Total earnings overall: <strong className="text-[#1A2421] font-bold">₦{totalEarnedCommissions.toLocaleString()}</strong>
+              <div className="text-[10px] text-muted mt-3">
+                Total earnings overall: <strong className="text-ink font-bold">₦{totalEarnedCommissions.toLocaleString()}</strong>
               </div>
             </div>
 
-            <div className="bg-white border border-[#E6E5DF] rounded-2xl p-5 shadow-sm">
+            <div className="bg-surface border border-border rounded-2xl p-5 shadow-sm">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-[#5C6460] tracking-wider block">KYC Consistency</span>
-                  <div className="font-mono text-2xl font-bold text-[#1A2421]">{performanceScore}%</div>
+                  <span className="text-[10px] uppercase font-bold text-muted tracking-wider block">KYC Consistency</span>
+                  <div className="font-mono text-2xl font-bold text-ink">{performanceScore}%</div>
                 </div>
-                <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700">
+                <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-300">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
               </div>
-              <div className="text-[10px] text-slate-500 mt-3">
+              <div className="text-[10px] text-muted mt-3">
                 Success rate on identity document clearing
               </div>
             </div>
 
-            <div className="bg-white border border-[#E6E5DF] rounded-2xl p-5 shadow-sm">
+            <div className="bg-surface border border-border rounded-2xl p-5 shadow-sm">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-[#5C6460] tracking-wider block">Agent Board Rank</span>
-                  <div className="font-mono text-2xl font-bold text-[#1A2421]">#{ranking}</div>
+                  <span className="text-[10px] uppercase font-bold text-muted tracking-wider block">Agent Board Rank</span>
+                  <div className="font-mono text-2xl font-bold text-ink">#{ranking}</div>
                 </div>
-                <div className="p-2.5 rounded-xl bg-purple-50 border border-purple-100 text-purple-700">
+                <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-500/10 border border-purple-100 dark:border-purple-500/20 text-purple-700 dark:text-purple-300">
                   <Award className="w-5 h-5" />
                 </div>
               </div>
-              <div className="text-[10px] text-slate-500 mt-3">
+              <div className="text-[10px] text-muted mt-3">
                 Out of 45 active regional cooperative agents
               </div>
             </div>
@@ -519,11 +519,11 @@ export default function AgentDashboardView({
 
           {/* Verification modal block overlay inside local component */}
           {verifyingId && (
-            <div className="border border-[#E6E5DF] rounded-2xl bg-white p-6 shadow-md max-w-xl mx-auto space-y-4 animate-fade-in">
-              <div className="flex justify-between items-center border-b border-[#E6E5DF] pb-3">
+            <div className="border border-border rounded-2xl bg-surface p-6 shadow-md max-w-xl mx-auto space-y-4 animate-fade-in">
+              <div className="flex justify-between items-center border-b border-border pb-3">
                 <div className="flex items-center gap-2">
-                  <RefreshCw className="w-4 h-4 text-[#E7A13C] animate-spin" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#1A2421]">Identity Registry lookup</span>
+                  <RefreshCw className="w-4 h-4 text-accent animate-spin" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-ink">Identity Registry lookup</span>
                 </div>
                 <button 
                   onClick={() => setVerifyingId(null)}
@@ -541,12 +541,12 @@ export default function AgentDashboardView({
               </div>
 
               {verificationDone ? (
-                <div className="p-3 bg-emerald-50 text-[#135D39] text-xs font-medium rounded-xl border border-emerald-100 flex items-center gap-2">
+                <div className="p-3 bg-emerald-50 dark:bg-emerald-500/10 text-primary dark:text-emerald-300 text-xs font-medium rounded-xl border border-emerald-100 dark:border-emerald-500/20 flex items-center gap-2">
                   <CheckCircle className="w-4 h-4" />
                   ID Authenticated with government portal. Agent KYC approval score updated successfully.
                 </div>
               ) : (
-                <p className="text-[10.5px] text-[#5C6460] text-center italic">
+                <p className="text-[10.5px] text-muted text-center italic">
                   Running automated secure clearance against the National Identity Database (NIMC).
                 </p>
               )}
@@ -554,27 +554,27 @@ export default function AgentDashboardView({
           )}
 
           {/* CRM Roster of Registered Farmers */}
-          <div className="bg-white border border-[#E6E5DF] rounded-3xl p-6 shadow-sm space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#E6E5DF] pb-4">
+          <div className="bg-surface border border-border rounded-3xl p-6 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-4">
               <div>
-                <h3 className="font-display font-semibold text-[#1A2421] text-base">Your Active Farmer CRM Portfolio</h3>
-                <p className="text-[11px] text-[#5C6460] mt-0.5 font-medium">Verify documents, upgrade profiles, and leverage earnings from onbording.</p>
+                <h3 className="font-display font-semibold text-ink text-base">Your Active Farmer CRM Portfolio</h3>
+                <p className="text-[11px] text-muted mt-0.5 font-medium">Verify documents, upgrade profiles, and leverage earnings from onbording.</p>
               </div>
 
               <div className="flex gap-2 w-full sm:w-auto">
                 <div className="relative flex-1 sm:w-64">
-                  <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-[#5C6460]" />
+                  <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-muted" />
                   <input 
                     type="text" 
                     placeholder="Search name, phone, base region..."
                     value={farmerSearch}
                     onChange={(e) => setFarmerSearch(e.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] focus:bg-white border border-[#E6E5DF] focus:border-[#135D39] focus:ring-2 focus:ring-[#135D39]/10 outline-none p-2 pl-10 rounded-xl text-xs text-[#1A2421] transition-all duration-200"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 focus:bg-surface border border-border focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none p-2 pl-10 rounded-xl text-xs text-ink transition-all duration-200"
                   />
                 </div>
                 <button
                   onClick={() => setActiveTab("register")}
-                  className="bg-[#135D39] hover:bg-[#0f4a2d] text-white font-bold p-2 px-3.5 rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer"
+                  className="bg-primary hover:bg-[#0f4a2d] text-white font-bold p-2 px-3.5 rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <UserPlus className="w-4 h-4" /> Register New
                 </button>
@@ -583,15 +583,15 @@ export default function AgentDashboardView({
 
             {/* Farmers CRM Grid list */}
             {filteredFarmers.length === 0 ? (
-              <div className="text-center py-10 text-[#5C6460]/80">
+              <div className="text-center py-10 text-muted/80">
                 <Users className="w-10 h-10 mx-auto opacity-30 mb-2" />
                 <p className="text-xs font-semibold">No registered farmers match your filter.</p>
               </div>
             ) : (
-              <div className="overflow-x-auto select-none rounded-xl border border-[#E6E5DF]">
+              <div className="overflow-x-auto select-none rounded-xl border border-border">
                 <table className="w-full text-left border-collapse text-xs">
                   <thead>
-                    <tr className="bg-[#FAF8F5] text-[#5C6460] font-bold border-b border-[#E6E5DF]">
+                    <tr className="bg-surface-2 text-muted font-bold border-b border-border">
                       <th className="p-3.5">Farmer Info</th>
                       <th className="p-3.5">Assigned Location</th>
                       <th className="p-3.5 width-32">Document ID & State</th>
@@ -599,32 +599,32 @@ export default function AgentDashboardView({
                       <th className="p-3.5 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#E6E5DF]">
+                  <tbody className="divide-y divide-border">
                     {filteredFarmers.map((f) => (
-                      <tr key={f.id} className="hover:bg-[#FAF8F5]/50 transition-colors">
+                      <tr key={f.id} className="hover:bg-surface-2/50 transition-colors">
                         <td className="p-4 leading-normal">
-                          <div className="font-bold text-[#1A2421]">{f.name}</div>
-                          <div className="text-[10px] text-stone-500 font-mono mt-0.5">{f.phone} | {f.id}</div>
+                          <div className="font-bold text-ink">{f.name}</div>
+                          <div className="text-[10px] text-muted font-mono mt-0.5">{f.phone} | {f.id}</div>
                         </td>
-                        <td className="p-4 text-[#5C6460] font-medium">
+                        <td className="p-4 text-muted font-medium">
                           {f.location}
                         </td>
                         <td className="p-4">
                           <div className="flex items-center gap-2">
-                            <span className="p-1 px-1.5 rounded-md font-mono text-[10px] bg-slate-100 text-slate-800 uppercase font-black border border-slate-200">
+                            <span className="p-1 px-1.5 rounded-md font-mono text-[10px] bg-slate-100 dark:bg-slate-500/15 text-slate-800 dark:text-slate-200 uppercase font-black border border-slate-200 dark:border-slate-500/25">
                               {f.identityType}
                             </span>
-                            <span className="text-[10.5px] font-mono text-[#1A2421] font-semibold">{f.identityNumber}</span>
+                            <span className="text-[10.5px] font-mono text-ink font-semibold">{f.identityNumber}</span>
                           </div>
                           
                           {/* kyc badge */}
                           <div className="mt-1.5 flex items-center gap-1.5">
                             {f.kycStatus === "Verified" ? (
-                              <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold p-0.5 px-2 rounded-full border border-emerald-100 inline-flex items-center gap-0.5">
+                              <span className="text-[9px] bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-bold p-0.5 px-2 rounded-full border border-emerald-100 dark:border-emerald-500/20 inline-flex items-center gap-0.5">
                                 <CheckCircle className="w-2.5 h-2.5 inline" /> Govt-Cleared
                               </span>
                             ) : (
-                              <span className="text-[9px] bg-amber-50 text-amber-700 font-bold p-0.5 px-2 rounded-full border border-amber-100 inline-flex items-center gap-0.5 animate-pulse">
+                              <span className="text-[9px] bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 font-bold p-0.5 px-2 rounded-full border border-amber-100 dark:border-amber-500/20 inline-flex items-center gap-0.5 animate-pulse">
                                 <Clock className="w-2.5 h-2.5 inline" /> Pending Registry Clear
                               </span>
                             )}
@@ -632,9 +632,9 @@ export default function AgentDashboardView({
                         </td>
                         <td className="p-4 text-center">
                           {f.membershipStatus === "Inactive" ? (
-                            <span className="text-[10px] text-stone-400 font-semibold bg-stone-100 p-1 px-2.5 rounded-full">Inactive</span>
+                            <span className="text-[10px] text-muted font-semibold bg-surface-2 p-1 px-2.5 rounded-full">Inactive</span>
                           ) : (
-                            <span className="text-[10px] text-[#135D39] font-bold bg-[#135D39]/5 border border-[#135D39]/10 p-1 px-2.5 rounded-full inline-block">
+                            <span className="text-[10px] text-primary font-bold bg-primary/5 border border-primary/10 p-1 px-2.5 rounded-full inline-block">
                               {f.membershipStatus} Tier
                             </span>
                           )}
@@ -648,8 +648,8 @@ export default function AgentDashboardView({
                               Verify ID
                             </button>
                           ) : (
-                            <span className="text-[10px] text-emerald-600 font-bold inline-flex items-center gap-1">
-                              <ShieldCheck className="w-3.5 h-3.5 inline text-emerald-600" /> Active Roster
+                            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold inline-flex items-center gap-1">
+                              <ShieldCheck className="w-3.5 h-3.5 inline text-emerald-600 dark:text-emerald-400" /> Active Roster
                             </span>
                           )}
                         </td>
@@ -666,10 +666,10 @@ export default function AgentDashboardView({
       {/* Tab Content 2: Farmer Registration Terminal */}
       {activeTab === "register" && (
         <div className="max-w-3xl mx-auto animate-fade-in space-y-6">
-          <div className="bg-white border border-[#E6E5DF] p-6 sm:p-8 rounded-[28px] shadow-sm space-y-6">
-            <div className="border-b border-[#E6E5DF] pb-4">
-              <h3 className="font-display font-semibold text-[#1A2421] text-lg">Onboard Cooperative Farmer Partner</h3>
-              <p className="text-[11px] text-[#5C6460] mt-0.5">Initialize a profile, attach verified identity documentation files, and set their starter membership.</p>
+          <div className="bg-surface border border-border p-6 sm:p-8 rounded-[28px] shadow-sm space-y-6">
+            <div className="border-b border-border pb-4">
+              <h3 className="font-display font-semibold text-ink text-lg">Onboard Cooperative Farmer Partner</h3>
+              <p className="text-[11px] text-muted mt-0.5">Initialize a profile, attach verified identity documentation files, and set their starter membership.</p>
             </div>
 
             <form onSubmit={handleRegisterSubmit} className="space-y-6">
@@ -677,47 +677,47 @@ export default function AgentDashboardView({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 <div className="space-y-2">
-                  <label className="text-xs text-[#5C6460] uppercase tracking-wider font-bold">Farmer's Full Name</label>
+                  <label className="text-xs text-muted uppercase tracking-wider font-bold">Farmer's Full Name</label>
                   <input 
                     type="text" 
                     required
                     placeholder="e.g. Alhaji Ibrahim Babangida"
                     value={newFarmerName}
                     onChange={(e) => setNewFarmerName(e.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] focus:bg-white border border-[#E6E5DF] focus:border-[#135D39] focus:ring-2 focus:ring-[#135D39]/10 p-3 rounded-xl text-xs font-semibold text-[#1A2421] outline-none transition-all"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 focus:bg-surface border border-border focus:border-primary focus:ring-2 focus:ring-primary/10 p-3 rounded-xl text-xs font-semibold text-ink outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs text-[#5C6460] uppercase tracking-wider font-bold">Mobile Phone (MTN/Airtel)</label>
+                  <label className="text-xs text-muted uppercase tracking-wider font-bold">Mobile Phone (MTN/Airtel)</label>
                   <input 
                     type="text" 
                     required
                     placeholder="e.g. +234 803 122 1199"
                     value={newFarmerPhone}
                     onChange={(e) => setNewFarmerPhone(e.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] focus:bg-white border border-[#E6E5DF] focus:border-[#135D39] focus:ring-2 focus:ring-[#135D39]/10 p-3 rounded-xl text-xs font-mono font-bold text-[#1A2421] outline-none transition-all"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 focus:bg-surface border border-border focus:border-primary focus:ring-2 focus:ring-primary/10 p-3 rounded-xl text-xs font-mono font-bold text-ink outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs text-[#5C6460] uppercase tracking-wider font-bold">Base Location / Farming Region</label>
+                  <label className="text-xs text-muted uppercase tracking-wider font-bold">Base Location / Farming Region</label>
                   <input 
                     type="text" 
                     required
                     placeholder="e.g. Kano State Maiduguri Road Outpost"
                     value={newFarmerLocation}
                     onChange={(e) => setNewFarmerLocation(e.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] focus:bg-white border border-[#E6E5DF] focus:border-[#135D39] focus:ring-2 focus:ring-[#135D39]/10 p-3 rounded-xl text-xs font-semibold text-[#1A2421] outline-none transition-all"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 focus:bg-surface border border-border focus:border-primary focus:ring-2 focus:ring-primary/10 p-3 rounded-xl text-xs font-semibold text-ink outline-none transition-all"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs text-[#5C6460] uppercase tracking-wider font-bold block">Assigned Starter Membership</label>
+                  <label className="text-xs text-muted uppercase tracking-wider font-bold block">Assigned Starter Membership</label>
                   <select
                     value={newFarmerTier}
                     onChange={(e: any) => setNewFarmerTier(e.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] focus:bg-white border border-[#E6E5DF] focus:border-[#135D39] focus:ring-2 focus:ring-[#135D39]/10 p-3 rounded-xl text-xs font-bold text-[#1A2421] cursor-pointer outline-none transition-all"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 focus:bg-surface border border-border focus:border-primary focus:ring-2 focus:ring-primary/10 p-3 rounded-xl text-xs font-bold text-ink cursor-pointer outline-none transition-all"
                   >
                     <option value="Bronze">Bronze (Standard)</option>
                     <option value="Silver">Silver (₦15,000 upgrade)</option>
@@ -727,11 +727,11 @@ export default function AgentDashboardView({
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs text-[#5C6460] uppercase tracking-wider font-bold block">Verification Document Type</label>
+                  <label className="text-xs text-muted uppercase tracking-wider font-bold block">Verification Document Type</label>
                   <select
                     value={newFarmerIdType}
                     onChange={(eInput: any) => setNewFarmerIdType(eInput.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] focus:bg-white border border-[#E6E5DF] focus:border-[#135D39] focus:ring-2 focus:ring-[#135D39]/10 p-3 rounded-xl text-xs font-bold text-[#1A2421] cursor-pointer outline-none transition-all"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 focus:bg-surface border border-border focus:border-primary focus:ring-2 focus:ring-primary/10 p-3 rounded-xl text-xs font-bold text-ink cursor-pointer outline-none transition-all"
                   >
                     <option value="NIN">National Identification Number (NIN)</option>
                     <option value="BVN">Bank Verification Number (BVN)</option>
@@ -741,14 +741,14 @@ export default function AgentDashboardView({
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs text-[#5C6460] uppercase tracking-wider font-bold">Document Signature ID Number</label>
+                  <label className="text-xs text-muted uppercase tracking-wider font-bold">Document Signature ID Number</label>
                   <input 
                     type="text" 
                     required
                     placeholder="e.g. NIN-2019-9061-AX"
                     value={newFarmerIdNum}
                     onChange={(e) => setNewFarmerIdNum(e.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] focus:bg-white border border-[#E6E5DF] focus:border-[#135D39] focus:ring-2 focus:ring-[#135D39]/10 p-3 rounded-xl text-xs font-mono font-bold text-[#1A2421] outline-none transition-all"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 focus:bg-surface border border-border focus:border-primary focus:ring-2 focus:ring-primary/10 p-3 rounded-xl text-xs font-mono font-bold text-ink outline-none transition-all"
                   />
                 </div>
 
@@ -756,7 +756,7 @@ export default function AgentDashboardView({
 
               {/* Upload Certificate KYC Area */}
               <div className="space-y-3 pt-2">
-                <label className="text-xs text-[#5C6460] uppercase tracking-wider font-bold block">
+                <label className="text-xs text-muted uppercase tracking-wider font-bold block">
                   Upload Farmer KYC Document & Photographic ID Proof
                 </label>
                 
@@ -766,30 +766,30 @@ export default function AgentDashboardView({
                   onDrop={handleDrop}
                   className={`border-2 border-dashed rounded-2xl p-6 transition-all text-center flex flex-col items-center justify-center gap-2 cursor-pointer ${
                     isDragOver 
-                      ? "border-[#135D39] bg-[#135D39]/5" 
+                      ? "border-primary bg-primary/5" 
                       : uploadedFileName 
-                        ? "border-emerald-500 bg-emerald-50/20" 
-                        : "border-[#E6E5DF] hover:border-[#135D39]/30"
+                        ? "border-emerald-500 bg-emerald-50/20 dark:bg-emerald-500/10" 
+                        : "border-border hover:border-primary/30"
                   }`}
                 >
-                  <UploadCloud className={`w-10 h-10 ${uploadedFileName ? "text-emerald-500 animate-bounce" : "text-[#5C6460]"}`} />
+                  <UploadCloud className={`w-10 h-10 ${uploadedFileName ? "text-emerald-500 animate-bounce" : "text-muted"}`} />
                   
                   {uploadProgress !== null ? (
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-[#1A2421] animate-pulse">Uploading file attachment ({uploadProgress}%)</p>
-                      <div className="w-48 h-1 bg-stone-100 rounded-full overflow-hidden mx-auto">
-                        <div className="h-full bg-[#135D39]" style={{ width: `${uploadProgress}%` }} />
+                      <p className="text-xs font-bold text-ink animate-pulse">Uploading file attachment ({uploadProgress}%)</p>
+                      <div className="w-48 h-1 bg-surface-2 rounded-full overflow-hidden mx-auto">
+                        <div className="h-full bg-primary" style={{ width: `${uploadProgress}%` }} />
                       </div>
                     </div>
                   ) : uploadedFileName ? (
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-emerald-700">File attached successfully!</p>
-                      <p className="text-[10px] text-stone-500 font-mono italic">{uploadedFileName}</p>
+                      <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300">File attached successfully!</p>
+                      <p className="text-[10px] text-muted font-mono italic">{uploadedFileName}</p>
                     </div>
                   ) : (
                     <div className="space-y-1">
-                      <p className="text-xs font-bold text-[#1A2421]">Drag & drop KYC image/document here, or click to browse</p>
-                      <p className="text-[10px] text-[#5C6460] font-medium">Supports JPG, PNG, PDF up to 4MB sizes</p>
+                      <p className="text-xs font-bold text-ink">Drag & drop KYC image/document here, or click to browse</p>
+                      <p className="text-[10px] text-muted font-medium">Supports JPG, PNG, PDF up to 4MB sizes</p>
                     </div>
                   )}
 
@@ -806,7 +806,7 @@ export default function AgentDashboardView({
                       const picker = document.getElementById("kyc-file-picker");
                       if (picker) picker.click();
                     }}
-                    className="mt-2 bg-white hover:bg-[#FAF8F5] text-stone-700 font-bold py-1.5 px-3 rounded-lg text-[10px] transition border border-[#E6E5DF] cursor-pointer"
+                    className="mt-2 bg-surface hover:bg-surface-2 text-muted font-bold py-1.5 px-3 rounded-lg text-[10px] transition border border-border cursor-pointer"
                   >
                     Select File
                   </button>
@@ -816,7 +816,7 @@ export default function AgentDashboardView({
               {/* Submit Registration button */}
               <button
                 type="submit"
-                className="w-full bg-[#135D39] hover:bg-[#0f4a2d] text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition shadow-md shadow-[#135D39]/10 hover:shadow-lg border border-[#135D39]/15 cursor-pointer"
+                className="w-full bg-primary hover:bg-[#0f4a2d] text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition shadow-md shadow-primary/10 hover:shadow-lg border border-primary/15 cursor-pointer"
               >
                 Register Farmer & Disburse Onboarding ID
               </button>
@@ -936,30 +936,30 @@ export default function AgentDashboardView({
           </div>
 
           {/* Ledger of Rewards overall */}
-          <div className="bg-white border border-[#E6E5DF] rounded-3xl p-6 shadow-sm space-y-6">
+          <div className="bg-surface border border-border rounded-3xl p-6 shadow-sm space-y-6">
             
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#E6E5DF] pb-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-4">
               <div>
-                <h3 className="font-display font-semibold text-[#1A2421] text-base">Agent Commission Ledger</h3>
-                <p className="text-[11px] text-[#5C6460] mt-0.5 font-medium">Breakdown of all earnings from citizen farmer referrals and activations.</p>
+                <h3 className="font-display font-semibold text-ink text-base">Agent Commission Ledger</h3>
+                <p className="text-[11px] text-muted mt-0.5 font-medium">Breakdown of all earnings from citizen farmer referrals and activations.</p>
               </div>
 
               <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-                <div className="relative flex-1 sm:w-56 text-[#5C6460] hover:text-[#1A2421]">
+                <div className="relative flex-1 sm:w-56 text-muted hover:text-ink">
                   <Search className="absolute left-3 w-4 h-4 top-2.5" />
                   <input 
                     type="text" 
                     placeholder="Search farmer or details..."
                     value={rewardSearch}
                     onChange={(e) => setRewardSearch(e.target.value)}
-                    className="w-full bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] border border-[#E6E5DF] focus:border-[#135D39] outline-none p-2 pl-9 rounded-xl text-xs transition"
+                    className="w-full bg-surface-2/60 hover:bg-surface-2 border border-border focus:border-primary outline-none p-2 pl-9 rounded-xl text-xs transition"
                   />
                 </div>
 
                 <select
                   value={rewardFilter}
                   onChange={(e) => setRewardFilter(e.target.value)}
-                  className="bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] border border-[#E6E5DF] focus:border-[#135D39] p-2 rounded-xl text-xs text-[#1A2421] outline-none font-medium cursor-pointer"
+                  className="bg-surface-2/60 hover:bg-surface-2 border border-border focus:border-primary p-2 rounded-xl text-xs text-ink outline-none font-medium cursor-pointer"
                 >
                   <option value="all">All Incentive categories</option>
                   <option value="Farmer Registration">Onboarding Registrations</option>
@@ -973,39 +973,39 @@ export default function AgentDashboardView({
 
             {/* List of commission reward items */}
             {filteredRewards.length === 0 ? (
-              <div className="text-center py-10 text-[#5C6460]/80">
+              <div className="text-center py-10 text-muted/80">
                 <FileText className="w-10 h-10 mx-auto opacity-30 mb-2" />
                 <p className="text-xs font-semibold">No commission entries found.</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {filteredRewards.map((reward) => (
-                  <div key={reward.id} className="flex justify-between items-center bg-[#FAF8F5]/40 hover:bg-[#FAF8F5] border border-[#E6E5DF] hover:border-[#135D39]/25 p-4 rounded-2xl w-full transition duration-200">
+                  <div key={reward.id} className="flex justify-between items-center bg-surface-2/40 hover:bg-surface-2 border border-border hover:border-primary/25 p-4 rounded-2xl w-full transition duration-200">
                     <div className="flex items-center gap-4">
                       
                       <div className={`p-2 rounded-xl text-xs font-mono font-bold shrink-0 ${
-                        reward.activityType === "Farmer Registration" ? "bg-blue-50 text-blue-800" :
-                        reward.activityType === "Membership Upgrade" ? "bg-amber-50 text-amber-800" :
-                        reward.activityType === "Savings Deposit" ? "bg-emerald-50 text-emerald-800" :
-                        reward.activityType === "Equipment Booking" ? "bg-orange-50 text-orange-850" :
-                        "bg-purple-50 text-purple-800"
+                        reward.activityType === "Farmer Registration" ? "bg-blue-50 dark:bg-blue-500/10 text-blue-800 dark:text-blue-300" :
+                        reward.activityType === "Membership Upgrade" ? "bg-amber-50 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300" :
+                        reward.activityType === "Savings Deposit" ? "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-800 dark:text-emerald-300" :
+                        reward.activityType === "Equipment Booking" ? "bg-orange-50 dark:bg-orange-500/10 text-orange-850 dark:text-orange-300" :
+                        "bg-purple-50 dark:bg-purple-500/10 text-purple-800 dark:text-purple-300"
                       }`}>
                         {reward.activityType.slice(0, 4).toUpperCase()}
                       </div>
 
                       <div className="leading-snug">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-xs font-bold text-[#1A2421] block">
+                          <span className="text-xs font-bold text-ink block">
                             {reward.activityType}
                           </span>
-                          <span className="text-[10px] text-stone-500 font-medium">
+                          <span className="text-[10px] text-muted font-medium">
                             • for {reward.farmerName}
                           </span>
                         </div>
-                        <p className="text-[10.5px] text-[#5C6460] mt-0.5 font-medium leading-normal">
+                        <p className="text-[10.5px] text-muted mt-0.5 font-medium leading-normal">
                           {reward.activityDetails}
                         </p>
-                        <span className="text-[9px] text-[#5C6460]/70 font-mono mt-1 block">
+                        <span className="text-[9px] text-muted/70 font-mono mt-1 block">
                           {new Date(reward.date).toLocaleString()} | ID: #{reward.id}
                         </span>
                       </div>
@@ -1013,8 +1013,8 @@ export default function AgentDashboardView({
                     </div>
 
                     <div className="text-right">
-                      <span className="text-[10px] text-emerald-600 block uppercase font-black tracking-wider">disbursed</span>
-                      <span className="font-mono text-base font-bold text-[#135D39]">
+                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 block uppercase font-black tracking-wider">disbursed</span>
+                      <span className="font-mono text-base font-bold text-primary">
                         +₦{reward.amountEarned.toLocaleString()}
                       </span>
                     </div>
@@ -1032,31 +1032,31 @@ export default function AgentDashboardView({
           
           {/* Progress to next level bar */}
           {nextLevelReq && (
-            <div className="bg-white border border-[#E6E5DF] p-6 sm:p-8 rounded-[28px] shadow-sm space-y-4">
+            <div className="bg-surface border border-border p-6 sm:p-8 rounded-[28px] shadow-sm space-y-4">
               <div className="flex justify-between items-center flex-wrap gap-2">
                 <div className="space-y-1">
-                  <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold block">Certification Progression</span>
-                  <p className="text-sm font-semibold text-[#1A2421]">
-                    Unlock <strong className="text-[#135D39] font-black">{nextLevel}</strong> status
+                  <span className="text-[10px] text-muted uppercase tracking-widest font-bold block">Certification Progression</span>
+                  <p className="text-sm font-semibold text-ink">
+                    Unlock <strong className="text-primary font-black">{nextLevel}</strong> status
                   </p>
                 </div>
-                <div className="font-mono text-xs font-bold text-[#5C6460]">
+                <div className="font-mono text-xs font-bold text-muted">
                   {verifiedFarmersCount} / {nextLevelReq.targetCount} Verified Farmers registered
                 </div>
               </div>
 
               {/* Progress Bar container */}
-              <div className="w-full bg-[#FAF8F5] h-3 rounded-full overflow-hidden border border-[#E6E5DF]">
+              <div className="w-full bg-surface-2 h-3 rounded-full overflow-hidden border border-border">
                 <div 
-                  className="h-full bg-gradient-to-r from-[#135D39] to-[#E9A42F] transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-500"
                   style={{ width: `${Math.min(100, (verifiedFarmersCount / nextLevelReq.targetCount) * 100)}%` }}
                 />
               </div>
 
-              <div className="text-[11px] text-slate-500 leading-normal flex items-center gap-1.5 pt-1">
-                <Info className="w-4 h-4 text-[#135D39] shrink-0" />
+              <div className="text-[11px] text-muted leading-normal flex items-center gap-1.5 pt-1">
+                <Info className="w-4 h-4 text-primary shrink-0" />
                 <span>
-                  Requirements: <strong className="text-[#1A2421] font-bold">{nextLevelReq.requirement}</strong>. Current level yields {levelInfo.multiplier.toFixed(2)}x rewards multiplier.
+                  Requirements: <strong className="text-ink font-bold">{nextLevelReq.requirement}</strong>. Current level yields {levelInfo.multiplier.toFixed(2)}x rewards multiplier.
                 </span>
               </div>
             </div>
@@ -1074,43 +1074,43 @@ export default function AgentDashboardView({
                   key={lvlKey}
                   className={`border p-6 rounded-3xl relative overflow-hidden transition duration-300 ${
                     isCurrent 
-                      ? "border-[#135D39] bg-white ring-2 ring-[#135D39]/5 shadow-md scale-[1.01]" 
-                      : "border-[#E6E5DF] bg-white opacity-85 hover:opacity-100"
+                      ? "border-primary bg-surface ring-2 ring-primary/5 shadow-md scale-[1.01]" 
+                      : "border-border bg-surface opacity-85 hover:opacity-100"
                   }`}
                 >
                   {isCurrent && (
-                    <div className="absolute right-0 top-0 bg-[#135D39] text-white text-[10px] uppercase font-bold p-1 px-4 rounded-bl-xl shadow-xs">
+                    <div className="absolute right-0 top-0 bg-primary text-white text-[10px] uppercase font-bold p-1 px-4 rounded-bl-xl shadow-xs">
                       your rank
                     </div>
                   )}
 
-                  <span className="p-1 px-2 text-[9px] uppercase font-bold border rounded-full bg-slate-100 text-slate-800">
+                  <span className="p-1 px-2 text-[9px] uppercase font-bold border rounded-full bg-slate-100 dark:bg-slate-500/15 text-slate-800 dark:text-slate-200">
                     Level {detail.targetCount >= 15 ? "IV" : detail.targetCount >= 8 ? "III" : detail.targetCount >= 5 ? "II" : "I"} Rank
                   </span>
 
-                  <h4 className="font-display font-bold text-lg text-[#1A2421] mt-2 flex items-center gap-1.5">
+                  <h4 className="font-display font-bold text-lg text-ink mt-2 flex items-center gap-1.5">
                     {detail.name} 
-                    <span className="text-xs font-mono font-bold text-[#135D39] bg-[#135D39]/5 p-0.5 px-2 rounded-md">
+                    <span className="text-xs font-mono font-bold text-primary bg-primary/5 p-0.5 px-2 rounded-md">
                       {detail.multiplier.toFixed(2)}x yield
                     </span>
                   </h4>
 
-                  <div className="mt-4 space-y-2.5 text-xs text-[#5C6460]">
+                  <div className="mt-4 space-y-2.5 text-xs text-muted">
                     <div className="flex items-start gap-2">
-                      <span className="font-bold text-[#1A2421] tracking-wide shrink-0">Level Requirements:</span>
+                      <span className="font-bold text-ink tracking-wide shrink-0">Level Requirements:</span>
                       <span className="font-medium">{detail.requirement}</span>
                     </div>
 
                     <div className="flex items-start gap-2">
-                      <span className="font-bold text-[#1A2421] tracking-wide shrink-0">Active Benefit Multiplier:</span>
-                      <span className="font-medium text-[#135D39] font-semibold">{detail.perk}</span>
+                      <span className="font-bold text-ink tracking-wide shrink-0">Active Benefit Multiplier:</span>
+                      <span className="font-medium text-primary font-semibold">{detail.perk}</span>
                     </div>
                   </div>
 
                   {/* Level indicators */}
-                  <div className="mt-6 pt-4 border-t border-[#E6E5DF] flex justify-between items-center text-[10.5px] text-[#5C6460] font-medium">
+                  <div className="mt-6 pt-4 border-t border-border flex justify-between items-center text-[10.5px] text-muted font-medium">
                     <span>Registry Target count:</span>
-                    <span className="font-bold font-mono text-[#1A2421]">{detail.targetCount} fully verified farmers</span>
+                    <span className="font-bold font-mono text-ink">{detail.targetCount} fully verified farmers</span>
                   </div>
                 </div>
               );
@@ -1119,13 +1119,13 @@ export default function AgentDashboardView({
           </div>
 
           {/* Simple Commission Multipliers Table */}
-          <div className="bg-white border border-[#E6E5DF] rounded-3xl p-6 shadow-sm space-y-4">
-            <h3 className="font-display font-semibold text-base text-[#1A2421]">Standard Cooperative Agent Commission Rate Sheet</h3>
+          <div className="bg-surface border border-border rounded-3xl p-6 shadow-sm space-y-4">
+            <h3 className="font-display font-semibold text-base text-ink">Standard Cooperative Agent Commission Rate Sheet</h3>
             
             <div className="overflow-x-auto">
               <table className="w-full text-left font-sans text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#FAF8F5] text-slate-500 font-bold border-b border-[#E6E5DF]">
+                  <tr className="bg-surface-2 text-muted font-bold border-b border-border">
                     <th className="p-3">Activity Trigger</th>
                     <th className="p-3 text-center">Bronze Base Incentive</th>
                     <th className="p-3 text-center">Silver (1.1x)</th>
@@ -1133,48 +1133,48 @@ export default function AgentDashboardView({
                     <th className="p-3 text-center">Platinum (1.5x)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E6E5DF] text-[#1A2421] font-medium">
+                <tbody className="divide-y divide-border text-ink font-medium">
                   <tr>
                     <td className="p-3 font-bold">New Farmer Onboarding KYC Success</td>
-                    <td className="p-3 text-center text-slate-600">₦2,500 flat</td>
-                    <td className="p-3 text-center text-slate-600">₦2,750</td>
-                    <td className="p-3 text-center text-slate-600">₦3,125</td>
-                    <td className="p-3 text-center text-[#135D39] font-bold">₦3,750</td>
+                    <td className="p-3 text-center text-muted">₦2,500 flat</td>
+                    <td className="p-3 text-center text-muted">₦2,750</td>
+                    <td className="p-3 text-center text-muted">₦3,125</td>
+                    <td className="p-3 text-center text-primary font-bold">₦3,750</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold">Membership upgrade (Gold subscription)</td>
-                    <td className="p-3 text-center text-slate-600">₦3,500 (10%)</td>
-                    <td className="p-3 text-center text-slate-600">₦3,850</td>
-                    <td className="p-3 text-center text-slate-600">₦4,375</td>
-                    <td className="p-3 text-center text-[#135D39] font-bold">₦5,250</td>
+                    <td className="p-3 text-center text-muted">₦3,500 (10%)</td>
+                    <td className="p-3 text-center text-muted">₦3,850</td>
+                    <td className="p-3 text-center text-muted">₦4,375</td>
+                    <td className="p-3 text-center text-primary font-bold">₦5,250</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold">Annual Premium membership tier upgrade</td>
-                    <td className="p-3 text-center text-slate-600">₦7,500 (10%)</td>
-                    <td className="p-3 text-center text-slate-600">₦8,250</td>
-                    <td className="p-3 text-center text-slate-600">₦9,375</td>
-                    <td className="p-3 text-center text-[#135D39] font-bold">₦11,250</td>
+                    <td className="p-3 text-center text-muted">₦7,500 (10%)</td>
+                    <td className="p-3 text-center text-muted">₦8,250</td>
+                    <td className="p-3 text-center text-muted">₦9,375</td>
+                    <td className="p-3 text-center text-primary font-bold">₦11,250</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold">Savings deposit goals topup referral</td>
-                    <td className="p-3 text-center text-slate-600">₦1,500 flat rate</td>
-                    <td className="p-3 text-center text-slate-600">₦1,650</td>
-                    <td className="p-3 text-center text-slate-600">₦1,875</td>
-                    <td className="p-3 text-center text-[#135D39] font-bold">₦2,250</td>
+                    <td className="p-3 text-center text-muted">₦1,500 flat rate</td>
+                    <td className="p-3 text-center text-muted">₦1,650</td>
+                    <td className="p-3 text-center text-muted">₦1,875</td>
+                    <td className="p-3 text-center text-primary font-bold">₦2,250</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold">Tractor / Harvester lease reservation (BK referral)</td>
-                    <td className="p-3 text-center text-slate-600">5.0% commission</td>
-                    <td className="p-3 text-center text-slate-600">5.5%</td>
-                    <td className="p-3 text-center text-slate-600">6.25%</td>
-                    <td className="p-3 text-center text-[#135D39] font-bold">7.5%</td>
+                    <td className="p-3 text-center text-muted">5.0% commission</td>
+                    <td className="p-3 text-center text-muted">5.5%</td>
+                    <td className="p-3 text-center text-muted">6.25%</td>
+                    <td className="p-3 text-center text-primary font-bold">7.5%</td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold">Storefront Fertilizers & Agrochemicals checkout</td>
-                    <td className="p-3 text-center text-slate-600">2.5% commission</td>
-                    <td className="p-3 text-center text-slate-600">2.75%</td>
-                    <td className="p-3 text-center text-slate-600">3.125%</td>
-                    <td className="p-3 text-center text-[#135D39] font-bold">3.75%</td>
+                    <td className="p-3 text-center text-muted">2.5% commission</td>
+                    <td className="p-3 text-center text-muted">2.75%</td>
+                    <td className="p-3 text-center text-muted">3.125%</td>
+                    <td className="p-3 text-center text-primary font-bold">3.75%</td>
                   </tr>
                 </tbody>
               </table>

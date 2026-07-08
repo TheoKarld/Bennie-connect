@@ -31,10 +31,10 @@ export default function AdminSectionPlaceholder({
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-semibold text-[#1A2421]">
+          <h1 className="font-display text-2xl font-semibold text-ink">
             {title}
           </h1>
-          <p className="mt-1 text-sm text-[#5C6460]">{description}</p>
+          <p className="mt-1 text-sm text-muted">{description}</p>
         </div>
         <Badge tone="gold">Coming soon</Badge>
       </div>
@@ -43,23 +43,23 @@ export default function AdminSectionPlaceholder({
         initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="relative overflow-hidden rounded-3xl border border-[#E6E5DF] bg-white/70 p-10 shadow-sm"
+        className="relative overflow-hidden rounded-3xl border border-border bg-surface/70 p-10 shadow-sm"
       >
         <div
           aria-hidden
-          className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#135D39]/5 blur-3xl"
+          className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-primary/5 blur-3xl"
         />
         <div className="relative z-10 max-w-lg space-y-5">
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#135D39]/8 text-[#135D39]">
+          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/8 text-primary">
             <Icon className="h-7 w-7" />
           </span>
           <div className="space-y-2">
-            <h2 className="font-display text-xl font-semibold text-[#1A2421]">
+            <h2 className="font-display text-xl font-semibold text-ink">
               This section is being built
             </h2>
-            <p className="text-sm leading-relaxed text-[#5C6460]">
+            <p className="text-sm leading-relaxed text-muted">
               The console shell, navigation and permission gating for{" "}
-              <span className="font-semibold text-[#135D39]">{title}</span> are
+              <span className="font-semibold text-primary">{title}</span> are
               wired up. The interactive workspace lands in an upcoming release.
             </p>
           </div>
@@ -69,9 +69,9 @@ export default function AdminSectionPlaceholder({
               {bullets.map((b) => (
                 <li
                   key={b}
-                  className="flex items-start gap-2.5 text-sm text-[#5C6460]"
+                  className="flex items-start gap-2.5 text-sm text-muted"
                 >
-                  <Hammer className="mt-0.5 h-4 w-4 shrink-0 text-[#E7A13C]" />
+                  <Hammer className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                   {b}
                 </li>
               ))}
@@ -80,7 +80,7 @@ export default function AdminSectionPlaceholder({
 
           <Link
             to="/bennie/dashboard"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#135D39] hover:underline"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
           >
             Back to dashboard <ArrowRight className="h-4 w-4" />
           </Link>

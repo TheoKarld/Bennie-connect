@@ -55,7 +55,7 @@ A sticky (`position: sticky; top: 0`) header spanning the content column:
 |------|----------|
 | **Left** | On mobile/tablet: **hamburger** toggling the sidebar drawer. On desktop: sidebar collapse/pin toggle. Brand lockup (Bennie logo mark + wordmark; wordmark hides < `sm`). |
 | **Center / left-of-content** | **Page title + breadcrumb** for the active route (e.g. `Users › User 360 › Amina Bello`). Breadcrumb segments are links where a parent route exists. Truncates with ellipsis on small screens. |
-| **Right** | **Notifications** bell (badge count; opens a panel — placeholder feed until notification sourcing is defined, see Open Questions). **Admin identity menu**: avatar/initials button opening a dropdown showing full name, email, **role name**, and a **role chip**; menu items: *My profile / Change password* (routes to the change-password flow), *Toggle theme* (if enabled), **Logout**. |
+| **Right** | **Notifications** bell (badge count; opens a panel — placeholder feed until notification sourcing is defined, see Open Questions). **ThemeToggle** (light / dark / system — see [Theming](#theming)). **Admin identity menu**: avatar/initials button opening a dropdown showing full name, email, **role name**, and a **role chip**; menu items: *My profile / Change password* (routes to the change-password flow), **theme options** (the segmented `ThemeToggle` surfaced inline — see [Theming](#theming)), **Logout**. |
 
 - The identity menu's role chip uses brand accent `#E7A13C` for Super Admin, neutral for others.
 - Logout calls `POST /api/v1/admin/auth/logout` then clears the admin session and routes to `/bennie/auth`.
@@ -213,8 +213,60 @@ The shell must **never render a nav destination the admin cannot enter**. This i
 
 ---
 
+## Theming
+
+The app-wide theming system is a **client-only** presentation layer, shared verbatim by the admin and user shells. It has no backend representation; the preference is a single `localStorage` key. This section is the mirror of [user_layout.md → Theming](../../user_module/user_layout/user_layout.md#theming); both shells surface the same controls and share one `useTheme` store.
+
+### Semantic tokens
+
+`src/index.css` defines a set of **semantic CSS variables** on `:root` (light) and overridden under `.dark` (dark). Only neutrals flip; **brand `--primary` / `--accent` stay constant** across themes:
+
+| Token | Light | Dark | Meaning |
+|-------|-------|------|---------|
+| `--canvas` | `#FAF8F5` | `#0F1513` | page background |
+| `--surface` | `#FFFFFF` | `#17211C` | cards / raised surfaces |
+| `--surface-2` | `#F4F1EC` | `#1E2924` | inset / secondary surfaces |
+| `--ink` | `#1A2421` | `#E7ECE9` | primary text |
+| `--muted` | `#5C6460` | `#93A29B` | secondary text |
+| `--border` | `#E6E5DF` | `#28332D` | hairlines / dividers |
+| `--primary` | `#135D39` | `#135D39` | brand green (constant) |
+| `--accent` | `#E7A13C` | `#E7A13C` | brand gold (constant) |
+| `--success` | `#137a45` | `#2fa564` | success |
+| `--warning` | `#E7A13C` | `#E7A13C` | warning |
+| `--danger` | `#c0402f` | `#e06552` | error / destructive |
+
+These are registered in the Tailwind v4 `@theme` block as `--color-*` so they surface as utilities: `bg-canvas`, `bg-surface`, `bg-surface-2`, `text-ink`, `text-muted`, `border-border`, `text-primary`, `bg-primary`, `text-accent`, etc. **The whole app has been converted to these tokens** — pages no longer hardcode raw hex for neutrals, so they respond to the theme automatically. Admin screens should use the same tokens.
+
+### Dark mode via `.dark` on `<html>`
+
+- Tailwind v4 `@custom-variant dark (&:where(.dark, .dark *))` keys the `dark:` variant on a **`.dark` class on `<html>`** (class strategy, not media strategy), so `dark:` utilities work alongside the token flip.
+- `html.dark { color-scheme: dark; }` sets the native form/scrollbar scheme.
+
+### Modes: light / dark / system
+
+- **Preference** is one of `'light' | 'dark' | 'system'`, **default `system`**. `system` resolves live against `prefers-color-scheme`.
+- Managed by **`src/hooks/useTheme.ts`** (a zustand store): exposes `theme` (preference), `resolvedTheme` (`'light' | 'dark'`, what actually renders), and `setTheme(t)`. It toggles `.dark` on `<html>`, sets `color-scheme`, persists the preference, and — while in `system` mode — subscribes to OS scheme changes via a `matchMedia` listener.
+- **Persistence:** the preference is stored in `localStorage` under **`bennie_theme`** (`'light' | 'dark' | 'system'`).
+
+### No-flash init
+
+An inline `<script>` in **`index.html`** runs **before first paint**: it reads `localStorage.bennie_theme` (falling back to `system` / the OS media query), and adds/removes `.dark` + sets `color-scheme` on `<html>` synchronously. This prevents a light-then-dark flash on load. `useTheme` initialises to match this script so there is never a class/state mismatch after hydration.
+
+### Controls
+
+- **`src/components/ui/ThemeToggle.tsx`** exports `<ThemeToggle />` (3-option segmented control — Sun = light, Moon = dark, Monitor = system — with a sliding active pill, `role="radiogroup"`) and `<ThemeToggleButton />` (compact single icon that cycles light → dark → system).
+- Both read/write the shared `useTheme` store, so they stay in sync wherever mounted. They use the semantic tokens, are keyboard-accessible, and respect reduced motion.
+- **Surfaced in both planes:** the toggle appears in the **admin** navbar right zone + identity menu (this document) **and** in the **user** navbar + identity dropdown ([user_layout.md](../../user_module/user_layout/user_layout.md#theming)). Both planes share the same `useTheme` store and `bennie_theme` key — a single OS-level preference per browser (independent of which plane, or both, you are signed into).
+
+### Scope & storage summary
+
+- **Client-only:** no theme field on any backend collection or `adminUsers` doc; nothing is sent to the API.
+- **Keys:** `localStorage.bennie_theme` (theme preference) is distinct from the admin sidebar-collapse key `localStorage.bennie_admin_sidebar`. See [data_structure.md §5](../../data_structure.md#5-frontend-auth-client-session).
+
+---
+
 ## Open Questions for the Owner
 
 1. **Notifications sourcing.** The navbar bell is modeled, but there is no admin-notification collection/endpoint yet. Confirm whether admin notifications derive from `adminAuditLog` (e.g. mentions/assignments), from pending-approval queues, or a dedicated feed — until then the panel is a labeled placeholder.
-2. **Dark theme at launch.** Tokens support light + dark; confirm whether dark mode ships at launch or is deferred.
+2. ~~**Dark theme at launch.**~~ ✅ **Resolved — dark ships now.** The app runs a full **light / dark / system** theming system at launch (default `system`), driven by `useTheme` + `ThemeToggle`, keyed on `.dark` on `<html>`, with a no-flash `index.html` init script and the preference in `localStorage.bennie_theme`. See the [Theming](#theming) section below.
 3. **Sidebar grouping/labels.** Confirm the Operations/Administration grouping and the exact bottom-nav 5 (Dashboard · Users · Cooperative · Marketplace · More) match the intended IA, or reorder to preference.

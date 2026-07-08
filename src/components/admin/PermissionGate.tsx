@@ -28,14 +28,14 @@ export default function PermissionGate({
   if (anyOf.length > 0 && !hasAnyPermission(effectivePermissions, anyOf)) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center px-4">
-        <div className="max-w-md rounded-3xl border border-[#E6E5DF] bg-white/70 p-8 text-center shadow-sm">
-          <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#5C6460]/10 text-[#5C6460]">
+        <div className="max-w-md rounded-3xl border border-border bg-surface/70 p-8 text-center shadow-sm">
+          <span className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-muted/10 text-muted">
             <Lock className="h-6 w-6" />
           </span>
-          <h2 className="font-display text-lg font-semibold text-[#1A2421]">
+          <h2 className="font-display text-lg font-semibold text-ink">
             You don't have access to this section
           </h2>
-          <p className="mt-1.5 text-sm text-[#5C6460]">
+          <p className="mt-1.5 text-sm text-muted">
             Your role doesn't include permission to view this area. Contact a
             Super Admin if you believe this is a mistake.
           </p>

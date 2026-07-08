@@ -102,6 +102,19 @@ export interface DashboardAdminsBlock {
   lockedOut?: number;
 }
 
+/** Live Adashe/Esusu aggregates on the dashboard overview. */
+export interface DashboardAdasheBlock {
+  available: boolean;
+  activeGroups?: number;
+  totalGroups?: number;
+  totalPoolBalance?: number;
+  poolBalance?: number;
+  payoutRequestsDue?: number;
+  payoutsAwaitingConfirmation?: number;
+  pendingSlotShiftRequests?: number;
+  slotShiftsAwaiting?: number;
+}
+
 export interface DashboardActivityItem {
   actorEmail: string;
   action: string;
@@ -114,11 +127,13 @@ export interface DashboardActivityItem {
 export interface DashboardModuleFlag {
   available: boolean;
   count?: number;
+  link?: string;
 }
 
 export interface DashboardOverview {
   users?: DashboardUsersBlock;
   admins?: DashboardAdminsBlock;
+  adashe?: DashboardAdasheBlock;
   recentActivity?: DashboardActivityItem[];
   pendingApprovals?: Record<string, DashboardModuleFlag>;
   modules?: Record<string, DashboardModuleFlag>;

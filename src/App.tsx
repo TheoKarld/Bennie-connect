@@ -21,13 +21,22 @@ import AppShell from "./components/layout/AppShell";
 import DashboardPage from "./pages/users/DashboardPage";
 import DigitalWalletPage from "./pages/users/DigitalWalletPage";
 import SavingsProductsPage from "./pages/users/SavingsProductsPage";
-import EquipmentBookingPage from "./pages/users/EquipmentBookingPage";
+import EquipmentListPage from "./pages/users/equipment/EquipmentListPage";
+import MyBookingsPage from "./pages/users/equipment/MyBookingsPage";
+import BookingTrackingPage from "./pages/users/equipment/BookingTrackingPage";
 import AgriculturalServicesPage from "./pages/users/AgriculturalServicesPage";
-import AgriculturalMarketplacePage from "./pages/users/AgriculturalMarketplacePage";
+import MarketplaceLayout from "./pages/users/marketplace/MarketplaceLayout";
+import MarketplacePage from "./pages/users/marketplace/MarketplacePage";
+import ProductDetailPage from "./pages/users/marketplace/ProductDetailPage";
+import CheckoutPage from "./pages/users/marketplace/CheckoutPage";
+import MyOrdersPage from "./pages/users/marketplace/MyOrdersPage";
+import OrderDetailPage from "./pages/users/marketplace/OrderDetailPage";
+import MerchantHubPage from "./pages/users/merchant/MerchantHubPage";
 
 import MembershipPage from "./pages/cooperative/MembershipPage";
 import CooperativeSharesPage from "./pages/cooperative/CooperativeSharesPage";
-import AdashePage from "./pages/cooperative/AdashePage";
+import AdasheListPage from "./pages/cooperative/adashe/AdasheListPage";
+import AdasheWorkspacePage from "./pages/cooperative/adashe/AdasheWorkspacePage";
 import AgentDashboardPage from "./pages/cooperative/AgentDashboardPage";
 
 import AdminHome from "./pages/admin/AdminHome";
@@ -38,15 +47,22 @@ import AdminLayout from "./components/admin/AdminLayout";
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminChangePasswordPage from "./pages/admin/AdminChangePasswordPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminAdasheGroupsPage from "./pages/admin/adashe/AdminAdasheGroupsPage";
+import AdminAdasheGroupDetailPage from "./pages/admin/adashe/AdminAdasheGroupDetailPage";
+import AdminEquipmentPage from "./pages/admin/equipment/AdminEquipmentPage";
+import AdminEquipmentDetailPage from "./pages/admin/equipment/AdminEquipmentDetailPage";
+import AdminMarketplacePage from "./pages/admin/marketplace/AdminMarketplacePage";
+import AdminProductDetailPage from "./pages/admin/marketplace/AdminProductDetailPage";
+import AdminOrdersPage from "./pages/admin/orders/AdminOrdersPage";
+import AdminOrderDetailPage from "./pages/admin/orders/AdminOrderDetailPage";
+import AdminMerchantsPage from "./pages/admin/merchants/AdminMerchantsPage";
+import AdminMerchantDetailPage from "./pages/admin/merchants/AdminMerchantDetailPage";
 import {
   AdminUsersSection,
   AdminAdminsSection,
   AdminCooperativeSection,
   AdminSavingsSection,
-  AdminMarketplaceSection,
   AdminMembershipTiersSection,
-  AdminEquipmentSection,
-  AdminAdasheSection,
   AdminCommissionSection,
   AdminSettingsSection,
 } from "./pages/admin/sections";
@@ -80,12 +96,28 @@ export default function App() {
           <Route index element={<DashboardPage />} />
           <Route path="wallet" element={<DigitalWalletPage />} />
           <Route path="savings" element={<SavingsProductsPage />} />
-          <Route path="equipment" element={<EquipmentBookingPage />} />
+          <Route path="equipment" element={<EquipmentListPage />} />
+          <Route
+            path="equipment/bookings"
+            element={<MyBookingsPage />}
+          />
+          <Route
+            path="equipment/bookings/:id/track"
+            element={<BookingTrackingPage />}
+          />
           <Route path="services" element={<AgriculturalServicesPage />} />
-          <Route path="marketplace" element={<AgriculturalMarketplacePage />} />
+          <Route path="marketplace" element={<MarketplaceLayout />}>
+            <Route index element={<MarketplacePage />} />
+            <Route path="products/:id" element={<ProductDetailPage />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="orders" element={<MyOrdersPage />} />
+            <Route path="orders/:id" element={<OrderDetailPage />} />
+          </Route>
+          <Route path="merchant" element={<MerchantHubPage />} />
           <Route path="membership" element={<MembershipPage />} />
           <Route path="shares" element={<CooperativeSharesPage />} />
-          <Route path="adashe" element={<AdashePage />} />
+          <Route path="adashe" element={<AdasheListPage />} />
+          <Route path="adashe/:groupId" element={<AdasheWorkspacePage />} />
           <Route path="agent" element={<AgentDashboardPage />} />
           <Route path="admin" element={<AdminHome />} />
         </Route>
@@ -105,18 +137,34 @@ export default function App() {
           <Route path="admin" element={<AdminAdminsSection />} />
           <Route path="cooperative" element={<AdminCooperativeSection />} />
           <Route path="savings-plans" element={<AdminSavingsSection />} />
-          <Route path="market-place" element={<AdminMarketplaceSection />} />
+          <Route path="market-place" element={<AdminMarketplacePage />} />
+          <Route
+            path="market-place/products/:id"
+            element={<AdminProductDetailPage />}
+          />
+          <Route path="orders" element={<AdminOrdersPage />} />
+          <Route path="orders/:id" element={<AdminOrderDetailPage />} />
+          <Route path="merchants" element={<AdminMerchantsPage />} />
+          <Route path="merchants/:id" element={<AdminMerchantDetailPage />} />
           <Route
             path="membership-tiers"
             element={<AdminMembershipTiersSection />}
           />
           <Route
             path="equipment-booking"
-            element={<AdminEquipmentSection />}
+            element={<AdminEquipmentPage />}
+          />
+          <Route
+            path="equipment-booking/:id"
+            element={<AdminEquipmentDetailPage />}
           />
           <Route
             path="adashesu-contributions"
-            element={<AdminAdasheSection />}
+            element={<AdminAdasheGroupsPage />}
+          />
+          <Route
+            path="adashesu-contributions/:groupId"
+            element={<AdminAdasheGroupDetailPage />}
           />
           <Route
             path="agent-commission"

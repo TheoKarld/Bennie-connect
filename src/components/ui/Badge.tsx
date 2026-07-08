@@ -14,10 +14,10 @@ interface BadgeProps {
 }
 
 const TONES: Record<Tone, string> = {
-  green: "bg-[#135D39]/10 text-[#135D39]",
-  gold: "bg-[#E7A13C]/15 text-[#a6701c]",
-  neutral: "bg-[#5C6460]/10 text-[#5C6460]",
-  danger: "bg-red-100 text-red-600",
+  green: "bg-primary/10 text-primary",
+  gold: "bg-accent/15 text-[#a6701c] dark:text-accent",
+  neutral: "bg-muted/10 text-muted",
+  danger: "bg-danger/10 text-danger",
 };
 
 export default function Badge({ tone = "green", children, className = "" }: BadgeProps) {

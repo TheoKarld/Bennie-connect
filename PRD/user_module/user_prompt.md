@@ -1,21 +1,11 @@
-C:\karldworld\Bennie-connect\PRD\user_module\authentication\authentication-user-management.md
-C:\karldworld\Bennie-connect\backend\.env
 
-above are the files you need to analyze to perform the task below.
+- i dont like the structure of the /src/features/ folder, lets use pages, components, hooks, store.
 
-- we have properly initialized the project now we need to structure the project properly, create proper page folders, create proper shared components, and make sure everything is well structured and organized.
+- instead of context, lets use zustand stores.
 
-- then lets start with creating a properly landing page that sells the app from a glance, make sure its aesthetic and smooth.
+- under the pages, lets have /users, /admin, /cooperative, /auth, then put all the user page components in pages/users/ and auth /pages/auth.
 
-- then lets fully implement the user authentication(Login/Signup), make sure we add google Auth too.
-
-- after authentication the user should be navigated to the dashboard, lets make sure the dashboard holds live data and is aesthetic and smooth.
-
-- create /PRD/landing_page.md to document the implementation of the landing page.
-
-- create /PRD/user_module/dashboard/user_dashboard.md to document the implementation of the user dashboard.
-
-- we need to bootstrap the nest backend properly, i have added the MONGO_URI and the DB_NAME in the backend .env file, so make sure no mock implementation is done, i need all implementations to be live
+since we mostly have the users components, lets start with structures of the users page and components.
 
 
 I DON'T WANT BASIC DESIGNS FOR THE UI/UX, I WANT AN ASTHETIC AND SMOOTH UI/UX, USE THE BEST DESIGN PATTERNS AND BEST PRACTICES TO IMPLEMENT THE UI/UX.
@@ -32,4 +22,5 @@ ALWAYS QUERY GRAPHIFY TO GAIN MORE INSIGHT ON THE CODEBASE, AFTER ALL YOU ANALYS
 
 
 ALWAYS ASK ANY QUESTION YOU HAVE ABOUT ANYTHING I MISS THAT YOU BELIEVE WILL BETTER THE IMPLEMENTATION UNTILL YOU ARE SURE WE ARE GOOD TO GO
+
 

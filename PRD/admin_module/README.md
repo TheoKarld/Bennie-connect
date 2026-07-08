@@ -50,8 +50,9 @@ Permissions are granular strings of the form `resource:action`. Wildcards are `r
 | `roles` | Admin roles & the permission catalog (`adminRoles`) |
 | `cooperatives` | Cooperative records |
 | `savings-plans` | Savings products/plans |
-| `marketplace` | E-commerce products & listings |
-| `orders` | Marketplace orders |
+| `marketplace` | E-commerce products, categories & listing moderation (LIVE `products`/`productCategories`) |
+| `orders` | Marketplace orders (LIVE split-per-seller `orders` — own `/bennie/orders` section) |
+| `merchants` | Marketplace merchants — KYC review, suspension, earnings ledger & manual payouts (`merchants`, `merchantEarnings`, `merchantPayoutRequests`) |
 | `membership-tiers` | Membership tier definitions |
 | `memberships` | Individual member records |
 | `equipment` | Equipment inventory & GPS units |
@@ -85,7 +86,8 @@ Not every action applies to every resource.
 | `transactions:reverse` | Financial ops | Reverse a wallet/ledger transaction |
 | `orders:refund` | Marketplace | Refund a paid order to buyer wallet |
 | `equipment:settle-deposit` | Equipment | Damage/deposit adjustment & refund |
-| `adashe-contributions:process-payout` | Adashe | Disburse a rotation payout from the pool |
+| `adashe-contributions:mark-sent` | Adashe | Mark a rotation payout request as sent (funds wired off-platform) |
+| `merchants:mark-payout-sent` | Merchants | Mark a merchant payout request as sent (funds wired off-platform — mirror of `adashe-contributions:mark-sent`) |
 | `dividends:distribute` | Cooperative / dividends | Distribute a declared dividend to shareholders |
 | `commissions:pay-batch` | Agent commission | Batch-pay approved agent commissions |
 | `agent-commission:reverse` | Agent commission | Reverse a paid/approved commission |
@@ -123,7 +125,10 @@ Only the **Super Admin** role is seeded on bootstrap (below). The rest are sugge
 `Wallet`, `Transaction`, `WithdrawalRequest`, `DepositRequest`, `BankAccount`, `SavingsPlan`, `UserSavings`, `SavingsTransaction`, `Share`, `DividendDeclaration`, `Equipment`, `EquipmentBooking`, `ServiceCategory`, `ServiceProvider`, `ServiceListing`, `ServiceBooking`, `Product`, `Order`, `ContributionGroup`, `GroupMember`, `Membership`, `Cooperative`, `MembershipApplication`, `AgentProfile`, `Referral`, `CommissionPayment`.
 
 **Admin-plane (owned by the admin module):**
-`adminUsers`, `adminRoles`, `adminAuditLog`, `membershipTiers`, `settings` (plus append-only job/history helpers defined per-section: `adminRefreshTokens`, `interestAccrualRun`, `commissionRateConfig`, `commissionRun`, `productCategory`, `certificationType`, `productModeration`, `equipmentRateConfig`, `geofence`, `gpsAlert`, `groupModeration`, `payoutRun`, `settingChangeLog`).
+`adminUsers`, `adminRoles`, `adminAuditLog`, `membershipTiers`, `settings` (plus append-only job/history helpers defined per-section: `adminRefreshTokens`, `interestAccrualRun`, `commissionRateConfig`, `commissionRun`, `productCategories`, `productModeration`, `equipmentRateConfig`, `geofence`, `gpsAlert`, `groupModeration`, `payoutRun`, `settingChangeLog`).
+
+**LIVE Marketplace / Orders / Merchants plane (owner-locked build — canonical schemas in [`PRD/data_structure.md`](../data_structure.md) §11):**
+`productCategories` (admin-owned, seeded), `products`, `carts`, `orders` (split per seller, linked by `checkoutGroupId`), `merchants`, `merchantEarnings`, `merchantPayoutRequests`. These **supersede** the draft `Product`/`Order` shapes in `data_structure.md` §7.7.6 and the earlier `certificationType` helper (retired this phase). Section PRDs: [marketplace/marketplace.md](./marketplace/marketplace.md), [admin_orders/orders.md](./admin_orders/orders.md), [merchants/merchants.md](./merchants/merchants.md).
 
 **Frontend `FarmerAppState` → canonical mapping.** The React prototype (`src/types.ts`) uses client-mock names that MAP to the canonical backend collections; they are the same domain concept under a different label:
 
@@ -230,7 +235,9 @@ The admin SPA is served under the **`/bennie`** route prefix (distinct from the 
 | `/bennie/admin` | Sub-admins & roles/permissions | `/admins/*`, `/roles/*` | `admins:*`, `roles:*` | [admins/admins.md](./admins/admins.md) |
 | `/bennie/cooperative` | Cooperatives, shares, dividends | `/cooperatives/*`, `/shares/*`, `/dividends/*` | `cooperatives:*`, `shares:*`, `dividends:*` | *(planned)* |
 | `/bennie/savings-plans` | Savings products & interest accrual | `/savings-plans/*` | `savings-plans:*` | *(planned)* |
-| `/bennie/market-place` | Products, orders, refunds | `/marketplace/*`, `/orders/*` | `marketplace:*`, `orders:*` | *(planned)* |
+| `/bennie/market-place` | Products, categories, moderation, seller oversight | `/marketplace/*` | `marketplace:*` | [marketplace/marketplace.md](./marketplace/marketplace.md) |
+| `/bennie/orders` | Marketplace orders (all sellers) — fulfilment override, cancel, refund | `/orders/*` | `orders:*` | [admin_orders/orders.md](./admin_orders/orders.md) |
+| `/bennie/merchants` | Merchant KYC review, suspension, earnings & manual payouts | `/merchants/*` | `merchants:*` | [merchants/merchants.md](./merchants/merchants.md) |
 | `/bennie/membership-tiers` | Tier definitions & memberships | `/membership-tiers/*`, `/memberships/*` | `membership-tiers:*`, `memberships:*` | *(planned)* |
 | `/bennie/equipment-booking` | Equipment inventory & bookings | `/equipment/*` | `equipment:*` | *(planned)* |
 | `/bennie/adashesu-contributions` | Adashe groups & payouts | `/adashe-groups/*` | `adashe-groups:*` | *(planned)* |
@@ -290,7 +297,7 @@ Capabilities used across many admin sections (each detailed in its own section P
 - **Batch / cron jobs.** Scheduled operations with admin controls to run-now, pause, and view run history:
   - **Interest accrual** on savings plans (`savings-plans:configure`, Super-Admin-only for at-scale runs).
   - **Dividend distribution** across shareholders (`dividends:distribute`, **Super-Admin-only, non-delegable**).
-  - **Adashe payouts** on rotation schedule (`adashe-contributions:process-payout`, **Super-Admin-only, non-delegable**).
+  - **Adashe payouts** — manual, off-platform: mark a rotation payout request as sent (`adashe-contributions:mark-sent`, **Super-Admin-only, non-delegable**); the recipient then confirms receipt.
   - **Commission calculation** for agents (`agent-commission:configure`); **batch payout** (`commissions:pay-batch`, **Super-Admin-only, non-delegable**).
   Every automated run writes to `adminAuditLog` with `actorEmail: "system"` and the triggering job name.
 - **Dispute mediation.** Marketplace/service disputes routed to admins with `orders:mediate` / `services:mediate`; resolution actions (refund, release, cancel) are audit-logged.
@@ -324,6 +331,9 @@ Capabilities used across many admin sections (each detailed in its own section P
 | 3 | Platform-User Management (User 360, KYC, impersonate) | [users/users.md](./users/users.md) | 📄 |
 | 4 | Financial Operations & Settlements | *(planned — separate pass)* | 📄 |
 | 5 | Content Management (marketplace/services/providers) | *(planned — separate pass)* | 📄 |
+| 5a | Marketplace — products, categories, moderation, sellers (LIVE build) | [marketplace/marketplace.md](./marketplace/marketplace.md) | 📄 |
+| 5b | Orders — split-per-seller orders, fulfilment override, cancel, refund (LIVE build) | [admin_orders/orders.md](./admin_orders/orders.md) | 📄 |
+| 5c | Merchants — KYC (Prembly + private bucket), suspension, earnings, manual payouts (LIVE build) | [merchants/merchants.md](./merchants/merchants.md) | 📄 |
 | 6 | System Configuration | *(planned — separate pass)* | 📄 |
 | 7 | Analytics & Reporting / Dashboard | *(planned — separate pass)* | 📄 |
 | 8 | Audit & Compliance | *(planned — audit schema defined here & in admins.md)* | 📄 |
@@ -336,7 +346,7 @@ Capabilities used across many admin sections (each detailed in its own section P
 
 1. **Admin identity vs. `users.role` — RESOLVED.** `admin` / `super_admin` on `users` are **vestigial** and grant **no** admin-plane access. Admin identity is exclusively `adminUsers`, fully independent of `users`. No bridge.
 2. **Seed domain — RESOLVED.** The seed super-admin email is **`superadmin@bennieconnect.com`** (double "n-i-e" = "bennie"). Password `Bennie-2026`, bcrypt-hashed at rest, `mustChangePassword: true`.
-3. **Financial-reversal reservation — RESOLVED.** The [Super-Admin-only permission set](#super-admin-only-permission-set-finalized--not-delegable) (`transactions:reverse`, `orders:refund`, `equipment:settle-deposit`, `adashe-contributions:process-payout`, `dividends:distribute`, `commissions:pay-batch`, `agent-commission:reverse`, `savings-plans:configure`, `settings:configure`, any `*:delete`, any `*:ban`, `users:impersonate`) is **Super-Admin-only and NOT delegable**. A dedicated Finance role may hold `approve`/`reject` but never any reversal/destructive permission.
+3. **Financial-reversal reservation — RESOLVED.** The [Super-Admin-only permission set](#super-admin-only-permission-set-finalized--not-delegable) (`transactions:reverse`, `orders:refund`, `equipment:settle-deposit`, `adashe-contributions:mark-sent`, `dividends:distribute`, `commissions:pay-batch`, `agent-commission:reverse`, `savings-plans:configure`, `settings:configure`, any `*:delete`, any `*:ban`, `users:impersonate`) is **Super-Admin-only and NOT delegable**. A dedicated Finance role may hold `approve`/`reject` but never any reversal/destructive permission.
 4. **Config SSOT — RESOLVED.** `settings` owns fees/rates/tax/limits; `membershipTiers` owns tier pricing + privileges (not `settings.membership.pricing`).
 5. **Domain schema extensions — RESOLVED (adopted).** See [Adopted domain schema extensions](#adopted-domain-schema-extensions-finalized).
 

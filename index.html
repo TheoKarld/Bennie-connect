@@ -6,15 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    connect-src 'self' http://localhost:5566 ws://localhost:5566 wss://localhost:5566 https://bennie.karldworld.xyz wss://bennie.karldworld.xyz https://accounts.google.com https://www.googleapis.com https://fcm.googleapis.com https://*.googleapis.com https://firebaseinstallations.googleapis.com;
-    script-src 'self' 'unsafe-inline' https://accounts.google.com https://www.gstatic.com;
+    connect-src 'self' http://localhost:5566 ws://localhost:5566 wss://localhost:5566 https://bennie.karldworld.xyz wss://bennie.karldworld.xyz https://accounts.google.com https://www.googleapis.com https://fcm.googleapis.com https://*.googleapis.com https://firebaseinstallations.googleapis.com https://maps.googleapis.com https://maps.gstatic.com https://seerbitapi.com https://*.seerbitapi.com https://*.seerbit.com;
+    script-src 'self' 'unsafe-inline' https://accounts.google.com https://www.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://checkout.seerbitapi.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     font-src 'self' https://fonts.gstatic.com;
-    img-src 'self' data: https:;
-    frame-src https://accounts.google.com;
+    img-src 'self' data: https: https://maps.googleapis.com https://maps.gstatic.com;
+    frame-src https://accounts.google.com https://checkout.seerbitapi.com https://*.seerbit.com https://*.seerbitapi.com;
     worker-src 'self';
   " />
   <title>BENNIE CONNECT</title>
+  <script>
+    // No-flash theme init: apply .dark to <html> before first paint.
+    (function () {
+      try {
+        var stored = localStorage.getItem('bennie_theme'); // 'light' | 'dark' | 'system' | null
+        var isDark =
+          stored === 'dark' ||
+          ((stored === 'system' || !stored) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
+        var root = document.documentElement;
+        if (isDark) {
+          root.classList.add('dark');
+          root.style.colorScheme = 'dark';
+        } else {
+          root.classList.remove('dark');
+          root.style.colorScheme = 'light';
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>

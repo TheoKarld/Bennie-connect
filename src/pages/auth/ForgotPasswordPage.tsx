@@ -54,16 +54,16 @@ export default function ForgotPasswordPage() {
         className="space-y-6"
       >
         <div className="flex flex-col items-center text-center space-y-4">
-          <span className="w-14 h-14 rounded-2xl bg-[#135D39]/8 ring-1 ring-[#135D39]/15 flex items-center justify-center">
-            <MailCheck className="w-7 h-7 text-[#135D39]" />
+          <span className="w-14 h-14 rounded-2xl bg-primary/8 ring-1 ring-primary/15 flex items-center justify-center">
+            <MailCheck className="w-7 h-7 text-primary" />
           </span>
           <div className="space-y-1.5">
-            <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+            <h2 className="font-display text-2xl font-semibold text-ink">
               Check your inbox
             </h2>
-            <p className="text-sm text-[#5C6460] leading-relaxed">
+            <p className="text-sm text-muted leading-relaxed">
               If an account exists for{" "}
-              <span className="font-semibold text-[#1A2421]">
+              <span className="font-semibold text-ink">
                 {email.trim()}
               </span>
               , a reset link is on its way — check your inbox.
@@ -71,12 +71,12 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
 
-        <p className="text-center text-xs text-[#9AA29D]">
+        <p className="text-center text-xs text-muted">
           Didn't get it? Check your spam folder, or{" "}
           <button
             type="button"
             onClick={() => setSent(false)}
-            className="font-semibold text-[#135D39] hover:underline"
+            className="font-semibold text-primary hover:underline"
           >
             try another email
           </button>
@@ -85,7 +85,7 @@ export default function ForgotPasswordPage() {
 
         <Link
           to="/login"
-          className="flex items-center justify-center gap-1.5 text-sm font-semibold text-[#135D39] hover:underline"
+          className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary hover:underline"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to sign in
@@ -97,10 +97,10 @@ export default function ForgotPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1.5">
-        <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+        <h2 className="font-display text-2xl font-semibold text-ink">
           Forgot your password?
         </h2>
-        <p className="text-sm text-[#5C6460]">
+        <p className="text-sm text-muted">
           Enter your email and we'll send you a secure link to reset it.
         </p>
       </div>
@@ -110,7 +110,7 @@ export default function ForgotPasswordPage() {
           initial={reduce ? false : { opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           role="alert"
-          className="flex items-start gap-2 rounded-2xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600"
+          className="flex items-start gap-2 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 px-4 py-3 text-sm text-red-600 dark:text-red-400"
         >
           <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
           <span>{error}</span>
@@ -121,7 +121,7 @@ export default function ForgotPasswordPage() {
         <Field label="Email" htmlFor="email" error={fieldError ?? undefined}>
           <div className="relative">
             <Mail
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"
               aria-hidden
             />
             <Input
@@ -146,7 +146,7 @@ export default function ForgotPasswordPage() {
 
       <Link
         to="/login"
-        className="flex items-center justify-center gap-1.5 text-sm font-semibold text-[#135D39] hover:underline"
+        className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary hover:underline"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to sign in

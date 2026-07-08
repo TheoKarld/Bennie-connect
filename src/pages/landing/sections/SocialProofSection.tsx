@@ -33,21 +33,21 @@ const TESTIMONIALS = [
 
 export default function SocialProofSection() {
   return (
-    <section id="proof" className="relative bg-white/40 py-20 lg:py-28">
+    <section id="proof" className="relative bg-surface/40 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Stats band */}
         <Reveal>
-          <div className="grid grid-cols-2 gap-6 rounded-3xl border border-[#E6E5DF] bg-white/70 p-8 shadow-sm sm:grid-cols-4 sm:p-10">
+          <div className="grid grid-cols-2 gap-6 rounded-3xl border border-border bg-surface/70 p-8 shadow-sm sm:grid-cols-4 sm:p-10">
             {STATS.map((s) => (
               <div key={s.label} className="text-center">
-                <div className="font-mono text-3xl font-semibold text-[#135D39] sm:text-4xl">
+                <div className="font-mono text-3xl font-semibold text-primary sm:text-4xl">
                   {s.value}
                 </div>
-                <div className="mt-1 text-xs text-[#5C6460] sm:text-sm">{s.label}</div>
+                <div className="mt-1 text-xs text-muted sm:text-sm">{s.label}</div>
               </div>
             ))}
           </div>
-          <p className="mt-3 text-center text-[10px] italic text-[#5C6460]/60">
+          <p className="mt-3 text-center text-[10px] italic text-muted/60">
             Figures illustrative of platform scale.
           </p>
         </Reveal>
@@ -56,22 +56,22 @@ export default function SocialProofSection() {
         <div className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
           {TESTIMONIALS.map((t, i) => (
             <Reveal key={t.name} delay={i * 0.08}>
-              <figure className="flex h-full flex-col rounded-3xl border border-[#E6E5DF] bg-white/70 p-7 shadow-sm">
-                <Quote className="h-7 w-7 text-[#E7A13C]" aria-hidden />
-                <blockquote className="mt-4 flex-1 text-base leading-relaxed text-[#1A2421]">
+              <figure className="flex h-full flex-col rounded-3xl border border-border bg-surface/70 p-7 shadow-sm">
+                <Quote className="h-7 w-7 text-accent" aria-hidden />
+                <blockquote className="mt-4 flex-1 text-base leading-relaxed text-ink">
                   "{t.quote}"
                 </blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#135D39] font-mono text-sm font-semibold text-white">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary font-mono text-sm font-semibold text-white">
                     {t.initials}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-[#1A2421]">{t.name}</div>
-                    <div className="text-xs text-[#5C6460]">{t.role}</div>
+                    <div className="text-sm font-semibold text-ink">{t.name}</div>
+                    <div className="text-xs text-muted">{t.role}</div>
                   </div>
                   <div className="ml-auto flex gap-0.5" aria-label="5 out of 5 stars">
                     {Array.from({ length: 5 }).map((_, k) => (
-                      <Star key={k} className="h-4 w-4 fill-[#E7A13C] text-[#E7A13C]" aria-hidden />
+                      <Star key={k} className="h-4 w-4 fill-accent text-accent" aria-hidden />
                     ))}
                   </div>
                 </figcaption>

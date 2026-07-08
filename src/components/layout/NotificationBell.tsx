@@ -59,10 +59,10 @@ const TONE_ICON: Record<Tone, React.ComponentType<{ className?: string }>> = {
 };
 
 const TONE_COLOR: Record<Tone, string> = {
-  success: "text-[#135D39]",
-  info: "text-[#135D39]",
-  warning: "text-[#a6701c]",
-  alert: "text-red-500",
+  success: "text-primary",
+  info: "text-primary",
+  warning: "text-[#a6701c] dark:text-accent",
+  alert: "text-red-500 dark:text-red-400",
 };
 
 function timeAgo(ms: number): string {
@@ -194,11 +194,11 @@ export default function NotificationBell() {
         aria-label={`Notifications${unreadCount ? `, ${unreadCount} unread` : ""}`}
         aria-expanded={open}
         aria-haspopup="true"
-        className="relative rounded-xl bg-[#135D39]/5 p-2 text-[#135D39] transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#135D39]/30"
+        className="relative rounded-xl bg-primary/5 p-2 text-primary transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#135D39]/30"
       >
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
-          <span className="absolute -right-0.5 -top-0.5 flex min-w-4 items-center justify-center rounded-full bg-[#E7A13C] px-1 text-[10px] font-bold leading-4 text-[#1A2421]">
+          <span className="absolute -right-0.5 -top-0.5 flex min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold leading-4 text-[#1A2421]">
             {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}
@@ -213,16 +213,16 @@ export default function NotificationBell() {
             transition={{ duration: 0.16 }}
             role="menu"
             aria-label="Notifications"
-            className="absolute right-0 top-full z-50 mt-2 w-[22rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-[#E6E5DF] bg-white shadow-xl shadow-[#135D39]/10"
+            className="absolute right-0 top-full z-50 mt-2 w-[22rem] max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-border bg-surface shadow-xl shadow-[#135D39]/10"
           >
             {/* Header */}
-            <div className="flex items-center justify-between gap-2 border-b border-[#E6E5DF] px-4 py-3">
+            <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
               <div className="flex items-center gap-2">
-                <span className="font-display text-sm font-semibold text-[#1A2421]">
+                <span className="font-display text-sm font-semibold text-ink">
                   Notifications
                 </span>
                 {unreadCount > 0 && (
-                  <span className="rounded-full bg-[#135D39]/10 px-2 py-0.5 text-[10px] font-bold text-[#135D39]">
+                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
                     {unreadCount} new
                   </span>
                 )}
@@ -231,7 +231,7 @@ export default function NotificationBell() {
                 <button
                   type="button"
                   onClick={handleMarkAll}
-                  className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold text-[#5C6460] transition hover:bg-[#135D39]/5 hover:text-[#135D39]"
+                  className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold text-muted transition hover:bg-primary/5 hover:text-primary"
                 >
                   <CheckCheck className="h-3.5 w-3.5" /> Mark all read
                 </button>
@@ -244,16 +244,16 @@ export default function NotificationBell() {
                 type="button"
                 onClick={handleEnablePush}
                 disabled={pushBusy}
-                className="flex w-full items-center gap-2.5 border-b border-[#E6E5DF] bg-[#135D39]/[0.03] px-4 py-2.5 text-left transition hover:bg-[#135D39]/[0.06] disabled:opacity-60"
+                className="flex w-full items-center gap-2.5 border-b border-border bg-primary/[0.03] px-4 py-2.5 text-left transition hover:bg-primary/[0.06] disabled:opacity-60"
               >
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#E7A13C]/15 text-[#a6701c]">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-[#a6701c] dark:text-accent">
                   <BellRing className="h-4 w-4" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-xs font-semibold text-[#1A2421]">
+                  <span className="block text-xs font-semibold text-ink">
                     {pushBusy ? "Enabling…" : "Enable push notifications"}
                   </span>
-                  <span className="block truncate text-[11px] text-[#5C6460]">
+                  <span className="block truncate text-[11px] text-muted">
                     Get alerts even when this tab is closed.
                   </span>
                 </span>
@@ -264,16 +264,16 @@ export default function NotificationBell() {
             <div className="max-h-[24rem] overflow-y-auto">
               {merged.length === 0 ? (
                 <div className="px-4 py-10 text-center">
-                  <Bell className="mx-auto mb-2 h-6 w-6 text-[#C9CCC7]" />
-                  <p className="text-sm font-medium text-[#5C6460]">
+                  <Bell className="mx-auto mb-2 h-6 w-6 text-muted/50" />
+                  <p className="text-sm font-medium text-muted">
                     You're all caught up
                   </p>
-                  <p className="mt-1 text-xs text-[#9AA29D]">
+                  <p className="mt-1 text-xs text-muted/70">
                     New activity will appear here in real time.
                   </p>
                 </div>
               ) : (
-                <ul className="divide-y divide-[#F0EFEA]">
+                <ul className="divide-y divide-border">
                   {merged.map((item) => {
                     const Icon = TONE_ICON[item.type];
                     return (
@@ -281,7 +281,7 @@ export default function NotificationBell() {
                         <button
                           type="button"
                           onClick={() => handleItemRead(item)}
-                          className={`flex w-full items-start gap-3 px-4 py-3 text-left transition hover:bg-[#135D39]/[0.03] ${
+                          className={`flex w-full items-start gap-3 px-4 py-3 text-left transition hover:bg-primary/[0.03] ${
                             item.isRead ? "opacity-70" : ""
                           }`}
                         >
@@ -290,17 +290,17 @@ export default function NotificationBell() {
                           </span>
                           <span className="min-w-0 flex-1">
                             <span className="flex items-center gap-2">
-                              <span className="truncate text-[13px] font-semibold text-[#1A2421]">
+                              <span className="truncate text-[13px] font-semibold text-ink">
                                 {item.title}
                               </span>
                               {!item.isRead && (
-                                <span className="h-2 w-2 shrink-0 rounded-full bg-[#E7A13C]" />
+                                <span className="h-2 w-2 shrink-0 rounded-full bg-accent" />
                               )}
                             </span>
-                            <span className="mt-0.5 block line-clamp-2 text-xs leading-relaxed text-[#5C6460]">
+                            <span className="mt-0.5 block line-clamp-2 text-xs leading-relaxed text-muted">
                               {item.message}
                             </span>
-                            <span className="mt-1 block font-mono text-[10px] uppercase tracking-wider text-[#9AA29D]">
+                            <span className="mt-1 block font-mono text-[10px] uppercase tracking-wider text-muted/70">
                               {timeAgo(item.date)}
                             </span>
                           </span>
@@ -314,15 +314,15 @@ export default function NotificationBell() {
 
             {/* Footer */}
             {merged.length > 0 && (
-              <div className="flex items-center justify-between border-t border-[#E6E5DF] px-4 py-2.5">
+              <div className="flex items-center justify-between border-t border-border px-4 py-2.5">
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold text-[#5C6460] transition hover:text-[#1A2421]"
+                  className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-semibold text-muted transition hover:text-ink"
                 >
                   <X className="h-3.5 w-3.5" /> Close
                 </button>
-                <span className="font-mono text-[10px] text-[#9AA29D]">
+                <span className="font-mono text-[10px] text-muted/70">
                   {merged.length} total
                 </span>
               </div>

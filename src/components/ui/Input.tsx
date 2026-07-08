@@ -14,10 +14,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         ref={ref}
-        className={`w-full rounded-2xl border bg-white px-4 py-3 text-sm text-[#1A2421] placeholder:text-[#9AA29D] transition focus:outline-none focus:ring-2 ${
+        className={`w-full rounded-2xl border bg-surface px-4 py-3 text-sm text-ink placeholder:text-muted/70 transition focus:outline-none focus:ring-2 ${
           invalid
-            ? "border-red-400 focus:ring-red-200"
-            : "border-[#E6E5DF] focus:border-[#135D39] focus:ring-[#135D39]/15"
+            ? "border-danger/60 focus:ring-danger/25"
+            : "border-border focus:border-primary focus:ring-primary/15"
         } ${className}`}
         {...rest}
       />

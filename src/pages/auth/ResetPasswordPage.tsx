@@ -67,14 +67,14 @@ export default function ResetPasswordPage() {
         className="space-y-6"
       >
         <div className="flex flex-col items-center text-center space-y-4">
-          <span className="w-14 h-14 rounded-2xl bg-red-50 ring-1 ring-red-200 flex items-center justify-center">
-            <AlertCircle className="w-7 h-7 text-red-500" />
+          <span className="w-14 h-14 rounded-2xl bg-red-50 dark:bg-red-950/40 ring-1 ring-red-200 dark:ring-red-900/50 flex items-center justify-center">
+            <AlertCircle className="w-7 h-7 text-red-500 dark:text-red-400" />
           </span>
           <div className="space-y-1.5">
-            <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+            <h2 className="font-display text-2xl font-semibold text-ink">
               Invalid or expired link
             </h2>
-            <p className="text-sm text-[#5C6460] leading-relaxed">
+            <p className="text-sm text-muted leading-relaxed">
               This password reset link is missing or has expired. Request a fresh
               one to continue.
             </p>
@@ -89,7 +89,7 @@ export default function ResetPasswordPage() {
 
         <Link
           to="/login"
-          className="flex items-center justify-center gap-1.5 text-sm font-semibold text-[#135D39] hover:underline"
+          className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary hover:underline"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to sign in
@@ -107,14 +107,14 @@ export default function ResetPasswordPage() {
         className="space-y-6"
       >
         <div className="flex flex-col items-center text-center space-y-4">
-          <span className="w-14 h-14 rounded-2xl bg-[#135D39]/8 ring-1 ring-[#135D39]/15 flex items-center justify-center">
-            <CheckCircle2 className="w-7 h-7 text-[#135D39]" />
+          <span className="w-14 h-14 rounded-2xl bg-primary/8 ring-1 ring-primary/15 flex items-center justify-center">
+            <CheckCircle2 className="w-7 h-7 text-primary" />
           </span>
           <div className="space-y-1.5">
-            <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+            <h2 className="font-display text-2xl font-semibold text-ink">
               Password updated
             </h2>
-            <p className="text-sm text-[#5C6460] leading-relaxed">
+            <p className="text-sm text-muted leading-relaxed">
               Your password has been reset. Redirecting you to sign in…
             </p>
           </div>
@@ -166,10 +166,10 @@ export default function ResetPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-1.5">
-        <h2 className="font-display text-2xl font-semibold text-[#1A2421]">
+        <h2 className="font-display text-2xl font-semibold text-ink">
           Set a new password
         </h2>
-        <p className="text-sm text-[#5C6460]">
+        <p className="text-sm text-muted">
           Choose a strong password you haven't used before.
         </p>
       </div>
@@ -179,7 +179,7 @@ export default function ResetPasswordPage() {
           initial={reduce ? false : { opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
           role="alert"
-          className="flex items-start gap-2 rounded-2xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600"
+          className="flex items-start gap-2 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 px-4 py-3 text-sm text-red-600 dark:text-red-400"
         >
           <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
           <span>{error}</span>
@@ -189,7 +189,7 @@ export default function ResetPasswordPage() {
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <Field label="New password" htmlFor="password" error={fieldErrors.password}>
           <div className="relative">
-            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]" aria-hidden />
+            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden />
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -207,7 +207,7 @@ export default function ResetPasswordPage() {
               onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? "Hide password" : "Show password"}
               aria-pressed={showPassword}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#9AA29D] hover:text-[#135D39] hover:bg-[#135D39]/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-muted hover:text-primary hover:bg-primary/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -223,7 +223,7 @@ export default function ResetPasswordPage() {
           error={fieldErrors.confirmPassword}
         >
           <div className="relative">
-            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA29D]" aria-hidden />
+            <Lock className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" aria-hidden />
             <Input
               id="confirmPassword"
               type={showConfirm ? "text" : "password"}
@@ -241,7 +241,7 @@ export default function ResetPasswordPage() {
               onClick={() => setShowConfirm((v) => !v)}
               aria-label={showConfirm ? "Hide password" : "Show password"}
               aria-pressed={showConfirm}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#9AA29D] hover:text-[#135D39] hover:bg-[#135D39]/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-muted hover:text-primary hover:bg-primary/5 transition focus:outline-none focus:ring-2 focus:ring-[#135D39]/25"
             >
               {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -255,7 +255,7 @@ export default function ResetPasswordPage() {
 
       <Link
         to="/login"
-        className="flex items-center justify-center gap-1.5 text-sm font-semibold text-[#135D39] hover:underline"
+        className="flex items-center justify-center gap-1.5 text-sm font-semibold text-primary hover:underline"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to sign in

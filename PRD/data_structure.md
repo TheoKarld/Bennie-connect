@@ -124,6 +124,20 @@ The entire running app is one object persisted to `localStorage`. Defined in `sr
 }
 ```
 
+> **Superseded by the server wallet (§7.7.1).** `walletBalance` + `WalletTransaction[]`
+> are a **client-only mock** (`localStorage`, seeded by `src/data.ts`). The 📄 wallet
+> module ([`PRD/user_module/wallet/digital-wallet-seerbit.md`](user_module/wallet/digital-wallet-seerbit.md),
+> As-Built §H) replaces them: **balance** → server [`Wallet.balance.{available,pending,locked}`](#771-wallet-domain----prduser_modulewalletdigital-wallet-seerbitmd)
+> (§7.7.1), read from `GET /api/v1/wallet`; each **transaction** → a double-entry
+> [`transactions`](#771-wallet-domain----prduser_modulewalletdigital-wallet-seerbitmd)
+> ledger row, read from `GET /api/v1/wallet/transactions`. Field map: `WalletTransaction.amount`
+> → `Transaction.amount`; `.description` → `.description`; `.status`
+> (`success|pending|failed`) → `.status` (`COMPLETED|PENDING|FAILED`); `.type`
+> (`deposit|withdraw|transfer|…`) → `.category` (`DEPOSIT|WITHDRAWAL|TRANSFER_OUT|…`) +
+> `.type` (`CREDIT|DEBIT`); `.gateway` (`Paystack|Flutterwave|Monnify`) → **SeerBit**
+> (`seerBitData`, per PRD 02). The Wallet page, Dashboard summary, and top-nav balance
+> read the **server** wallet; the mock remains only as an offline/seed fallback.
+
 ### 1.3 Savings
 
 ```jsonc
@@ -194,6 +208,14 @@ The entire running app is one object persisted to `localStorage`. Defined in `sr
 
 ### 1.5 Equipment Booking
 
+> ⚠️ **Superseded by the LIVE equipment collections (§7.7.4).** The frontend mock
+> `AgriBooking` below is a client-only, simulated shape. The server-backed module (PRD 06,
+> `PRD/user_module/equipment-booking-gps/equipment-booking-gps.md`) replaces it with the
+> `equipment` + `equipmentBookings` collections (+ admin-owned `equipmentRateConfig` /
+> `geofences` / `gpsAlerts`). Payment is **wallet-only, full cost after admin approval**
+> (`WalletService` PAYMENT debit); live GPS is **operator-push over socket.io** rendered with
+> the Google Maps JS API. Keep §1.5 only as the offline/seed fallback.
+
 ```jsonc
 // AgriBooking (types.ts:94)
 {
@@ -228,6 +250,15 @@ The entire running app is one object persisted to `localStorage`. Defined in `sr
 ```
 
 ### 1.6 Contribution Groups (Adashe / Esusu)
+
+> ⚠️ **Superseded by the LIVE Adashe collections (§9).** The frontend mock
+> `ContributionGroup` below (`src/types.ts`, driving `src/pages/cooperative/AdasheView.tsx`)
+> is a client-only, simulated shape. The LIVE, server-backed module (PRD 09,
+> `PRD/user_module/adashesu-contributions/adashesu-contributions.md`) replaces it with the
+> normalized `contributionGroups` + `groupMembers` + `groupInvitations` + `groupMessages` +
+> `groupProposals` + `groupAttendance` + `payoutRequests` + `groupActivityLogs` collections in
+> **§9**. Money is **track-pool-only** (a `poolBalance` counter, no wallet debit) and payout is
+> **manual/off-platform**. Keep §1.6 only as the offline/seed fallback.
 
 ```jsonc
 // ContributionGroup (types.ts:123)
@@ -349,6 +380,14 @@ The entire running app is one object persisted to `localStorage`. Defined in `sr
 ```
 
 ### 1.9 Product Marketplace (E-commerce)
+
+> ⚠️ **Superseded by the LIVE model (§11).** The frontend mock types below
+> (`Product`, `CartItem`, `ProductOrder`) are the client prototype only. The
+> owner-locked LIVE build — server-backed `productCategories` / `products` / `carts` /
+> `orders` (split per seller, wallet-only payment) / `merchants` /
+> `merchantEarnings` / `merchantPayoutRequests` — is defined in
+> [§11 LIVE Marketplace, Orders & Merchants](#11-live-marketplace-orders--merchants--collections--triggers-).
+> Build against §11, not these shapes.
 
 ```jsonc
 // Product (types.ts:214)
@@ -714,6 +753,9 @@ Remaining planned collections (see the named PRD for the authoritative field lis
   "bcrypt":   { "saltRounds": "number" },
   "seerbit":  { "secretKey": "string", "publicKey": "string", "baseUrl": "string" }, // payment gateway
   "firebase": { "projectId": "string", "clientEmail": "string", "privateKey": "string" }, // 📄 FCM web push (PRD notification.md); privateKey un-escapes "\n"
+  "gcp":      { "projectId": "string", "clientEmail": "string", "privateKey": "string",
+                "bucket": "string", "location": "string", "maxUploadBytes": "number",
+                "allowedMimeTypes": "string[]" }, // 📄 GCS file uploads (PRD gcp_upload.md, §10); privateKey un-escapes "\n"; public bucket
   "smtp":     { "host": "string", "port": "number", "user": "string",
                 "password": "string", "from": "string" },
   "rateLimit":{ "ttl": "number", "max": "number" },
@@ -761,7 +803,7 @@ Remaining planned collections (see the named PRD for the authoritative field lis
 | `walletBalance` + `WalletTransaction[]` | `Wallet` + `Transaction` | Balance becomes `Wallet.balance.{available,pending,locked}`; each tx is a `Transaction` ledger row |
 | `flexSaveBalance` / `targetGoals` / `fixedLocks` / `harvestPlans` | `SavingsPlan` + `UserSavings` + `SavingsTransaction` | Product **definitions** in `SavingsPlan`; per-user holdings in `UserSavings`; movements in `SavingsTransaction` |
 | `SharePortfolio` (+ `ShareTransaction[]`) | `Share` + `DividendDeclaration` | Holdings/ledger → `Share`; declared runs → `DividendDeclaration` (super_admin) |
-| `AgriBooking` | `Equipment` + `EquipmentBooking` | Inventory → `Equipment`; the reservation → `EquipmentBooking` |
+| `AgriBooking` | `Equipment` + `EquipmentBooking` (+ `equipmentRateConfig`/`geofences`/`gpsAlerts`) | Inventory → `Equipment`; the reservation → `EquipmentBooking` (wallet-paid after admin approval, operator-push GPS); admin config in the rate/geofence/alert collections |
 | `ServiceBooking` / `ServiceCategory` (frontend) | `ServiceCategory` + `ServiceProvider` + `ServiceListing` + `ServiceBooking` | Frontend flattens; backend splits taxonomy/provider/listing/booking |
 | `Product` (frontend) | `Product` | Adds `moderationStatus` + `suspended` (admin moderation, §7.7) |
 | `ProductOrder` | `Order` | `Order.paymentStatus` adds `PARTIALLY_REFUNDED` |
@@ -859,6 +901,17 @@ Client-side session shapes for the live auth flow (see [PRD 01](user_module/auth
 - **`scope` separation** ensures a stolen/mis-routed token for one plane cannot act on the other.
 
 > ⚠️ **Flagged for the owner / migration.** The live code today persists the whole session (including `refreshToken`) into `localStorage["bennie_auth"]` via `useAuthStore` (§6.1). Moving to this dual-session hybrid requires: (a) backend to set/rotate the httpOnly `bennie_user_rt` / `bennie_admin_rt` cookies and stop returning the refresh token in the body; (b) `useAuthStore` to persist under `userToken`/`userData` and drop `refreshToken` from storage; (c) a new admin auth store persisting `adminToken`/`adminData`; (d) split the single axios instance in `src/lib/api.ts` into `userApi` + `adminApi`, both `withCredentials`. Until (a) ships, the user plane may keep the body-refresh transitionally, but the target is cookie-based for both planes.
+
+### 5.2 Client-only UI-preference keys ✅
+
+Beyond the auth/session keys above, the SPA persists two **presentation preferences** to `localStorage`. These are **client-only** — they never touch the API, carry no user data, and are independent of which plane (user / admin) is signed in.
+
+| Key | Values | Default | Written by | Purpose |
+|-----|--------|---------|-----------|---------|
+| `bennie_theme` | `'light' \| 'dark' \| 'system'` | `system` | `useTheme` (`src/hooks/useTheme.ts`) | Color-theme preference; `system` resolves live against `prefers-color-scheme`. Read before first paint by the no-flash `<script>` in `index.html` to add/remove `.dark` on `<html>`. Surfaced via `ThemeToggle` in **both** the user and admin shells (one preference per browser). |
+| `bennie_user_sidebar` | `'collapsed' \| 'pinned'` | `pinned` | `AppShell` (user shell) | Desktop sidebar collapse state for the **user** portal. Mirrors the admin shell's `bennie_admin_sidebar` key (documented in [admin_module/admin_layout/admin_layout.md](admin_module/admin_layout/admin_layout.md)). |
+
+**Semantic theme-token layer (client-only).** The theme is a pure CSS/presentation concern with **no backend field** on any collection. `src/index.css` declares semantic CSS variables — `--canvas`, `--surface`, `--surface-2`, `--ink`, `--muted`, `--border`, `--primary`, `--accent`, `--success`, `--warning`, `--danger` — on `:root` (light) and overridden under `.dark` (dark), where **only the neutrals flip** and brand `--primary`/`--accent` stay constant. Tailwind v4 registers them as `--color-*` utilities (`bg-canvas`, `text-ink`, `border-border`, …) and `@custom-variant dark` keys `dark:` on the `.dark` class on `<html>`. The class is kept in sync by the `useTheme` zustand store and initialised by the no-flash script. Full spec: [user_module/user_layout/user_layout.md → Theming](user_module/user_layout/user_layout.md#theming) (mirrored in [admin_layout.md → Theming](admin_module/admin_layout/admin_layout.md#theming)).
 
 ---
 
@@ -1255,18 +1308,21 @@ The admin module operates over the full set of domain collections defined across
 
 | Collection | Purpose (one-line) | Status | PRD |
 |------------|--------------------|--------|-----|
-| `Wallet` | Per-user NGN balance + gateway linkage | 📄 | `user_module/02-digital-wallet-seerbit.md` |
-| `Transaction` | Server-side ledger of wallet movements | 📄 | `user_module/02` |
-| `WithdrawalRequest` | User payout requests (admin-approved/settled) | 📄 | `user_module/02` · `admin_module/*` (financial ops) |
-| `DepositRequest` | Inbound funding intents / gateway callbacks | 📄 | `user_module/02` |
-| `BankAccount` | Saved NUBAN payout accounts | 📄 | `user_module/02` |
+| `Wallet` | Per-user NGN balance + SeerBit linkage | 📄 | `user_module/wallet/digital-wallet-seerbit.md` |
+| `Transaction` | Server-side double-entry ledger of wallet movements | 📄 | `user_module/wallet/*` |
+| `WithdrawalRequest` | User payout requests (ledger + approval; live payout flag-gated) | 📄 | `user_module/wallet/*` · `admin_module/*` (financial ops) |
+| `DepositRequest` | Inbound deposit intents (inline SDK) / webhook backstop | 📄 | `user_module/wallet/*` |
+| `BankAccount` | Saved NUBAN payout accounts (static bank list this phase) | 📄 | `user_module/wallet/*` |
 | `SavingsPlan` | Product definitions (Flex/Target/Fixed/Harvest) | 📄 | `user_module/04-savings-products.md` |
 | `UserSavings` | A user's holdings in a savings plan | 📄 | `user_module/04` |
 | `SavingsTransaction` | Deposits/withdrawals/interest on savings | 📄 | `user_module/04` |
 | `Share` | Cooperative share holdings / ledger | 📄 | `user_module/05-cooperative-shares-dividends.md` |
 | `DividendDeclaration` | Admin-declared dividend runs (super_admin) | 📄 | `user_module/05` · `admin_module/*` (financial ops) |
 | `Equipment` | Bookable equipment inventory | 📄 | `user_module/06-equipment-booking-gps.md` |
-| `EquipmentBooking` | Equipment reservations + GPS/lifecycle | 📄 | `user_module/06` |
+| `EquipmentBooking` | Equipment reservations + wallet payment + GPS/lifecycle | 📄 | `user_module/06` |
+| `equipmentRateConfig` | Admin default rate/deposit policy per category | 📄 | `admin_module/equipment_booking/*` · `user_module/06` |
+| `geofences` | Admin authorised operating zones (GPS breach → alert) | 📄 | `admin_module/equipment_booking/*` · `user_module/06` |
+| `gpsAlerts` | Append-only geofence/overspeed/signal alerts | 📄 | `admin_module/equipment_booking/*` · `user_module/06` |
 | `ServiceCategory` | Agric-services taxonomy + pricing | 📄 | `user_module/07-agric-services-marketplace.md` |
 | `ServiceProvider` | Vetted service providers (admin-approved) | 📄 | `user_module/07` · `admin_module/*` (content) |
 | `ServiceListing` | Individual bookable service offerings | 📄 | `user_module/07` |
@@ -1287,6 +1343,18 @@ The admin module operates over the full set of domain collections defined across
 All schemas below are 📄 **planned** (none coded yet). Conventions match §2: values are types; `// optional`; enums as arrays; money is whole **NGN**; `ObjectId` fields note their `ref`. `@Schema({ timestamps: true })` implies auto `_id` + `createdAt`/`updatedAt` unless stated otherwise.
 
 #### 7.7.1 Wallet domain 📄 — `PRD/user_module/wallet/digital-wallet-seerbit.md`
+
+> **As-Built (v2) reconciliation.** Field shapes below match the wallet PRD's As-Built
+> section. Deposit = **inline SeerBit popup SDK** + server `POST /wallet/deposit/verify`
+> (`GET /payments/query/{ref}`) with a webhook backstop, credited **idempotently** on
+> `Transaction.reference`. Withdrawal = **ledger + approval** (lock `available`→`pending`,
+> auto-approve ≤ ₦50k else admin); live disbursement gated behind `WALLET_LIVE_PAYOUTS`
+> (default off), so `seerBitData.transferRef`/`batchId` on `WithdrawalRequest` stay unset
+> this phase. Internal transfer = by **registered email** (two ledger rows,
+> `TRANSFER_OUT`/`TRANSFER_IN`). Verified SeerBit facts: REST base
+> `https://seerbitapi.com/api/v2`, inline SDK `https://checkout.seerbitapi.com/api/v2/seerbit.js`,
+> Bearer from `POST /encrypt/keys`. ⚠️ V2 webhook has **no default signature** — credit
+> only from the server-side re-query.
 
 ```jsonc
 // Wallet document 📄 — ref User.wallet (§2.1). One per user.
@@ -1411,12 +1479,30 @@ All schemas below are 📄 **planned** (none coded yet). Conventions match §2: 
   "bankCode": "string",
   "isDefault": "boolean",
   "isVerified": "boolean",
-  "verificationMethod": ["NAME_ENQUIRY", "PENNY_DROP"],   // optional
+  "verificationMethod": ["NAME_ENQUIRY", "PENNY_DROP"],   // optional; ⚠️ NAME_ENQUIRY not live this phase (static bank list)
   "verifiedAt": "Date",                    // optional
   "createdAt": "Date",
   "updatedAt": "Date"
 }
 ```
+
+**Indexes (wallet domain):**
+- `Wallet`: unique `userId`, unique `walletNumber`, single `status`.
+- `transactions`: **unique `reference`** (idempotency backbone), compound `walletId + createdAt: -1` (history), single `category`, `status`, sparse `externalReference` (SeerBit `gatewayref` lookup).
+- `depositRequests`: **unique `reference`**, single `walletId`, `status`; optional TTL on `seerBitData.expiresAt` to expire abandoned `PENDING` intents.
+- `withdrawalRequests`: **unique `reference`**, compound `status + createdAt` (admin approval queue), single `walletId`, `userId`.
+- `bankAccounts`: single `userId`; unique compound `userId + accountNumber + bankCode` (no dup saved accounts).
+
+**Idempotency & credit path:** deposit **verify** and **webhook** converge on one
+`creditDeposit(reference)` guarded by the unique `transactions.reference` derived from
+the deposit reference — a repeat call finds the `COMPLETED` request and no-ops (no
+double credit). Crediting happens **only** from the server-side `GET /payments/query/{ref}`
+result, never from the webhook body (⚠️ no trustworthy V2 signature).
+
+> Naming note: this doc uses lowercase collection names (`transactions`,
+> `depositRequests`, `withdrawalRequests`, `bankAccounts`) matching Mongoose's default
+> pluralization of the model names in the wallet PRD (`Transaction`, `DepositRequest`,
+> `WithdrawalRequest`, `BankAccount`); `Wallet` → `wallets`.
 
 #### 7.7.2 Savings domain 📄 — `PRD/user_module/savings-products/savings-products.md`
 
@@ -1557,7 +1643,7 @@ All schemas below are 📄 **planned** (none coded yet). Conventions match §2: 
     "lastUpdateAt": "Date"                 // optional
   },
   "specifications": "Record<string, any>",
-  "images": "string[]",
+  "images": "string[]",                    // URLs from the file-upload service (§10)
   "maintenanceSchedule": [
     {
       "type": "string",
@@ -1566,42 +1652,146 @@ All schemas below are 📄 **planned** (none coded yet). Conventions match §2: 
       "notes": "string"
     }
   ],
-  "bookingHistory": "number",              // total bookings count
+  "bookingHistory": "number",              // total completed-bookings count
   "createdAt": "Date",
   "updatedAt": "Date"
 }
+//   Indexes: single "category", "status", "cooperativeId"; "gpsTracker.isActive";
+//   text/prefix on "name","model"; "createdAt: -1".
+//   ⚠️ "gpsTracker.deviceId" retained for a future hardware tracker; live GPS this phase is
+//   operator-push (see EquipmentBooking.trackingToken / gpsTracking below).
 
-// EquipmentBooking document 📄 — canonical for frontend AgriBooking (§1.5)
+// EquipmentBooking document 📄 — canonical for frontend AgriBooking (§1.5).
+//   LOCKED FLOW: request→PENDING (no charge) → admin APPROVED (awaiting pay) → user pays
+//   FULL cost from the LIVE wallet (Transaction PAYMENT debit) → CONFIRMED → handover IN_USE
+//   (GPS live) → COMPLETED (deposit refunded to wallet minus damage/overdue; excess →
+//   outstandingCharge). Admin may REJECTED a request. Supersedes the old "deposit-before-confirm"
+//   draft. Full spec: PRD 06 (equipment-booking-gps.md).
 {
   "_id": "ObjectId",
   "equipmentId": "ObjectId",               // ref "Equipment"
-  "userId": "ObjectId",                    // ref "users"
-  "bookingReference": "string",            // unique
+  "userId": "ObjectId",                    // ref "users" — the booking farmer
+  "bookingReference": "string",            // unique, e.g. EQB<ts><rand>
   "startDate": "Date",
   "endDate": "Date",
-  "actualStartDate": "Date",               // optional
-  "actualEndDate": "Date",                 // optional
-  "status": ["PENDING", "CONFIRMED", "IN_USE", "COMPLETED", "CANCELLED", "OVERDUE"],
-  "totalCost": "number",                   // NGN
-  "depositPaid": "number",                 // NGN
-  "paymentStatus": ["PENDING", "PARTIAL", "PAID"],
+  "actualStartDate": "Date",               // optional; set at handover → IN_USE
+  "actualEndDate": "Date",                 // optional; set at completion
+  "status": ["PENDING", "APPROVED", "REJECTED", "CONFIRMED", "IN_USE", "COMPLETED", "CANCELLED", "OVERDUE"],
+  "paymentStatus": ["UNPAID", "PAID", "REFUNDED"],
+
+  // ── Costing (captured at request; deposit is part of the single upfront charge) ──
+  "rentalCost": "number",                  // NGN — rate × duration
+  "depositAmount": "number",               // NGN — refundable deposit (from Equipment.depositRequired)
+  "totalCost": "number",                   // NGN — rentalCost + depositAmount (full upfront charge)
+  "amountPaid": "number",                  // NGN — actually debited from wallet (0 until paid)
+
+  // ── Wallet linkage (LIVE wallet, §7.7.1 / PRD 02) ──
+  "walletPaymentRef": "string",            // optional; Transaction.reference of the PAYMENT debit
+  "refundRef": "string",                   // optional; Transaction.reference of the deposit REFUND credit
+
   "pickupLocation": { "lat": "number", "lng": "number", "address": "string" },
-  "returnLocation": { "lat": "number", "lng": "number", "address": "string" },
-  "operator": "ObjectId",                  // optional, ref "users" (if operator required)
-  "notes": "string",                       // optional
-  "cancellationReason": "string",          // optional
+  "returnLocation": { "lat": "number", "lng": "number", "address": "string" },  // optional (set at completion)
+
+  // ── Operator (admin-entered this phase; full operator MODULE deferred to PRD/operator/) ──
+  "operatorId": "ObjectId",                // optional, ref "users"/operator once the ops module lands
+  "operatorName": "string",                // optional; admin-entered
+  "operatorPhone": "string",               // optional; admin-entered
+  "operatorPlate": "string",               // optional; admin-entered vehicle plate
+  "trackingToken": "string",               // opaque token the operator device uses to authorize GPS push
+
+  // ── Live GPS (operator-push over socket.io, room track:<bookingId>) ──
+  "currentPosition": {                     // optional; latest live position
+    "lat": "number", "lng": "number", "heading": "number", "speed": "number", "at": "Date"
+  },
+  "gpsTracking": [                         // append-only breadcrumb trail (route playback)
+    { "lat": "number", "lng": "number", "heading": "number", "speed": "number", "at": "Date" }  // heading/speed optional
+  ],
+
+  // ── Return / settlement ──
   "damageReport": {                        // optional
     "description": "string",
     "costEstimate": "number",              //   NGN
     "deductedFromDeposit": "number"        //   NGN
   },
-  "gpsTracking": [
-    { "timestamp": "Date", "lat": "number", "lng": "number", "speed": "number" }  // speed optional
-  ],
+  "overdueCharges": "number",              // optional; NGN — accrued overdue penalty
+  "outstandingCharge": "number",           // optional; NGN — damage/overdue over deposit, owed by the user
+  "cancellationReason": "string",          // optional; set on CANCELLED
+  "rejectionReason": "string",             // optional; set on REJECTED (admin)
+
+  // ── Post-completion review ──
+  "rating": "number",                      // optional, 1–5
+  "ratingComment": "string",               // optional
+
+  "notes": "string",                       // optional
+  "metadata": "Record<string, any>",       // optional
   "createdAt": "Date",
   "updatedAt": "Date"
 }
+//   Indexes: single "equipmentId","userId","status","paymentStatus"; unique "bookingReference";
+//   unique "trackingToken"; compound "{equipmentId:1, startDate:1, endDate:1}" (conflict check);
+//   "{userId:1, createdAt:-1}" (my-bookings).
+//   ⚠️ Reconciliation: replaces the legacy status {PENDING,CONFIRMED,IN_USE,COMPLETED,CANCELLED,OVERDUE},
+//   paymentStatus {PENDING,PARTIAL,PAID}, single "depositPaid", and "operator" ObjectId with the
+//   8-state status (adds APPROVED/REJECTED), UNPAID/PAID/REFUNDED, the split cost ledger
+//   (rentalCost/depositAmount/totalCost/amountPaid), wallet refs, operator string fields +
+//   trackingToken, currentPosition, and settlement fields (overdueCharges/outstandingCharge).
+
+// equipmentRateConfig document 📄 — admin-owned default rate policy per category.
+//   Full schema in admin PRD §2.1 (equipment_booking.md). Affects NEW bookings only.
+{
+  "_id": "ObjectId",
+  "category": ["TRACTOR", "HARVESTER", "PLANTER", "SPRAYER", "IRRIGATION", "OTHER"],
+  "defaultHourlyRate": "number",           // NGN/hr
+  "defaultDailyRate": "number",            // NGN/day
+  "depositPercent": "number",              // % of estimated cost required as deposit (seeds depositRequired)
+  "minDepositNgn": "number",               // optional; floor
+  "overdueFeePerDay": "number",            // optional; NGN/day penalty for OVERDUE returns
+  "isActive": "boolean",
+  "updatedBy": "ObjectId",                 // 📄 ref "adminUsers" (§7.1)
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+//   Index: unique "category".
+
+// geofences document 📄 — admin-owned authorised operating zone(s); a breach raises a gpsAlert.
+{
+  "_id": "ObjectId",
+  "name": "string",                        // e.g. "Kaduna North Farm Cluster"
+  "type": ["CIRCLE", "POLYGON"],
+  "center": { "lat": "number", "lng": "number" },   // optional; CIRCLE
+  "radiusMeters": "number",                          // optional; CIRCLE
+  "polygon": [ { "lat": "number", "lng": "number" } ], // optional; POLYGON (>= 3 points)
+  "appliesTo": ["ALL", "EQUIPMENT", "CATEGORY"],
+  "equipmentIds": "ObjectId[]",            // optional; when appliesTo = EQUIPMENT
+  "category": "string",                    // optional; when appliesTo = CATEGORY
+  "isActive": "boolean",
+  "createdBy": "ObjectId",                 // 📄 ref "adminUsers" (§7.1)
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+//   Index: single "isActive", "appliesTo".
+
+// gpsAlerts document 📄 — admin-owned, append-only geofence/overspeed/signal alerts.
+{
+  "_id": "ObjectId",
+  "equipmentId": "ObjectId",               // ref "Equipment"
+  "bookingId": "ObjectId",                 // optional; ref "EquipmentBooking" (active booking)
+  "type": ["GEOFENCE_BREACH", "OVERSPEED", "SIGNAL_LOST", "IDLE_ANOMALY"],
+  "position": { "lat": "number", "lng": "number" },  // optional
+  "detail": "string",
+  "acknowledgedBy": "ObjectId",            // optional; 📄 ref "adminUsers" (§7.1)
+  "acknowledgedAt": "Date",                // optional
+  "createdAt": "Date"                       // no updatedAt (append-only)
+}
+//   Index: single "equipmentId","bookingId","type"; "{acknowledgedAt:1}" (open-alert filter); "createdAt: -1".
 ```
+
+> **Google Maps env note.** The live-tracking view renders the trail + live marker with the
+> Google Maps JavaScript API. Keys: **`VITE_GOOGLE_MAPS_API_KEY`** (frontend, Maps JS API) and
+> **`GOOGLE_MAPS_API_KEY`** (backend, geocoding/validation if needed) — see PRD 06 §9.
+> ⚠️ **Frontend mock superseded:** the client-only `AgriBooking` (`src/types.ts`, §1.5) is
+> replaced by `equipment` + `equipmentBookings` above; the mock remains only as a seed/offline
+> fallback.
 
 #### 7.7.5 Agric services domain 📄 — `PRD/user_module/agric-services-marketplace/agric-services-marketplace.md`
 
@@ -1681,6 +1871,14 @@ All schemas below are 📄 **planned** (none coded yet). Conventions match §2: 
 ```
 
 #### 7.7.6 Marketplace domain 📄 — `PRD/user_module/ecommerce-marketplace/ecommerce-marketplace.md`
+
+> ⚠️ **Superseded by the LIVE model (§11).** The `Product`/`Order` draft shapes below
+> (seller = `users` doc, embedded `pricing.bulkPricing`, certifications, string image
+> URLs, `PENDING/FAILED` payment states) are retained for traceability only. The
+> owner-locked LIVE build is [§11](#11-live-marketplace-orders--merchants--collections--triggers-):
+> sellers are **`merchants`**, orders **split per seller** (`checkoutGroupId`), payment
+> is **wallet-only** (orders are born `PAID`), and product media is embedded
+> `FileMetadata` (3 images + 1 video).
 
 ```jsonc
 // Product document 📄 — includes ADOPTED admin-moderation fields (moderationStatus + suspended)
@@ -1762,6 +1960,14 @@ All schemas below are 📄 **planned** (none coded yet). Conventions match §2: 
 ```
 
 #### 7.7.7 Adashe / contributions domain 📄 — `PRD/user_module/adashesu-contributions/adashesu-contributions.md`
+
+> ⚠️ **Superseded by the LIVE Adashe model (§9).** The two shapes below were the earlier draft
+> (group **wallet** `walletId`, `totalMembers`, `startDate`, `DAILY` frequency, embedded
+> `payoutReceived`). The as-built user PRD reconciles these to a **track-pool-only** model:
+> `poolBalance` counter (no wallet), `maxSlots` (not `totalMembers`), `WEEKLY|MONTHLY` only, plus
+> new `groupInvitations`/`groupMessages`/`groupProposals`/`groupAttendance`/`payoutRequests`/
+> `groupActivityLogs` collections. See **§9** for the authoritative LIVE shapes and PRD 09 §11 for
+> the open reconciliation items (esp. `payoutRun` vs `payoutRequests`).
 
 ```jsonc
 // ContributionGroup document 📄 — admin oversight via "contributions:*" (payout processing, suspension)
@@ -2141,3 +2347,722 @@ tabs) · `admins` (every connected admin, for broadcast fan-out).
   admin-editable `settings` collection (§7.5), consistent with "secrets never live in
   `settings`". `settings.email.oneSignal` (§7.5) already models the analogous non-secret
   mail config; no `settings` change is required for FCM this phase.
+
+---
+
+## 9. LIVE Adashe / Esusu (rotating savings) — collections & realtime 📄
+
+> **Status:** every structure below is 📄 **planned** (specified in
+> [`PRD/user_module/adashesu-contributions/adashesu-contributions.md`](user_module/adashesu-contributions/adashesu-contributions.md);
+> not yet coded). This is the LIVE, server-backed model that **supersedes** the frontend mock
+> `ContributionGroup` (§1.6) and the earlier admin draft (§7.7.7). Money is **track-pool-only** —
+> a `poolBalance` counter, **no wallet debit** — and payout is **manual/off-platform** via a
+> request → mark-sent → confirm lifecycle. Slot changes are member-voted + admin-approved swaps.
+
+Eight collections. Field types are TypeScript-style; `// optional` = declared `?` in the PRD.
+
+### 9.1 `contributionGroups` 📄
+
+```jsonc
+// contributionGroups document
+{
+  "_id": "ObjectId",
+  "name": "string",                        // 3–80
+  "description": "string",                  // 0–500
+  "type": ["ADASHE", "ESUSU", "CUSTOM"],
+  "organizerType": ["user", "admin"],
+  "organizerId": "ObjectId",               // ref users (user) or adminUsers (admin)
+  "contributionAmount": "number",          // NGN per member per cycle, >= 500
+  "frequency": ["WEEKLY", "MONTHLY"],       // no DAILY (drift-reconciled from §7.7.7)
+  "maxSlots": "number",                    // 2..MAX_GROUP_SIZE — rotation length
+  "currentCycle": "number",                // 1-based
+  "activePosition": "number",              // 1-based payoutOrder position whose turn it is
+  "status": ["FORMING", "ACTIVE", "COMPLETED", "SUSPENDED"],
+  "payoutOrder": [
+    { "position": "number", "memberId": "ObjectId", "userId": "ObjectId",
+      "paid": "boolean", "paidAt": "Date" }   // paidAt optional; paid=true once CONFIRMED_RECEIVED
+  ],
+  "poolBalance": "number",                 // NGN — TRACKED counter (not a wallet balance)
+  "rules": {
+    "lateFeePercent": "number",            // 0..100
+    "missLimit": "number",                 // integer >= 1
+    "exitPenalty": "number"                // NGN >= 0 (flat) — see PRD 09 §11
+  },
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** `{ organizerId }`; `{ status }`; `{ "payoutOrder.userId" }`; `{ type, status }`.
+
+### 9.2 `groupMembers` 📄
+
+```jsonc
+// groupMembers document
+{
+  "_id": "ObjectId",
+  "groupId": "ObjectId",                   // ref contributionGroups
+  "userId": "ObjectId",                    // ref users
+  "position": "number",                    // payout-order slot
+  "joinedAt": "Date",
+  "status": ["INVITED", "ACTIVE", "RECEIVED_PAYOUT", "EXITED", "REMOVED"],
+  "contributions": [
+    { "cycle": "number", "amount": "number", "dueDate": "Date",
+      "paidAt": "Date",                    // optional
+      "status": ["PENDING", "PAID", "LATE", "MISSED"] }
+  ],
+  "totalContributed": "number",            // NGN, running sum of PAID/LATE
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** **unique** `{ groupId, userId }`; `{ groupId, status }`; `{ userId }`.
+
+### 9.3 `groupInvitations` 📄 (consent-based join)
+
+```jsonc
+// groupInvitations document
+{
+  "_id": "ObjectId",
+  "groupId": "ObjectId",                   // ref contributionGroups
+  "inviterType": ["user", "admin"],
+  "inviterId": "ObjectId",                 // ref users or adminUsers
+  "inviteeEmail": "string",                // lowercased; must be a REGISTERED user
+  "inviteeUserId": "ObjectId",             // optional; resolved ref users
+  "status": ["PENDING", "ACCEPTED", "DECLINED", "EXPIRED"],
+  "createdAt": "Date",
+  "updatedAt": "Date",
+  "expiresAt": "Date"                      // optional TTL for PENDING (PRD 09 §11 Q9)
+}
+```
+- **Indexes:** `{ inviteeUserId, status }` (a user's pending invites); `{ groupId, status }`;
+  partial-unique `{ groupId, inviteeEmail }` on `status:"PENDING"`.
+
+### 9.4 `groupMessages` 📄 (chat — socket-persisted, no notification)
+
+```jsonc
+// groupMessages document
+{
+  "_id": "ObjectId",
+  "groupId": "ObjectId",                   // ref contributionGroups
+  "senderType": ["user", "admin", "system"],
+  "senderId": "ObjectId",                  // optional; absent for system
+  "senderName": "string",                  // denormalized display name (avatar seed)
+  "message": "string",                     // 1–2000
+  "createdAt": "Date"
+}
+```
+- **Indexes:** compound `{ groupId, createdAt }` (paginated chronological history).
+
+### 9.5 `groupProposals` 📄 (general decisions + slot-shift)
+
+```jsonc
+// groupProposals document
+{
+  "_id": "ObjectId",
+  "groupId": "ObjectId",                   // ref contributionGroups
+  "kind": ["GENERAL", "SLOT_SHIFT"],
+  "title": "string",
+  "text": "string",
+  "createdByUserId": "ObjectId",           // ref users (ACTIVE member)
+  "slotShift": {                           // optional; present iff kind === "SLOT_SHIFT"
+    "requesterMemberId": "ObjectId",       // ref groupMembers
+    "requesterPosition": "number",
+    "targetMemberId": "ObjectId",          // ref groupMembers
+    "targetPosition": "number"
+  },
+  "status": ["ACTIVE", "PASSED", "REJECTED", "AWAITING_ADMIN", "APPROVED", "DECLINED", "CANCELLED"],
+  "votes": [ { "userId": "ObjectId", "vote": ["yes", "no"], "at": "Date" } ],  // one per member (last-write)
+  "eligibleCount": "number",               // active-member count snapshot at open
+  "tally": { "yes": "number", "no": "number" },
+  "adminDecision": {                       // optional; present once a SLOT_SHIFT is resolved
+    "adminId": "ObjectId",                 // ref adminUsers
+    "decision": ["APPROVE", "DECLINE"],
+    "reason": "string",                    // optional
+    "at": "Date"
+  },
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** `{ groupId, status }`; `{ groupId, kind, status }`; `{ status }` (admin queue of
+  `AWAITING_ADMIN`).
+
+### 9.6 `groupAttendance` 📄
+
+```jsonc
+// groupAttendance document
+{
+  "_id": "ObjectId",
+  "groupId": "ObjectId",                   // ref contributionGroups
+  "sessionDate": "Date",
+  "title": "string",
+  "presentUserIds": "ObjectId[]",          // ref users who checked in
+  "createdBy": "ObjectId",                 // optional; organizer/admin who opened it
+  "createdAt": "Date"
+}
+```
+- **Indexes:** `{ groupId, sessionDate: -1 }`.
+
+### 9.7 `payoutRequests` 📄 (manual payout lifecycle)
+
+```jsonc
+// payoutRequests document
+{
+  "_id": "ObjectId",
+  "groupId": "ObjectId",                   // ref contributionGroups
+  "cycle": "number",
+  "position": "number",                    // payoutOrder position being paid
+  "recipientMemberId": "ObjectId",         // ref groupMembers
+  "recipientUserId": "ObjectId",           // ref users
+  "amount": "number",                      // NGN payout snapshot (PRD 09 §4.2)
+  "status": ["REQUESTED", "MARKED_SENT", "CONFIRMED_RECEIVED", "DISPUTED"],
+  "requestedAt": "Date",
+  "markedSentBy": "ObjectId",              // optional; ref adminUsers (wired funds off-platform)
+  "markedSentAt": "Date",                  // optional
+  "confirmedAt": "Date",                   // optional
+  "note": "string",                        // optional (bank ref / dispute reason)
+  "idempotencyKey": "string",              // "payout:{groupId}:{cycle}:{position}" — unique
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** **unique** `idempotencyKey`; `{ groupId, cycle }`; `{ status }` (admin REQUESTED
+  queue); `{ recipientUserId, status }`.
+- ⚠️ **Reconcile with admin `payoutRun` (§7.7.7 note / admin PRD §2.2):** there is **no
+  pool-moving `process-payout`** in this model — `payoutRequests` is the payout source of truth;
+  `payoutRun` should be retired or written as a derived report row at `MARKED_SENT`.
+
+### 9.8 `groupActivityLogs` 📄 (append-only feed)
+
+```jsonc
+// groupActivityLogs document (append-only)
+{
+  "_id": "ObjectId",
+  "groupId": "ObjectId",                   // ref contributionGroups
+  "actorType": ["user", "admin", "system"],
+  "actorId": "ObjectId",                   // optional; absent for system
+  "actorName": "string",                   // denormalized display name
+  "action": "string",                      // machine key — see PRD 09 §6 catalog
+  "meta": "Record<string, any>",           // action-specific payload
+  "createdAt": "Date"
+}
+```
+- **Indexes:** `{ groupId, createdAt: -1 }`. Never updated/deleted.
+
+### 9.9 Adashe realtime (socket group events) 📄
+
+Reuses the socket.io transport (§8.3, [`socket.io.md`](socket.io.md)) — **no new namespaces**.
+Adds a **group room** `group:<groupId>` on **both** `/rt/user` and `/rt/admin`, so members and
+admins share one chat/activity thread. Membership is **verified server-side** before room join
+(identity from the handshake JWT, never the payload); **admins may join any group room**.
+
+| Event | Direction | Target | Payload |
+|-------|-----------|--------|---------|
+| `group:join` | client → server | — | `{ groupId }` (verify membership, then join room) |
+| `group:leave` | client → server | — | `{ groupId }` |
+| `group:message` | client → server | — | `{ groupId, message }` → persist `groupMessages` + broadcast (no notification) |
+| `group:message:new` | server → client | `group:<groupId>` (both planes) | `{ groupId, message: <groupMessages doc> }` |
+| `group:activity` | server → client | `group:<groupId>` (both planes) | `{ groupId, activity: <groupActivityLogs row> }` |
+
+- **Chat is socket-only** (streams + persists to `groupMessages`); it does **not** fire a
+  notification. **Every other activity** persists a `groupActivityLogs` row, mirrors it live via
+  `group:activity`, **and** fires the notification engine (§8, §9.10).
+
+### 9.10 Adashe notification-trigger matrix 📄
+
+All non-chat Adashe activities go through the single `NotificationService` (§8 / `notification.md`).
+Event keys extend the Triggers Matrix in `notification.md`; audience is the notification recipient.
+
+| Event key | Fires on | Audience | Transports |
+|-----------|----------|----------|------------|
+| `adashe.invite` | organizer invites by email | invitee (user) | in-app + push |
+| `adashe.member.joined` | invitee accepts | organizer + members | in-app + push |
+| `adashe.invite.declined` | invitee declines | organizer | in-app + push |
+| `adashe.contribution.paid` | member records a contribution | organizer + members | in-app + push |
+| `adashe.proposal.created` | GENERAL proposal opened | members | in-app + push |
+| `adashe.proposal.vote` | a vote is cast/changed | members | in-app + push |
+| `adashe.slot_shift.requested` | slot-shift proposal opened | members (incl. target) | in-app + push |
+| `adashe.slot_shift.ready_for_admin` | all active members have voted a slot-shift | **admins** | in-app + push |
+| `adashe.slot_shift.decided` | admin approves/declines a slot-shift | members | in-app + push |
+| `adashe.payout.requested` | member claims a matured turn | **admins** (+ members: turn claimed) | in-app + push |
+| `adashe.payout.marked_sent` | admin marks funds sent off-platform | recipient (user) | in-app + push |
+| `adashe.payout.confirmed` | recipient confirms received | members + admins | in-app + push |
+| `adashe.payout.disputed` | recipient disputes a payout | **admins** | in-app + push |
+| `adashe.attendance.session` | organizer/admin opens a session | members | in-app + push |
+| `adashe.attendance.checkin` | member checks in | organizer | in-app + push |
+| *(group chat message)* | member sends chat | — | **socket only** (no notification) |
+
+> Chat is deliberately excluded — it streams over `group:message:new` (§9.9) and persists to
+> `groupMessages` (§9.4) without generating bell/push notifications, matching PRD 09 §5.
+
+---
+
+## 10. File Storage (GCP Cloud Storage) — `files` collection 📄
+
+> **Status:** 📄 **planned** — specified in [`PRD/gcp_upload.md`](gcp_upload.md), not
+> yet coded. No `StorageModule`, `files` collection, or `gcp` config group exist on
+> disk. This section is the data-model slice; the PRD carries the full contract
+> (services, endpoints, bucket bootstrap, env, security).
+
+The file-upload service (`StorageModule`, `backend/src/storage/`) wraps a **single
+public GCS bucket** behind `GcsService` (raw GCS) + `UploadService` (orchestration +
+persistence). The **bucket is the physical store**; the **`files` collection is the
+queryable index** that mirrors what the service uploaded. Every write goes through the
+service — an upload inserts a `files` row, a delete removes both the GCS object and
+the row — so the collection and the bucket stay in sync. The **media library**
+(`GET /api/v1/upload`) reads this collection, **not** the bucket directly.
+
+The service is exposed on **both identity planes** over the same `UploadService` and
+`files` collection: the **user plane** (`/api/v1/upload*`, `JwtAuthGuard`) and the
+**admin plane** (`/api/v1/admin/upload*`, `AdminJwtGuard` + `MustChangePasswordGuard`).
+The bucket index is **shared** — both planes list the whole bucket, and
+`files.uploaderType` (`'user' | 'admin'`) records which plane wrote each row.
+
+Like `MailService`/`FcmService`, the storage client is a **graceful no-op when GCP
+creds are absent** (`configured = false`): the API boots, `GET /upload` still lists
+the collection, and upload/delete return `UPLOAD_001` (503).
+
+### 10.1 `files` collection 📄
+
+One document per uploaded object. Persisted 1:1 with the `FileMetadata` response shape
+(§10.2). `@Schema({ timestamps: true })` auto-adds `createdAt`/`updatedAt`.
+
+```jsonc
+// files document
+{
+  "_id": "ObjectId",                       // auto — surfaced as FileMetadata.id (string)
+  "name": "string",                        // required; stored object name "{uuid}-{sanitized-original}" (+ optional "folder/")
+  "originalName": "string",                // required; client's original filename as uploaded
+  "fileType": "string",                    // required; MIME type, e.g. "application/pdf" (validated vs the allowlist)
+  "size": "number",                        // required; bytes (≤ configuration.gcp.maxUploadBytes, default 209715200 = 200 MB)
+  "url": "string",                         // required; public URL "https://storage.googleapis.com/<bucket>/<path>"
+  "bucket": "string",                      // required; GCS bucket name (configuration.gcp.bucket)
+  "path": "string",                        // required, UNIQUE; object path within the bucket (== name, incl. any folder prefix)
+  "uploaderType": "['user','admin']",      // required; which identity plane uploaded — selects what uploaderId references
+  "uploaderId": "string",                  // required; the uploading principal's id: users.userId ("USR_…") when uploaderType="user", adminUsers.adminId when "admin"; attribution/audit (no hard ref)
+  "visibility": "['public','private']",    // 📄 owner-locked addition — which bucket holds the object; default "public". "private" ⇒ GCP_PRIVATE_BUCKET, no public read, view via V4 signed URL (10-min TTL)
+  "createdAt": "Date",                     // auto (timestamps)
+  "updatedAt": "Date"                      // auto (timestamps)
+}
+```
+
+- **Indexes:** unique `path` (the UUID-prefixed object key guarantees uniqueness and
+  prevents duplicate rows for the same object); single `uploaderId` and compound
+  `{ uploaderType, uploaderId }` (attribution lookups per plane); `createdAt: -1`
+  (media-library listing, newest first).
+- **Generalized ownership.** `uploaderId` is a **generic principal id** whose
+  referent depends on `uploaderType`: it points at `users.userId` (§2.1) when
+  `uploaderType = "user"` (a user-plane upload via `POST /api/v1/upload`) and at the
+  admin's `adminUsers.adminId` (§7.1) when `uploaderType = "admin"` (an admin-plane
+  upload via `POST /api/v1/admin/upload`). It is a **soft reference only** (a stored
+  id string, no Mongoose `ref`), because the two planes are distinct collections.
+  Recorded for audit; it is **not** enforced as an owner gate on delete/list this
+  phase — any authenticated principal on either plane may delete/list any file (the
+  media library is shared bucket-wide; see `gcp_upload.md` Open Questions on per-user
+  scoping).
+- **Object name** = `{uuid-or-timestamp}-{sanitized-original}` (original lowercased,
+  spaces→`-`, path separators + non-`[a-z0-9._-]` stripped to prevent traversal);
+  `?folder=<prefix>` yields `path = "<folder>/<uuid>-<name>"`.
+- **No soft delete:** `DELETE /api/v1/upload/:id` hard-removes both the GCS object and
+  this row (idempotent if the object is already gone).
+
+### 10.2 `FileMetadata` (upload/list response shape) 📄
+
+The envelope-wrapped response for `POST /upload` (single object) and each item of
+`GET /upload` (paginated list). Mirrors the `files` document with `_id`→`id` (string)
+and `createdAt` as an ISO 8601 string; the internal `updatedAt` is not surfaced.
+
+```jsonc
+// FileMetadata — data payload of the { success, data } envelope (§2.3)
+{
+  "id": "string",           // files._id as string
+  "name": "string",         // stored object name
+  "originalName": "string", // original client filename
+  "fileType": "string",     // MIME type
+  "size": "number",         // bytes
+  "url": "string",          // public GCS URL "https://storage.googleapis.com/<bucket>/<path>"
+  "bucket": "string",       // GCS bucket name
+  "path": "string",         // object path within the bucket
+  "uploaderType": "['user','admin']", // which plane uploaded — selects uploaderId's referent
+  "uploaderId": "string",   // uploading principal's id: users.userId ("USR_…") or adminUsers.adminId
+  "visibility": "['public','private']", // 📄 owner-locked — private files are viewed via signed URLs only
+  "createdAt": "string"     // ISO 8601
+}
+
+// GET /api/v1/upload — media-library list envelope
+{
+  "success": true,
+  "data": {
+    "items": "FileMetadata[]",  // newest first (createdAt: -1)
+    "total": "number",
+    "page":  "number",          // default 1
+    "limit": "number"           // default 20, max 100
+  }
+}
+```
+
+### 10.3 `gcp` config group & env
+
+- **Config group to add** (📄, see §3): `configuration.gcp` =
+  `{ projectId, clientEmail, privateKey, bucket, location, maxUploadBytes, allowedMimeTypes }`.
+  `privateKey` un-escapes `\n` at load (`.replace(/\\n/g, '\n')`), exactly like
+  `configuration.firebase.privateKey` (§3, §8.4).
+- **Env vars:** `GCP_PROJECT_ID`, `GCP_CLIENT_EMAIL`, `GCP_PRIVATE_KEY`,
+  `GCP_STORAGE_BUCKET`, `GCP_PRIVATE_BUCKET` (📄 owner-locked — private documents
+  bucket, UBLA, **no** `allUsers` binding), `GCP_SIGNED_URL_TTL_SECONDS` (default
+  `600` = 10-min V4 signed-URL TTL), `GCP_STORAGE_LOCATION` (e.g. `US`/`europe-west2`),
+  `GCP_MAX_UPLOAD_BYTES` (default `209715200`), `GCP_ALLOWED_MIME_TYPES` (optional
+  override; empty ⇒ built-in allowlist).
+- **Private plane (owner-locked split):** uploads accept `visibility: 'public'|'private'`;
+  private objects are viewed only via `GET /api/v1/admin/upload/:id/signed-url`
+  (admin plane) or the **owner-scoped** `GET /api/v1/upload/:id/signed-url` (user
+  plane). First consumer: merchant KYC docs (§11.5), which are **purged from GCS +
+  `files` on the admin's final KYC decision**. Full contract: `gcp_upload.md`
+  §"Private bucket & signed URLs".
+- **Bucket is public by design** — on init `GcsService` ensures the bucket exists in
+  `location`, enables **uniform bucket-level access**, and grants `allUsers` the
+  `roles/storage.objectViewer` role. ⚠️ Every object is world-readable by URL; the
+  `GCP_PRIVATE_KEY` secret stays out of VCS. These are transport/storage creds and
+  live in env/`configuration` (§3) — **not** in the admin-editable `settings`
+  collection (§7.5), consistent with "secrets never live in `settings`".
+- **Auth (both planes):** the **user** routes (`/api/v1/upload*`) require a user JWT
+  (`JwtAuthGuard`, `scope: "user"`, §5.1); the **admin** routes
+  (`/api/v1/admin/upload*`) require an admin JWT (`AdminJwtGuard`, `scope: "admin"`) +
+  `MustChangePasswordGuard` — **any authenticated admin, no special permission**. Both
+  planes share the same `UploadService`, allowlist, 200 MB cap, and `files` index.
+  Error codes `UPLOAD_001`..`UPLOAD_005` — see `gcp_upload.md`.
+
+---
+
+## 11. LIVE Marketplace, Orders & Merchants — collections & triggers 📄
+
+> **Status:** every structure below is 📄 **planned** — the **owner-locked** LIVE build of the
+> e-commerce marketplace. It **supersedes** the frontend mock §1.9 (`Product`/`CartItem`/
+> `ProductOrder`) and the earlier draft shapes in §7.7.6. Specs: admin —
+> [`PRD/admin_module/marketplace/marketplace.md`](admin_module/marketplace/marketplace.md),
+> [`PRD/admin_module/admin_orders/orders.md`](admin_module/admin_orders/orders.md),
+> [`PRD/admin_module/merchants/merchants.md`](admin_module/merchants/merchants.md); user —
+> `PRD/user_module/ecommerce-marketplace/ecommerce-marketplace.md`,
+> `PRD/user_module/cart_checkout/cart_checkout.md`,
+> `PRD/user_module/merchant_panel/merchant_panel.md`.
+>
+> **Owner-locked model in one paragraph:** payment is **wallet-only**
+> (`WalletService.debitForPayment` at checkout / `creditRefund` on refund-or-cancel, both ✅
+> implemented and idempotent by reference — no card/SeerBit). The cart **splits into one order
+> per seller** at checkout, linked by `checkoutGroupId`; `seller = { type: 'PLATFORM'|'MERCHANT',
+> merchantId? }`. Merchant listings pass **per-listing moderation** (admin-created products skip
+> it). Products carry **max 3 images + 1 video** as embedded `FileMetadata` (public bucket);
+> product delete **cascades media deletion**. Sellers are the **`merchants`** collection
+> (Merchant-Hub KYC: Prembly advisory check + private-bucket docs, purged on the admin's final
+> decision). Each **DELIVERED** merchant order books the **net share** (total − platform-fee %)
+> into `merchantEarnings` (never the wallet); payout is **manual, adashe-style**
+> (`REQUESTED → MARKED_SENT → CONFIRMED_RECEIVED`, mark-sent Super-Admin-only). Money is whole
+> NGN; API responses serialize `_id → id`.
+
+Seven collections + the trigger matrix. Field types are TypeScript-style; `// optional` = `?`.
+
+### 11.1 `productCategories` 📄 (admin-owned, seeded)
+
+```jsonc
+// productCategories document
+{
+  "_id": "ObjectId",
+  "name": "string",                        // unique
+  "slug": "string",                        // unique, lowercased
+  "description": "string",                 // optional
+  "icon": "string",                        // optional
+  "isActive": "boolean",                   // default true; inactive hides from browse + blocks new listings
+  "sortOrder": "number",
+  "createdBy": "ObjectId",                 // optional; ref adminUsers (null for seeded rows)
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** unique `name`; unique `slug`; `{ isActive, sortOrder }`.
+- **Seed (idempotent, owner-locked):** the 8 frontend names (`ProductCategoryName`, §0) —
+  *Seeds, Fertilizers, Agrochemicals, Farm Equipment, Livestock Inputs, Irrigation Equipment,
+  Greenhouse Materials, Farm Produce.*
+
+### 11.2 `products` 📄
+
+```jsonc
+// products document
+{
+  "_id": "ObjectId",
+  "productId": "string",                   // unique, "PRD_<ts>_<rand>"
+  "source": ["ADMIN", "MERCHANT"],         // ADMIN = platform product → skips moderation, sells as PLATFORM orders
+  "merchantId": "ObjectId",                // optional; ref merchants — REQUIRED when source = MERCHANT
+  "createdByAdminId": "ObjectId",          // optional; ref adminUsers — set when source = ADMIN
+  "name": "string",                        // 3–120
+  "slug": "string",                        // unique (server-generated, de-duplicated)
+  "description": "string",
+  "categoryId": "ObjectId",                // ref productCategories (must be active at create)
+  "price": "number",                       // NGN, whole, > 0
+  "unit": "string",                        // e.g. "50kg Bag"
+  "inventory": {
+    "available": "number",
+    "reserved": "number",                  // moved from available at checkout; consumed at DELIVERED
+    "lowStockThreshold": "number"          // optional; falls back to settings default
+  },
+  "images": "FileMetadata[]",              // MAX 3 — full embedded FileMetadata JSON (§10.2), public bucket
+  "video": "FileMetadata",                 // optional, MAX 1 — public bucket, ≤ 200 MB upload cap
+  "moderationStatus": ["PENDING", "APPROVED", "REJECTED", "CHANGES_REQUESTED"],
+  "moderationReason": "string",            // optional; required on REJECTED / CHANGES_REQUESTED
+  "moderatedBy": "ObjectId",               // optional; ref adminUsers
+  "moderatedAt": "Date",                   // optional
+  "status": ["ACTIVE", "INACTIVE", "OUT_OF_STOCK"],
+  "suspended": "boolean",                  // default false; true while the owning merchant is suspended (delist)
+  "totalSales": "number",                  // units consumed at DELIVERED
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** unique `productId`; unique `slug`; `{ merchantId, status }`;
+  `{ moderationStatus, createdAt }` (moderation queue, oldest first);
+  `{ categoryId, status }`; `{ status, moderationStatus, suspended }` (buyer-browse guard).
+- **Rules:** buyers see only `APPROVED + ACTIVE + !suspended`. MERCHANT create / material edit →
+  `PENDING`; ADMIN create → `APPROVED` (+ `AUTO_APPROVED` `productModeration` row). **Delete
+  cascades `UploadService.remove()` over `images[]` + `video`** (GCS object + `files` row);
+  replaced media on edit is cascade-deleted too. Delete blocked while non-terminal orders
+  contain the product.
+
+### 11.3 `carts` 📄
+
+```jsonc
+// carts document — one active cart per user
+{
+  "_id": "ObjectId",
+  "userId": "ObjectId",                    // ref users — UNIQUE
+  "items": [
+    { "productId": "ObjectId",             // ref products
+      "quantity": "number",                // >= 1, <= inventory.available at add-time (revalidated at checkout)
+      "addedAt": "Date" }
+  ],
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** unique `userId`.
+- **Checkout (wallet-only, owner-locked):** the cart is grouped by seller → **one order per
+  seller** under a shared `checkoutGroupId`. The whole checkout group is paid by a **single**
+  `debitForPayment(buyerId, { amount: <group grand total>, reference: "MKTPAY<checkoutGroupId>", … })`
+  (idempotent by reference; a compensating `MKTRB…` refund is issued if order creation fails after
+  the debit — sequence contract: `cart_checkout.md`). The split orders are born `PAID` from that
+  one debit. The cart empties on success.
+
+### 11.4 `orders` 📄 (split per seller)
+
+```jsonc
+// orders document — ONE per seller per checkout
+{
+  "_id": "ObjectId",
+  "orderNumber": "string",                 // unique, "ORD_<ts>_<rand>"
+  "checkoutGroupId": "string",             // "CHK_<ts>_<rand>" — shared by sibling orders of one checkout
+  "buyerId": "ObjectId",                   // ref users
+  "seller": {
+    "type": ["PLATFORM", "MERCHANT"],      // PLATFORM = admin-created products, fulfilled by admins
+    "merchantId": "ObjectId"               // optional; ref merchants — required when type = MERCHANT
+  },
+  "items": [                               // immutable checkout snapshots
+    { "productId": "ObjectId", "productName": "string", "imageUrl": "string",  // imageUrl optional (first image snapshot)
+      "unit": "string", "quantity": "number", "unitPrice": "number", "subtotal": "number" }
+  ],
+  "pricing": {
+    "subtotal": "number",                  // NGN
+    "deliveryFee": "number",               // NGN, default 0 this phase
+    "total": "number",                     // NGN — the wallet debit amount
+    "platformFeePercent": "number",        // captured at checkout from settings.marketplace.platformFeePercent
+    "platformFee": "number",               // NGN — deducted from the MERCHANT side at earnings booking (0 for PLATFORM)
+    "merchantNet": "number"                // optional; total − platformFee (MERCHANT orders)
+  },
+  "paymentStatus": ["PAID", "PARTIALLY_REFUNDED", "REFUNDED"],  // wallet-only ⇒ orders are born PAID (no PENDING/FAILED)
+  "walletPaymentRef": "string",            // shared "MKTPAY<checkoutGroupId>" (the single group debitForPayment reference)
+  "fulfillmentStatus": ["PENDING", "PROCESSING", "SHIPPED", "DELIVERED", "CANCELLED"],
+  "buyerConfirmedAt": "Date",              // optional; buyer confirms receipt after DELIVERED (user-plane)
+  "deliveryAddress": "string",             // free-text 10–300 chars (implemented shape; captured at checkout)
+  "trackingInfo": { "carrier": "string", "trackingNumber": "string" },   // optional
+  "timeline": [                            // append-only status trail
+    { "status": "string", "at": "Date", "actorType": ["buyer", "merchant", "admin", "system"],
+      "actorId": "string",                 // optional
+      "note": "string" }                   // optional
+  ],
+  "refunds": [                             // admin discretionary refunds (orders:refund, Super-Admin-only)
+    { "amount": "number", "reason": "string", "reference": "string",   // "refund:{orderId}:{seq}"
+      "restock": "boolean", "refundedBy": "ObjectId", "at": "Date" }
+  ],
+  "refundedTotal": "number",               // cumulative NGN refunded (incl. cancel refunds)
+  "cancelledBy": { "type": ["buyer", "merchant", "admin"], "id": "string" },  // optional
+  "cancellationReason": "string",          // optional
+  "deliveredAt": "Date",                   // optional
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** unique `orderNumber`; `{ checkoutGroupId }`; `{ buyerId, createdAt: -1 }`;
+  `{ "seller.merchantId", fulfillmentStatus }` (merchant-hub queue);
+  `{ "seller.type", fulfillmentStatus }` (admin PLATFORM queue); `{ paymentStatus }`;
+  `{ createdAt: -1 }`.
+- **State machine:** `PENDING → PROCESSING → SHIPPED → DELIVERED`; `CANCELLED` from any
+  pre-`DELIVERED` state. Merchant drives their own orders forward (user-plane); admins fulfil
+  PLATFORM orders and may **override any transition** (backward moves = corrective, note
+  required, high-severity audit — `orders.md` §4.3). Buyer cancels only while `PENDING`
+  (auto `creditRefund`, reference `cancel-refund:{orderNumber}`); every cancellation
+  auto-refunds in full (orders are always wallet-paid). `DELIVERED` on a MERCHANT order books
+  the `merchantEarnings` entry (§11.6). Refund rules (window, partial → `PARTIALLY_REFUNDED`,
+  restock, idempotency): `orders.md` §4.4.
+
+### 11.5 `merchants` 📄 (seller identity + KYC)
+
+```jsonc
+// merchants document — one per users account
+{
+  "_id": "ObjectId",
+  "merchantId": "string",                  // unique, "MCH_<ts>_<rand>"
+  "userId": "ObjectId",                    // ref users — UNIQUE
+  "businessName": "string",
+  "businessDescription": "string",         // optional
+  "businessAddress": { "street": "string", "city": "string", "state": "string" },
+  "businessPhone": "string",
+  "businessEmail": "string",               // optional
+  "isRegisteredBusiness": "boolean",       // true → optional CAC check
+  "cacRcNumber": "string",                 // optional
+  "idType": ["NIN", "BVN", "DRIVERS_LICENCE", "VOTERS_CARD", "INTL_PASSPORT"],
+  "idNumber": "string",                    // the verified ID data that persists after doc purge
+  "premblyResult": {                       // ADVISORY snapshot — the admin makes the final decision
+    "checked": "boolean",                  // false when PremblyService unconfigured (graceful no-op)
+    "verified": "boolean",                 // optional; match outcome
+    "endpoint": "string",                  // optional; Prembly endpoint used
+    "checkedAt": "Date",                   // optional
+    "matchedName": "string",               // optional
+    "raw": "Record<string, any>"           // optional; trimmed response (no images)
+  },
+  "cacResult": "Record<string, any>",      // optional; same advisory shape for CAC
+  "kycDocs": "FileMetadata[]",             // PRIVATE-bucket uploads (visibility:"private", §10) — EMPTIED on final decision
+  "kycDocsPurgedAt": "Date",               // optional
+  "kycStatus": ["NOT_STARTED", "IN_PROGRESS", "PENDING_REVIEW", "APPROVED", "REJECTED", "SUSPENDED"],
+  "submittedAt": "Date",                   // optional
+  "reviewedBy": "ObjectId",                // optional; ref adminUsers
+  "reviewedAt": "Date",                    // optional
+  "rejectionReason": "string",             // optional
+  "suspendedBy": "ObjectId", "suspendedAt": "Date", "suspensionReason": "string",  // all optional
+  "payoutBankAccount": { "bankName": "string", "accountNumber": "string", "accountName": "string" },  // optional until first payout
+  "earnings": {                            // denormalized mirrors — merchantEarnings is source of truth
+    "availableBalance": "number",          // NGN — sum of AVAILABLE entries (may go negative via clawbacks)
+    "pendingPayout": "number",             // NGN — amount currently held by open payout requests (REQUESTED/MARKED_SENT)
+    "lifetimeEarned": "number",
+    "lifetimePaidOut": "number"
+  },
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** unique `merchantId`; unique `userId`; `{ kycStatus, submittedAt }` (review queue);
+  `{ businessName }` (text/search).
+- **Lifecycle:** `NOT_STARTED → IN_PROGRESS → PENDING_REVIEW → APPROVED | REJECTED` (+
+  `SUSPENDED ⇄ APPROVED`). **KYC docs are purged from GCS + `files` on the final decision
+  (approve OR reject)**; rejected merchants re-upload on resubmission. Suspension sets
+  `suspended: true` on all the merchant's products. Full rules: `merchants.md` §5.
+
+### 11.6 `merchantEarnings` 📄 (ledger — NOT the wallet)
+
+```jsonc
+// merchantEarnings document
+{
+  "_id": "ObjectId",
+  "merchantId": "ObjectId",                // ref merchants
+  "type": ["ORDER_EARNING", "ADJUSTMENT"], // ADJUSTMENT = refund clawback / correction (net may be negative)
+  "orderId": "ObjectId",                   // optional; ref orders — UNIQUE per ORDER_EARNING
+  "gross": "number",                       // NGN (order pricing.total)
+  "platformFeePercent": "number",
+  "platformFee": "number",                 // NGN — round(gross * percent / 100)
+  "net": "number",                         // NGN — gross − platformFee; negative on clawback ADJUSTMENT
+  "status": ["AVAILABLE", "LOCKED", "SETTLED", "REVERSED"],
+  "payoutRequestId": "ObjectId",           // optional; ref merchantPayoutRequests (LOCKED/SETTLED)
+  "note": "string",                        // optional
+  "bookedAt": "Date",
+  "settledAt": "Date",                     // optional
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** partial-unique `orderId` on `type: "ORDER_EARNING"` (idempotent booking);
+  `{ merchantId, status }`; `{ merchantId, createdAt: -1 }`; `{ payoutRequestId }`.
+- **Booking:** on `DELIVERED` of a MERCHANT order (system actor). **No wallet movement, ever** —
+  payout is off-platform via §11.7. Refund interactions (REVERSED / negative ADJUSTMENT):
+  `merchants.md` §5.3 + `orders.md` §4.4.
+
+### 11.7 `merchantPayoutRequests` 📄 (manual payout lifecycle — mirrors Adashe §9.7)
+
+```jsonc
+// merchantPayoutRequests document
+{
+  "_id": "ObjectId",
+  "requestId": "string",                   // unique, "MPR_<ts>_<rand>"
+  "merchantId": "ObjectId",                // ref merchants
+  "amount": "number",                      // NGN — sum of locked entries' net
+  "entryIds": "ObjectId[]",                // merchantEarnings entries locked into this request
+  "bankAccount": { "bankName": "string", "accountNumber": "string", "accountName": "string" },  // snapshot at request
+  "status": ["REQUESTED", "MARKED_SENT", "CONFIRMED_RECEIVED", "CANCELLED"],
+  "requestedAt": "Date",
+  "markedSentBy": "ObjectId",              // optional; ref adminUsers (Super Admin — merchants:mark-payout-sent)
+  "markedSentAt": "Date",                  // optional
+  "paymentReference": "string",            // optional; REQUIRED at mark-sent (off-platform transfer ref)
+  "confirmedAt": "Date",                   // optional; merchant confirms received (user-plane)
+  "cancelledBy": "ObjectId",               // optional
+  "cancelReason": "string",                // optional
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+- **Indexes:** unique `requestId`; `{ merchantId, status }`; `{ status, requestedAt }` (admin
+  queue); partial-unique `{ merchantId }` on `status ∈ {REQUESTED, MARKED_SENT}` (one active
+  request per merchant).
+- **Lifecycle:** `REQUESTED` (merchant; locks entries) → `MARKED_SENT` (**Super Admin**,
+  `merchants:mark-payout-sent`, non-delegable; funds wired **off-platform**) →
+  `CONFIRMED_RECEIVED` (merchant; entries → `SETTLED`); `CANCELLED` from
+  `REQUESTED`/`MARKED_SENT` unlocks entries. Mirror of the Adashe `payoutRequests` model (§9.7).
+
+### 11.8 Marketplace notification-trigger matrix 📄 (owner-locked)
+
+All events ride the single `NotificationService` (§8 / `notification.md`) — persisted + socket +
+FCM, with `link` deep-links. Extends the `notification.md` Triggers Matrix (supersedes its
+placeholder `order.status` row).
+
+| Event key | Fires on | Audience | `link` |
+|-----------|----------|----------|--------|
+| `order.placed` | checkout creates a split order | **seller merchant** (MERCHANT orders) + **ALL admins** | `/bennie/orders/<id>` (admins) |
+| `order.status` | fulfilment advances (PROCESSING/SHIPPED/DELIVERED, incl. admin overrides) | buyer | user order URL |
+| `order.cancelled` | buyer/admin cancel (auto wallet refund) | buyer (+ merchant; + admins on buyer cancel) | per plane |
+| `order.refunded` | admin refund (full/partial) | buyer (+ merchant if earnings adjusted) | user order URL |
+| `order.receipt.confirmed` | buyer sets `buyerConfirmedAt` | seller (merchant, or admins for PLATFORM) | `/bennie/orders/<id>` |
+| `product.moderation.pending` | merchant listing enters PENDING | **admins** | `/bennie/market-place?tab=moderation` |
+| `product.moderation.decided` | approve / reject / request-changes | merchant | merchant-hub URL |
+| `merchant.kyc.submitted` | merchant submits/resubmits KYC | **admins** | `/bennie/merchants/<id>` |
+| `merchant.kyc.decided` | admin approve/reject | merchant | merchant-hub URL |
+| `merchant.suspended` / `.reinstated` | suspension lifecycle | merchant | merchant-hub URL |
+| `merchant.payout.requested` | merchant requests payout | **admins** | `/bennie/merchants/<id>` |
+| `merchant.payout.marked_sent` | Super Admin marks payout sent | merchant | merchant-hub payout URL |
+| `merchant.payout.confirmed` | merchant confirms received | **admins** | `/bennie/merchants/<id>` |
+
+### 11.9 Config & env 📄
+
+- **`settings.marketplace`** (global `settings` collection is the SSOT; env = bootstrap seeds):
+  `platformFeePercent` (seed `PLATFORM_FEE_PERCENT=5`), `defaultLowStockThreshold`
+  (seed `LOW_STOCK_THRESHOLD=10`), `refundWindowDays` (seed
+  `MARKETPLACE_REFUND_WINDOW_DAYS=14`). `pricing.platformFeePercent` is **captured per order at
+  checkout** — settings changes affect future checkouts only.
+- **`prembly` config group** (to add to `configuration.ts`, graceful no-op when absent —
+  same pattern as `firebase`/`gcp`):
+  ```typescript
+  prembly: {
+    appId:   process.env.PREMBLY_APP_ID || '',
+    apiKey:  process.env.PREMBLY_X_API_KEY || '',
+    baseUrl: process.env.PREMBLY_BASE_URL || 'https://api.prembly.com',
+  },
+  ```
+  Headers `x-api-key` + `app-id`; per-ID endpoints (vNIN/NIN, BVN, driver's licence, voter's
+  card, international passport, CAC) are tabled in `merchants.md` §3 — advisory only, the admin
+  decides.
+- **Private KYC bucket:** `GCP_PRIVATE_BUCKET` + `GCP_SIGNED_URL_TTL_SECONDS` (§10.3,
+  `gcp_upload.md`). KYC docs upload with `visibility: 'private'` and are purged on the final
+  KYC decision.

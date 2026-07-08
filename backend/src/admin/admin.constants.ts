@@ -33,6 +33,7 @@ export const SUPER_ADMIN_ONLY_PERMISSIONS = new Set<string>([
   'orders:refund',
   'equipment:settle-deposit',
   'adashe-contributions:process-payout',
+  'merchants:mark-payout-sent',
   'dividends:distribute',
   'commissions:pay-batch',
   'agent-commission:reverse',

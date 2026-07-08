@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,6 +11,7 @@ import { RolesGuard } from './guards/roles.guard';
 import { UsersModule } from '../users/users.module';
 import { MailModule } from '../mail/mail.module';
 import { NotificationModule } from '../notifications/notification.module';
+import { WalletModule } from '../wallet/wallet.module';
 import {
   RefreshToken,
   RefreshTokenSchema,
@@ -21,6 +22,7 @@ import {
     UsersModule,
     MailModule,
     NotificationModule,
+    forwardRef(() => WalletModule),
     PassportModule,
     MongooseModule.forFeature([
       { name: RefreshToken.name, schema: RefreshTokenSchema },

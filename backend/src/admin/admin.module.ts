@@ -25,6 +25,18 @@ import {
   AdminAuditLog,
   AdminAuditLogSchema,
 } from './schemas/admin-audit-log.schema';
+import {
+  ContributionGroup,
+  ContributionGroupSchema,
+} from '../contributions/schemas/contribution-group.schema';
+import {
+  PayoutRequest,
+  PayoutRequestSchema,
+} from '../contributions/schemas/payout-request.schema';
+import {
+  GroupProposal,
+  GroupProposalSchema,
+} from '../contributions/schemas/group-proposal.schema';
 
 @Module({
   imports: [
@@ -37,6 +49,11 @@ import {
       { name: AdminRole.name, schema: AdminRoleSchema },
       { name: AdminRefreshToken.name, schema: AdminRefreshTokenSchema },
       { name: AdminAuditLog.name, schema: AdminAuditLogSchema },
+      // Read-only registrations for the dashboard's live Adashe block. The
+      // ContributionsModule owns writes to these; here we only aggregate counts.
+      { name: ContributionGroup.name, schema: ContributionGroupSchema },
+      { name: PayoutRequest.name, schema: PayoutRequestSchema },
+      { name: GroupProposal.name, schema: GroupProposalSchema },
     ]),
   ],
   controllers: [AdminAuthController, AdminDashboardController],

@@ -32,7 +32,7 @@ export default function AdminAuthShell({
   const reduce = useReducedMotion();
 
   return (
-    <div className="flex min-h-screen bg-[#FAF8F5] text-[#1A2421]">
+    <div className="flex min-h-screen bg-canvas text-ink">
       {/* LEFT — ops brand panel */}
       <div className="relative hidden w-[46%] flex-col justify-between overflow-hidden bg-[#0B3020] p-12 text-white lg:flex xl:w-1/2 xl:p-14">
         <div
@@ -129,14 +129,14 @@ export default function AdminAuthShell({
       <div className="flex flex-1 flex-col items-center justify-center p-6 sm:p-10">
         <div className="mb-8 w-full max-w-md lg:hidden">
           <div className="flex w-max items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#135D39] shadow-sm">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-sm">
               <Sprout className="h-5 w-5 text-white" />
             </div>
             <div>
-              <span className="block font-display text-lg font-semibold leading-none text-[#1A2421]">
+              <span className="block font-display text-lg font-semibold leading-none text-ink">
                 Bennie Connect
               </span>
-              <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-[#135D39]">
+              <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-primary">
                 Admin Console
               </span>
             </div>
@@ -147,12 +147,12 @@ export default function AdminAuthShell({
           initial={reduce ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-md rounded-[28px] bg-white/70 p-7 shadow-[0_8px_40px_-12px_rgba(19,93,57,0.15)] ring-1 ring-[#E6E5DF] backdrop-blur-sm sm:p-9"
+          className="w-full max-w-md rounded-[28px] bg-surface/70 p-7 shadow-[0_8px_40px_-12px_rgba(19,93,57,0.15)] ring-1 ring-border backdrop-blur-sm sm:p-9"
         >
           {children}
         </motion.div>
 
-        <p className="mt-6 max-w-md text-center text-[11px] text-[#9AA29D]">
+        <p className="mt-6 max-w-md text-center text-[11px] text-muted">
           Restricted access. All sessions are monitored and audited.
         </p>
       </div>

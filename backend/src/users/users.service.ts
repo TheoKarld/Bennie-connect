@@ -148,6 +148,71 @@ export class UsersService {
   }
 
   /**
+   * Bulk-resolve user ids to display names ("First Last") in a single query.
+   * Returns a Map keyed by the stringified user id. Ids that don't resolve are
+   * omitted (callers should fall back to a default like "Member"). Used by the
+   * contributions module to denormalize member/organizer names without N+1s.
+   */
+  async resolveNames(
+    ids: (string | Types.ObjectId)[],
+  ): Promise<Map<string, string>> {
+    const out = new Map<string, string>();
+    const valid = Array.from(
+      new Set(
+        ids
+          .filter((id) => id != null)
+          .map((id) => id.toString())
+          .filter((id) => Types.ObjectId.isValid(id)),
+      ),
+    ).map((id) => new Types.ObjectId(id));
+    if (valid.length === 0) {
+      return out;
+    }
+    const users = await this.userModel
+      .find({ _id: { $in: valid } })
+      .select('firstName lastName')
+      .lean();
+    for (const u of users) {
+      const name =
+        `${u.firstName ?? ''} ${u.lastName ?? ''}`.trim() || 'Member';
+      out.set(u._id.toString(), name);
+    }
+    return out;
+  }
+
+  /**
+   * Bulk-resolve user ids to `{ name, email }` in a single query. Returns a Map
+   * keyed by the stringified user id; ids that don't resolve are omitted.
+   * Used by the admin contributions plane to denormalize member profiles.
+   */
+  async resolveProfiles(
+    ids: (string | Types.ObjectId)[],
+  ): Promise<Map<string, { name: string; email?: string }>> {
+    const out = new Map<string, { name: string; email?: string }>();
+    const valid = Array.from(
+      new Set(
+        ids
+          .filter((id) => id != null)
+          .map((id) => id.toString())
+          .filter((id) => Types.ObjectId.isValid(id)),
+      ),
+    ).map((id) => new Types.ObjectId(id));
+    if (valid.length === 0) {
+      return out;
+    }
+    const users = await this.userModel
+      .find({ _id: { $in: valid } })
+      .select('firstName lastName email')
+      .lean();
+    for (const u of users) {
+      const name =
+        `${u.firstName ?? ''} ${u.lastName ?? ''}`.trim() || 'Member';
+      out.set(u._id.toString(), { name, email: u.email });
+    }
+    return out;
+  }
+
+  /**
    * Create a user authenticated via Google. No password is set; the account is
    * marked as email-verified and active immediately.
    */

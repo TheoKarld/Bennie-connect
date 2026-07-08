@@ -6,7 +6,9 @@
 
 The **Admin Dashboard** is the landing page rendered at `/bennie/dashboard` immediately after an admin signs in (and after any forced password change clears). It is the operational overwatch summary: a permission-filtered grid of **KPI cards**, a **recent-activity feed** sourced from the audit trail, a **pending-approvals** summary, **quick links** into the sections the admin can enter, and **charts** where real data exists.
 
-Design principle for this pass: **show REAL numbers where the data is live today, and honest placeholders everywhere else.** The user identity plane (`users`) and the admin identity plane (`adminUsers` / `adminRoles` / `adminAuditLog`) are the domains with (or nearest to) live data; the financial and marketplace domains are 📄 planned and MUST render as clearly-labeled **"module not yet live"** placeholder cards rather than fabricated figures.
+Design principle for this pass: **show REAL numbers where the data is live today, and honest placeholders everywhere else.** The user identity plane (`users`), the admin identity plane (`adminUsers` / `adminRoles` / `adminAuditLog`), **and the Adashe/Esusu contribution domain** (`ContributionGroup`, `GroupMember`, `payoutRequests`, `GroupProposal`) are the domains with live data; the remaining financial and marketplace domains are 📄 planned and MUST render as clearly-labeled **"module not yet live"** placeholder cards rather than fabricated figures.
+
+> **Adashe is now LIVE (owner-confirmed).** The Adashe block flips from placeholder to `available: true`, surfacing **active groups**, **total pool balance** (tracked), **payout requests due** (count of `payoutRequests` in `REQUESTED`), and **pending slot-shift requests** (count of `GroupProposal(kind: SLOT_SHIFT)` in `AWAITING_ADMIN`). The manual-payout and slot-shift models are specified in [adas_hesu_contributions.md](../adas_hesu_contributions/adas_hesu_contributions.md); the two counts are real **approval queues** (see [Pending-approvals](#sections-page-layout)).
 
 Status: 📄 **planned** (no admin frontend or `/dashboard` endpoint exists yet).
 
@@ -45,6 +47,16 @@ Cards are grouped by data-readiness. **Live** cards pull real aggregates from co
 | Recent admin activity (24h) | `count(adminAuditLog where createdAt >= now-24h)` |
 | Locked-out / must-change-password | operational hygiene counts from `adminUsers` |
 
+**Adashe / Esusu (`ContributionGroup` / `GroupMember` / `payoutRequests` / `GroupProposal` — ✅ live):** requires `adashe-groups:view` (group/rotation KPIs) and `adashe-contributions:view` (pool/payout KPIs) to render the respective cards.
+
+| KPI | Definition | Permission |
+|-----|------------|-----------|
+| Active groups | `count(ContributionGroup where status == 'ACTIVE')` | `adashe-groups:view` |
+| Total pool balance | Σ tracked pool across active groups (informational; funds are wired off-platform, not held) | `adashe-contributions:view` |
+| Payout requests due | `count(payoutRequests where status == 'REQUESTED')` — the manual-payout queue awaiting **mark-sent** | `adashe-contributions:view` |
+| Pending slot-shift requests | `count(GroupProposal where kind == 'SLOT_SHIFT' && status == 'AWAITING_ADMIN')` — fully-voted swaps awaiting admin decision | `adashe-groups:view` |
+| Payouts awaiting confirmation | `count(payoutRequests where status == 'MARKED_SENT')` — marked sent, recipient not yet confirmed (risk/hygiene) | `adashe-contributions:view` |
+
 ### Placeholder KPIs (module not yet live — 📄)
 
 Render as labeled placeholder cards, **no fabricated numbers**. Each shows the metric name, a muted icon, and a **"Module not yet live"** badge; hovering/tooltip explains it will populate when the domain ships.
@@ -57,8 +69,9 @@ Render as labeled placeholder cards, **no fabricated numbers**. Each shows the m
 | Equipment (PRD 06) | Bookings today, utilization, active GPS units |
 | Services (PRD 07) | Bookings, escrow held, disputes open |
 | Marketplace (PRD 08) | Orders (7/30d), GMV, refunds pending, products awaiting moderation |
-| Adashe (PRD 09) | Active groups, pool balance, payouts due |
 | Agents (PRD 10) | Active agents, referrals (30d), commission pending |
+
+> **Adashe (PRD 09) moved to [Live-capable KPIs](#live-capable-kpis-real-data).** It is no longer a placeholder — its cards (active groups, tracked pool, payout requests due, pending slot-shift requests) render real values via `available: true`.
 
 > As each domain's collections come online, its placeholder cards become live cards driven by the same `/dashboard/overview` aggregation — no layout change required, only the backend `available: true` flag flips.
 
@@ -68,7 +81,7 @@ Render as labeled placeholder cards, **no fabricated numbers**. Each shows the m
 
 1. **KPI card grid.** Responsive grid (1-col mobile → 2 → 3/4 desktop). Each card: label, value (or placeholder), a small delta/trend chip where a comparison window exists (e.g. signups vs prior 7d), and an icon. Cards are permission-filtered and readiness-grouped (live first, placeholders after, or interleaved with a subtle "coming soon" treatment).
 2. **Recent-activity feed.** A reverse-chronological list from `adminAuditLog` (latest ~10–20): actor (name/email), human action label (e.g. "banned user Amina Bello", "changed withdrawal fee"), target, relative timestamp, and source IP on hover. Gated by `audit-logs:view`; when absent, the feed shows a "you don't have access to the activity feed" empty-state instead of the list. Links each entry into the relevant section where a target route exists.
-3. **Pending-approvals summary.** A compact panel counting items awaiting admin sign-off across queues — KYC submissions, withdrawals/settlements, membership applications, product moderation, dividend/commission payouts, disputes. **Until those modules exist**, this panel renders a placeholder ("Approval queues activate as modules go live") with zeroed/greyed rows; the one queue that can be real earlier (KYC) lights up first once `users.kyc` ships. Each row deep-links to its queue and respects the relevant permission.
+3. **Pending-approvals summary.** A compact panel counting items awaiting admin sign-off across queues — KYC submissions, withdrawals/settlements, membership applications, product moderation, dividend/commission payouts, disputes, **Adashe payout requests**, **Adashe slot-shift decisions**. The **two Adashe queues are LIVE now**: **Payout requests due** (`payoutRequests` in `REQUESTED`, deep-links to a group's Payout Requests tab, gated by `adashe-contributions:view`; the **mark-sent** action itself is Super-Admin-only) and **Slot-shift decisions** (`GroupProposal(kind: SLOT_SHIFT)` in `AWAITING_ADMIN`, deep-links to a group's Slot-Shift Decisions tab, gated by `adashe-groups:view`). The remaining queues render as placeholder ("Approval queues activate as modules go live") until their modules exist; KYC lights up next once `users.kyc` ships. Each row deep-links to its queue and respects the relevant permission.
 4. **Quick links.** Permission-filtered shortcut tiles to sections the admin can enter (Users, Admins & Roles, Cooperative, Settings, …) — mirrors the sidebar gating but as large actionable tiles for the most common first actions.
 5. **Charts (real data only).** A **signups trend** line/area chart (new `users` per day over 30d, from `createdAt` buckets) — the one chart with genuine live data at this stage. Optionally an **admin-activity sparkline** from `adminAuditLog` counts. Placeholder domains show a muted "chart activates when the module is live" tile rather than an empty axis. All charts have accessible table fallbacks.
 
@@ -108,6 +121,14 @@ The dashboard is driven by a single aggregation endpoint (📄 **to be implement
       "mustChangePassword": 1,
       "lockedOut": 0
     },
+    "adashe": {
+      "available": true,
+      "activeGroups": 23,
+      "totalPoolBalance": 4185000,
+      "payoutRequestsDue": 4,
+      "payoutsAwaitingConfirmation": 2,
+      "pendingSlotShiftRequests": 3
+    },
     "recentActivity": [
       {
         "actorEmail": "superadmin@bennieconnect.com",
@@ -121,26 +142,29 @@ The dashboard is driven by a single aggregation endpoint (📄 **to be implement
       "kyc": { "available": false, "count": 0 },
       "withdrawals": { "available": false, "count": 0 },
       "membershipApplications": { "available": false, "count": 0 },
-      "productModeration": { "available": false, "count": 0 }
+      "productModeration": { "available": false, "count": 0 },
+      "adashePayoutRequests": { "available": true, "count": 4, "link": "/bennie/adashesu-contributions?hasPendingPayout=true" },
+      "adasheSlotShiftDecisions": { "available": true, "count": 3, "link": "/bennie/adashesu-contributions?hasPendingSlotShift=true" }
     },
     "modules": {
       "wallet": { "available": false }, "savings": { "available": false },
       "shares": { "available": false }, "equipment": { "available": false },
       "services": { "available": false }, "marketplace": { "available": false },
-      "adashe": { "available": false }, "agents": { "available": false }
+      "adashe": { "available": true }, "agents": { "available": false }
     }
   }
 }
 ```
 **Behaviour notes:**
 - Every domain block carries an **`available` boolean**. `true` ⇒ render real values; `false` ⇒ render the "module not yet live" placeholder. This keeps the frontend honest and decouples it from which collections happen to exist.
-- The endpoint **omits** (or returns `available:false` for) blocks the caller's permissions don't allow, so a Support Agent's payload never leaks finance aggregates.
+- **Adashe block (`adashe`) is `available: true`** and aggregates the live contribution domain: `activeGroups` (`ContributionGroup.status == 'ACTIVE'`), `totalPoolBalance` (tracked Σ), `payoutRequestsDue` (`payoutRequests` `REQUESTED`), `payoutsAwaitingConfirmation` (`MARKED_SENT`), `pendingSlotShiftRequests` (`GroupProposal(kind: SLOT_SHIFT)` `AWAITING_ADMIN`). The `pendingApprovals.adashePayoutRequests` / `adasheSlotShiftDecisions` counts are the same figures surfaced as approval queues.
+- The endpoint **omits** (or returns `available:false` for) blocks the caller's permissions don't allow, so a Support Agent's payload never leaks finance aggregates. Adashe pool/payout figures require `adashe-contributions:view`; group/slot-shift figures require `adashe-groups:view` — the block trims to whichever the caller holds.
 - Counts respect soft-delete (`users.isDeleted != true`) and exclude system/seed noise where appropriate.
 - **Caching:** aggregates may be cached briefly (e.g. 30–60s) to protect the DB; `recentActivity` should be fresh (or short TTL). Cache key includes the caller's effective-permission scope.
 **Audit:** reads only — a low-noise `dashboard.view` audit entry is **optional** (the master README treats reads as generally un-audited except PII/financial exports). Do **not** audit every dashboard poll.
 **Errors:** `403 ADMIN_AUTH_006` (missing `dashboard:view`), `403 ADMIN_AUTH_007` (`mustChangePassword`), standard envelope.
 
-> **Flagged 📄 for `backend-dev`.** This endpoint does not exist yet. It aggregates over the live `users` collection and the admin-plane collections; as new domains ship, extend the aggregation and flip each `available` flag to `true`. The frontend requires no change when a flag flips.
+> **Flagged 📄 for `backend-dev`.** This endpoint does not exist yet. It aggregates over the live `users` collection, the admin-plane collections, **and the live Adashe collections** (`ContributionGroup`, `payoutRequests`, `GroupProposal`); as further domains ship, extend the aggregation and flip each `available` flag to `true`. The frontend requires no change when a flag flips.
 
 ---
 
@@ -165,14 +189,14 @@ The dashboard is driven by a single aggregation endpoint (📄 **to be implement
 
 **Backend (`backend-dev`)**
 - [ ] 📄 `GET /api/v1/admin/dashboard/overview` guarded by `dashboard:view` + `mustChangePassword` gate.
-- [ ] 📄 Live aggregations over `users` (totals, active, verified, signup buckets) and admin-plane (`adminUsers`/`adminRoles`/`adminAuditLog`).
-- [ ] 📄 `available` readiness flags per domain; permission-scoped payload trimming.
+- [ ] 📄 Live aggregations over `users` (totals, active, verified, signup buckets), admin-plane (`adminUsers`/`adminRoles`/`adminAuditLog`), **and Adashe** (`ContributionGroup` active count + tracked pool Σ, `payoutRequests` REQUESTED/MARKED_SENT counts, `GroupProposal` AWAITING_ADMIN count).
+- [ ] 📄 `available` readiness flags per domain (Adashe → `true`); permission-scoped payload trimming (`adashe-groups:view` / `adashe-contributions:view`).
 - [ ] 📄 Short-TTL caching keyed by permission scope; fresh `recentActivity`.
 
 **Frontend (`admin-dev`)**
 - [ ] 📄 KPI grid with live vs placeholder card variants driven by `available` flags.
 - [ ] 📄 Recent-activity feed from `recentActivity` (gated by `audit-logs:view`).
-- [ ] 📄 Pending-approvals summary (placeholder until queues exist; KYC lights up first).
+- [ ] 📄 Pending-approvals summary — **Adashe payout requests + slot-shift decisions live now** (deep-link to the group tabs); remaining queues placeholder until their modules exist (KYC next).
 - [ ] 📄 Permission-filtered quick links (reuse shell nav gating).
 - [ ] 📄 Signups-trend chart from `users.signupTrend` with accessible fallback; placeholder chart tiles for not-yet-live domains.
 - [ ] 📄 Loading/skeleton, empty, placeholder, error, and permission-limited states.
@@ -186,6 +210,7 @@ The dashboard is driven by a single aggregation endpoint (📄 **to be implement
 - **[auth/admin_auth.md](../auth/admin_auth.md)** — `GET /auth/me` (`effectivePermissions`, `mustChangePassword`), `dashboard:view` semantics, `ADMIN_AUTH_006/007`.
 - **[users/users.md](../users/users.md)** — source domain for the user KPIs and the KYC approval queue that lights up first.
 - **[admins/admins.md](../admins/admins.md)** — `adminAuditLog` shape (feed) and admin-plane counts.
+- **[adas_hesu_contributions/adas_hesu_contributions.md](../adas_hesu_contributions/adas_hesu_contributions.md)** — the live Adashe domain: `ContributionGroup`/`payoutRequests`/`GroupProposal` sourcing the Adashe KPIs and the two live approval queues; the cross-group queues `GET /admin/payout-requests` (`REQUESTED`) and `GET /admin/proposals` (`AWAITING_ADMIN`) the dashboard deep-links into.
 - **[data_structure.md §2.1 `users`, §7.1–§7.3 admin plane, §5–§6 dual-session](../../data_structure.md#7-admin-module--identity-rbac-config)** — schema cross-reference and the `adminApi` client the dashboard calls.
 
 ---

@@ -143,21 +143,21 @@ export default function AgriculturalServicesView({
   return (
     <div id="service-marketplace-container" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
       {/* HEADER SECTION */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E6E5DF] pb-5">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-5">
         <div>
-          <span className="text-xs uppercase text-[#135D39] font-bold tracking-wider mb-1 block">Module 4 Platform</span>
-          <h1 className="text-3xl font-display font-medium text-[#1A2421]">Agricultural Services Marketplace</h1>
-          <p className="text-sm text-[#5C6460] mt-1">Book certified drone operators, soil analysis experts, precision irrigation engineers, and training modules.</p>
+          <span className="text-xs uppercase text-primary font-bold tracking-wider mb-1 block">Module 4 Platform</span>
+          <h1 className="text-3xl font-display font-medium text-ink">Agricultural Services Marketplace</h1>
+          <p className="text-sm text-muted mt-1">Book certified drone operators, soil analysis experts, precision irrigation engineers, and training modules.</p>
         </div>
 
         {/* Tab switchers */}
-        <div className="flex gap-2 bg-[#FAF8F5] border border-[#E6E5DF] p-1 rounded-full shrink-0 w-fit">
+        <div className="flex gap-2 bg-canvas border border-border p-1 rounded-full shrink-0 w-fit">
           <button
             onClick={() => setActiveSubTab("catalog")}
             className={`px-4 py-2 rounded-full font-semibold text-xs transition-all ${
               activeSubTab === "catalog"
-                ? "bg-[#135D39] text-white shadow-md shadow-[#135D39]/10"
-                : "text-[#5C6460] hover:text-[#1A2421]"
+                ? "bg-primary text-white shadow-md shadow-primary/10"
+                : "text-muted hover:text-ink"
             }`}
           >
             Service Catalog ({filteredCategories.length})
@@ -166,8 +166,8 @@ export default function AgriculturalServicesView({
             onClick={() => setActiveSubTab("my-bookings")}
             className={`px-4 py-2 rounded-full font-semibold text-xs transition-all ${
               activeSubTab === "my-bookings"
-                ? "bg-[#135D39] text-white shadow-md shadow-[#135D39]/10"
-                : "text-[#5C6460] hover:text-[#1A2421]"
+                ? "bg-primary text-white shadow-md shadow-primary/10"
+                : "text-muted hover:text-ink"
             }`}
           >
             My Bookings ({bookings.length})
@@ -180,16 +180,16 @@ export default function AgriculturalServicesView({
           {/* SEARCH BAR */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-grow">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#5C6460]" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-muted" />
               <input
                 type="text"
                 placeholder="Search services (e.g. soil testing, mapping, repair)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white border border-[#E6E5DF] rounded-2xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#135D39]/20"
+                className="w-full bg-surface border border-border rounded-2xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
             </div>
-            <div className="flex items-center gap-2 px-4 py-2 border border-[#E6E5DF] bg-white rounded-2xl text-xs font-semibold text-[#5C6460]">
+            <div className="flex items-center gap-2 px-4 py-2 border border-border bg-surface rounded-2xl text-xs font-semibold text-muted">
               <Filter className="w-4 h-4" /> Filtered list of agro services
             </div>
           </div>
@@ -199,38 +199,38 @@ export default function AgriculturalServicesView({
             {filteredCategories.map((service) => {
               const IconComp = CATEGORY_ICONS[service.name] || Sprout;
               return (
-                <div key={service.id} className="bg-white border border-[#E6E5DF] rounded-3xl p-6 flex flex-col justify-between hover:shadow-xl hover:border-[#135D39]/20 transition-all group duration-300">
+                <div key={service.id} className="bg-surface border border-border rounded-3xl p-6 flex flex-col justify-between hover:shadow-xl hover:border-primary/20 transition-all group duration-300">
                   <div className="space-y-4">
                     {/* Icon and Rating */}
                     <div className="flex justify-between items-start">
-                      <div className="w-12 h-12 rounded-2xl bg-[#135D39]/5 flex items-center justify-center text-[#135D39] group-hover:bg-[#135D39] group-hover:text-white transition-all duration-300">
+                      <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                         <IconComp className="w-6 h-6" />
                       </div>
-                      <div className="flex items-center gap-1 bg-[#E7A13C]/10 text-[#C17C14] px-2.5 py-1 rounded-full text-[11px] font-bold">
-                        <Star className="w-3.5 h-3.5 fill-[#E7A13C] text-[#E7A13C]" />
+                      <div className="flex items-center gap-1 bg-accent/10 text-amber-700 dark:text-amber-300 px-2.5 py-1 rounded-full text-[11px] font-bold">
+                        <Star className="w-3.5 h-3.5 fill-accent text-accent" />
                         <span>{service.rating}</span>
-                        <span className="text-[#8F8161] font-normal">({service.reviews.length})</span>
+                        <span className="text-muted font-normal">({service.reviews.length})</span>
                       </div>
                     </div>
 
                     <div className="space-y-1">
-                      <h3 className="font-display font-medium text-lg text-[#1A2421]">{service.name}</h3>
-                      <p className="text-xs text-[#5C6460] leading-relaxed line-clamp-3">{service.description}</p>
+                      <h3 className="font-display font-medium text-lg text-ink">{service.name}</h3>
+                      <p className="text-xs text-muted leading-relaxed line-clamp-3">{service.description}</p>
                     </div>
                   </div>
 
-                  <div className="mt-6 pt-5 border-t border-[#FAF8F5] flex items-center justify-between">
+                  <div className="mt-6 pt-5 border-t border-border flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-[#5C6460] block font-semibold uppercase tracking-wider">Estimated Cost</span>
-                      <span className="font-display font-semibold text-lg text-[#135D39]">
+                      <span className="text-[10px] text-muted block font-semibold uppercase tracking-wider">Estimated Cost</span>
+                      <span className="font-display font-semibold text-lg text-primary">
                         ₦{service.pricePerUnit.toLocaleString()}
                       </span>
-                      <span className="text-xs text-[#5C6460] font-medium ml-1">/{service.unit}</span>
+                      <span className="text-xs text-muted font-medium ml-1">/{service.unit}</span>
                     </div>
 
                     <button
                       onClick={() => handleOpenBooking(service)}
-                      className="bg-[#135D39] hover:bg-[#0B3921] text-white px-4 py-2.5 rounded-full text-xs font-bold shadow-md shadow-[#135D39]/10 hover:shadow-lg transition-all"
+                      className="bg-primary hover:bg-[#0B3921] text-white px-4 py-2.5 rounded-full text-xs font-bold shadow-md shadow-primary/10 hover:shadow-lg transition-all"
                     >
                       Book Service
                     </button>
@@ -241,10 +241,10 @@ export default function AgriculturalServicesView({
           </div>
 
           {filteredCategories.length === 0 && (
-            <div className="text-center py-16 bg-white border border-[#E6E5DF] rounded-3xl space-y-3">
-              <Sprout className="w-12 h-12 text-[#135D39]/40 mx-auto" />
+            <div className="text-center py-16 bg-surface border border-border rounded-3xl space-y-3">
+              <Sprout className="w-12 h-12 text-primary/40 mx-auto" />
               <h3 className="font-display font-medium text-lg">No services found matching your query</h3>
-              <p className="text-xs text-[#5C6460]">Try searching for other general terms or keywords.</p>
+              <p className="text-xs text-muted">Try searching for other general terms or keywords.</p>
             </div>
           )}
         </div>
@@ -269,38 +269,38 @@ export default function AgriculturalServicesView({
 
           {/* ACTIVE DISPATCH LIST */}
           <div className="space-y-4">
-            <h3 className="font-display font-medium text-lg text-[#1A2421]">Operational Booking Log</h3>
-            
+            <h3 className="font-display font-medium text-lg text-ink">Operational Booking Log</h3>
+
             {bookings.map((bk) => {
-              const statusColor = 
-                bk.status === "completed" ? "bg-emerald-100 border-emerald-300 text-emerald-800" :
-                bk.status === "confirmed" ? "bg-cyan-100 border-cyan-300 text-cyan-800" :
-                bk.status === "cancelled" ? "bg-rose-100 border-rose-300 text-rose-800" :
-                "bg-amber-100 border-amber-300 text-amber-800";
+              const statusColor =
+                bk.status === "completed" ? "bg-emerald-100 dark:bg-emerald-500/15 border-emerald-300 dark:border-emerald-500/20 text-emerald-800 dark:text-emerald-300" :
+                bk.status === "confirmed" ? "bg-cyan-100 dark:bg-cyan-500/15 border-cyan-300 dark:border-cyan-500/20 text-cyan-800 dark:text-cyan-300" :
+                bk.status === "cancelled" ? "bg-rose-100 dark:bg-rose-500/15 border-rose-300 dark:border-rose-500/20 text-rose-800 dark:text-rose-300" :
+                "bg-amber-100 dark:bg-amber-500/15 border-amber-300 dark:border-amber-500/20 text-amber-800 dark:text-amber-300";
 
               return (
-                <div key={bk.id} className="bg-white border border-[#E6E5DF] rounded-3xl p-6 space-y-6 shadow-sm hover:shadow-md transition-all">
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#FAF8F5] pb-4">
+                <div key={bk.id} className="bg-surface border border-border rounded-3xl p-6 space-y-6 shadow-sm hover:shadow-md transition-all">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-border pb-4">
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[11px] font-mono font-bold text-[#5C6460] bg-[#FAF8F5] border border-[#E6E5DF] px-2.5 py-0.5 rounded-md">
+                        <span className="text-[11px] font-mono font-bold text-muted bg-surface-2 border border-border px-2.5 py-0.5 rounded-md">
                           {bk.id}
                         </span>
                         <span className={`text-[10px] font-bold uppercase tracking-wider border-l border-r px-2 py-0.5 rounded-full ${statusColor}`}>
                           {bk.status}
                         </span>
                         <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
-                          bk.paymentStatus === "paid" ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
+                          bk.paymentStatus === "paid" ? "bg-emerald-100 dark:bg-emerald-500/15 text-emerald-800 dark:text-emerald-300" : "bg-amber-100 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300"
                         }`}>
                           {bk.paymentStatus === "paid" ? "Paid" : "Unpaid"}
                         </span>
                       </div>
-                      <h4 className="font-display font-semibold text-lg text-[#1A2421] mt-1">{bk.serviceName}</h4>
+                      <h4 className="font-display font-semibold text-lg text-ink mt-1">{bk.serviceName}</h4>
                     </div>
 
                     <div className="text-left md:text-right">
-                      <span className="text-[10px] text-[#5C6460] block font-semibold uppercase">Total Commitment</span>
-                      <span className="font-mono font-bold text-lg text-[#135D39]">
+                      <span className="text-[10px] text-muted block font-semibold uppercase">Total Commitment</span>
+                      <span className="font-mono font-bold text-lg text-primary">
                         ₦{bk.totalCost.toLocaleString()}
                       </span>
                     </div>
@@ -308,42 +308,42 @@ export default function AgriculturalServicesView({
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2 text-[#5C6460]">
-                        <Calendar className="w-4 h-4 text-[#135D39]" />
-                        <span className="font-semibold text-[#1A2421]">Execution Target</span>
+                      <div className="flex items-center gap-2 text-muted">
+                        <Calendar className="w-4 h-4 text-primary" />
+                        <span className="font-semibold text-ink">Execution Target</span>
                       </div>
-                      <p className="text-[#5C6460] pl-6 font-mono font-medium">{bk.bookingDate}</p>
+                      <p className="text-muted pl-6 font-mono font-medium">{bk.bookingDate}</p>
                     </div>
 
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2 text-[#5C6460]">
-                        <MapPin className="w-4 h-4 text-[#135D39]" />
-                        <span className="font-semibold text-[#1A2421]">Acreage Target Coordinates</span>
+                      <div className="flex items-center gap-2 text-muted">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        <span className="font-semibold text-ink">Acreage Target Coordinates</span>
                       </div>
-                      <p className="text-[#5C6460] pl-6 line-clamp-1">{bk.farmerLocation}</p>
+                      <p className="text-muted pl-6 line-clamp-1">{bk.farmerLocation}</p>
                     </div>
 
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2 text-[#5C6460]">
-                        <MessageSquare className="w-4 h-4 text-[#135D39]" />
-                        <span className="font-semibold text-[#1A2421]">Instruction Details</span>
+                      <div className="flex items-center gap-2 text-muted">
+                        <MessageSquare className="w-4 h-4 text-primary" />
+                        <span className="font-semibold text-ink">Instruction Details</span>
                       </div>
-                      <p className="text-[#5C6460] pl-6 italic line-clamp-1">{bk.notes || "None supplied"}</p>
+                      <p className="text-muted pl-6 italic line-clamp-1">{bk.notes || "None supplied"}</p>
                     </div>
                   </div>
 
                   {/* SUB ACTION BUTTONS & SIMULATION PANEL */}
-                  <div className="bg-[#FAF8F5] border border-[#E6E5DF]/50 p-4 rounded-2xl flex flex-wrap gap-3 justify-between items-center">
+                  <div className="bg-surface-2 border border-border/50 p-4 rounded-2xl flex flex-wrap gap-3 justify-between items-center">
                     <div className="space-y-0.5">
-                      <span className="text-[10px] uppercase font-bold text-[#135D39] block">Simulate Dispatch Flow</span>
-                      <p className="text-[10px] text-[#5C6460]">Simulate operator execution to trigger payments or rating reviews.</p>
+                      <span className="text-[10px] uppercase font-bold text-primary block">Simulate Dispatch Flow</span>
+                      <p className="text-[10px] text-muted">Simulate operator execution to trigger payments or rating reviews.</p>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
                       {bk.status !== "completed" && bk.status !== "cancelled" && (
                         <button
                           onClick={() => onSimulateStatus(bk.id)}
-                          className="bg-[#135D39] hover:bg-[#0B3921] text-white px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
+                          className="bg-primary hover:bg-[#0B3921] text-white px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
                         >
                           <Sparkles className="w-3.5 h-3.5" />
                           {bk.status === "pending" ? "Confirm Booking & Dispatch" : "Mark Job Finished"}
@@ -366,7 +366,7 @@ export default function AgriculturalServicesView({
                             setReviewRating(5);
                             setReviewComment("");
                           }}
-                          className="bg-[#E7A13C] hover:bg-[#C17C14] text-white px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
+                          className="bg-accent hover:bg-[#C17C14] text-white px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 cursor-pointer"
                         >
                           <Star className="w-3.5 h-3.5 fill-white" /> Leave Rating & Review
                         </button>
@@ -375,7 +375,7 @@ export default function AgriculturalServicesView({
                       {bk.status === "pending" && (
                         <button
                           onClick={() => onCancelBooking(bk.id)}
-                          className="bg-rose-50 hover:bg-rose-100 text-rose-700 hover:text-rose-800 px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition border border-rose-200 cursor-pointer"
+                          className="bg-rose-50 dark:bg-rose-500/10 hover:bg-rose-100 dark:hover:bg-rose-500/15 text-rose-700 dark:text-rose-300 hover:text-rose-800 dark:hover:text-rose-300 px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition border border-rose-200 dark:border-rose-500/20 cursor-pointer"
                         >
                           Cancel Booking (Refund)
                         </button>
@@ -385,40 +385,40 @@ export default function AgriculturalServicesView({
 
                   {/* DISPLAY ATTACHED REVIEW IF GIVEN */}
                   {bk.rating && (
-                    <div className="bg-[#FAF8F5] border border-emerald-100 p-4 rounded-2xl space-y-2">
+                    <div className="bg-surface-2 border border-emerald-100 dark:border-emerald-500/20 p-4 rounded-2xl space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-[#1A2421]">Farmer Completed Assessment</span>
-                        <div className="flex items-center gap-0.5 text-[#E7A13C]">
+                        <span className="text-xs font-bold text-ink">Farmer Completed Assessment</span>
+                        <div className="flex items-center gap-0.5 text-accent">
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
                               className={`w-3.5 h-3.5 ${
-                                i < (bk.rating || 0) ? "fill-[#E7A13C] text-[#E7A13C]" : "text-[#E6E5DF]"
+                                i < (bk.rating || 0) ? "fill-accent text-accent" : "text-border"
                               }`}
                             />
                           ))}
                         </div>
                       </div>
-                      <p className="text-xs text-[#5C6460] italic">"{bk.reviewComment}"</p>
+                      <p className="text-xs text-muted italic">"{bk.reviewComment}"</p>
                     </div>
                   )}
 
                   {/* COLLAPSED REVIEW EDITOR AREA */}
                   {reviewingBookingId === bk.id && (
-                    <form onSubmit={handleSubmitReview} className="bg-white border-2 border-[#E7A13C]/40 p-5 rounded-2xl space-y-4 animate-fade-in">
+                    <form onSubmit={handleSubmitReview} className="bg-surface border-2 border-accent/40 p-5 rounded-2xl space-y-4 animate-fade-in">
                       <div className="flex justify-between items-center">
-                        <h5 className="text-sm font-semibold text-[#1A2421]">Submit Agronomy Quality Review</h5>
+                        <h5 className="text-sm font-semibold text-ink">Submit Agronomy Quality Review</h5>
                         <button
                           type="button"
                           onClick={() => setReviewingBookingId(null)}
-                          className="text-xs text-[#5C6460] font-medium"
+                          className="text-xs text-muted font-medium"
                         >
                           Cancel
                         </button>
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-[#5C6460] font-medium">Rating:</span>
+                        <span className="text-xs text-muted font-medium">Rating:</span>
                         <div className="flex gap-1">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <button
@@ -429,7 +429,7 @@ export default function AgriculturalServicesView({
                             >
                               <Star
                                 className={`w-6 h-6 transition-transform ${
-                                  star <= reviewRating ? "fill-[#E7A13C] text-[#E7A13C] scale-110" : "text-[#E6E5DF]"
+                                  star <= reviewRating ? "fill-accent text-accent scale-110" : "text-border"
                                 }`}
                               />
                             </button>
@@ -438,20 +438,20 @@ export default function AgriculturalServicesView({
                       </div>
 
                       <div className="space-y-1">
-                        <label className="text-xs text-[#1A2421] font-semibold block">Comments & Observations</label>
+                        <label className="text-xs text-ink font-semibold block">Comments & Observations</label>
                         <textarea
                           rows={3}
                           placeholder="Provide details about the response rate, testing precision, drone height coverage, etc."
                           value={reviewComment}
                           onChange={(e) => setReviewComment(e.target.value)}
-                          className="w-full text-xs p-3 border border-[#E6E5DF] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#135D39]/20"
+                          className="w-full text-xs p-3 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20"
                           required
                         />
                       </div>
 
                       <button
                         type="submit"
-                        className="bg-[#E7A13C] hover:bg-[#C17C14] text-white text-xs font-bold px-4 py-2 rounded-lg transition"
+                        className="bg-accent hover:bg-[#C17C14] text-white text-xs font-bold px-4 py-2 rounded-lg transition"
                       >
                         Publish Review to Ledger
                       </button>
@@ -462,13 +462,13 @@ export default function AgriculturalServicesView({
             })}
 
             {bookings.length === 0 && (
-              <div className="text-center py-16 bg-white border border-[#E6E5DF] rounded-3xl space-y-2">
-                <Clock className="w-12 h-12 text-[#135D39]/40 mx-auto" />
+              <div className="text-center py-16 bg-surface border border-border rounded-3xl space-y-2">
+                <Clock className="w-12 h-12 text-primary/40 mx-auto" />
                 <h3 className="font-display font-medium text-base">No active bookings registered</h3>
-                <p className="text-xs text-[#5C6460]">Head over to the Service Catalog to secure dry season solutions, drone mappings, or repairs.</p>
+                <p className="text-xs text-muted">Head over to the Service Catalog to secure dry season solutions, drone mappings, or repairs.</p>
                 <button
                   onClick={() => setActiveSubTab("catalog")}
-                  className="mt-2 text-xs font-bold text-[#135D39] hover:underline"
+                  className="mt-2 text-xs font-bold text-primary hover:underline"
                 >
                   Browse Service Catalog &rarr;
                 </button>
@@ -480,16 +480,16 @@ export default function AgriculturalServicesView({
 
       {/* BOOKING FLOW MODAL SHEET */}
       {isBookingModalOpen && selectedService && (
-        <div className="fixed inset-0 z-50 bg-[#1A2421]/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white border border-[#E6E5DF] rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl relative overflow-hidden animate-scale-up space-y-6">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface border border-border rounded-3xl p-6 md:p-8 max-w-lg w-full shadow-2xl relative overflow-hidden animate-scale-up space-y-6">
             <div className="flex justify-between items-start">
               <div>
-                <span className="text-[10px] text-[#135D39] font-bold uppercase tracking-wider">Certified Secure Booking</span>
-                <h3 className="font-display font-medium text-xl text-[#1A2421] mt-1">Book: {selectedService.name}</h3>
+                <span className="text-[10px] text-primary font-bold uppercase tracking-wider">Certified Secure Booking</span>
+                <h3 className="font-display font-medium text-xl text-ink mt-1">Book: {selectedService.name}</h3>
               </div>
               <button
                 onClick={handleCloseBooking}
-                className="p-1 h-8 w-8 hover:bg-slate-100 rounded-lg transition text-[#5C6460]"
+                className="p-1 h-8 w-8 hover:bg-surface-2 rounded-lg transition text-muted"
               >
                 &times;
               </button>
@@ -498,19 +498,19 @@ export default function AgriculturalServicesView({
             <form onSubmit={handleCreateBooking} className="space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="font-bold text-[#1A2421]">Cost Rate</label>
-                  <p className="font-mono text-[#135D39] font-bold p-2.5 bg-[#135D39]/5 border border-[#135D39]/10 rounded-xl">
+                  <label className="font-bold text-ink">Cost Rate</label>
+                  <p className="font-mono text-primary font-bold p-2.5 bg-primary/5 border border-primary/10 rounded-xl">
                     ₦{selectedService.pricePerUnit.toLocaleString()} / {selectedService.unit}
                   </p>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-bold text-[#1A2421]">Select Date</label>
+                  <label className="font-bold text-ink">Select Date</label>
                   <input
                     type="date"
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full p-2 bg-white border border-[#E6E5DF] rounded-xl focus:outline-none"
+                    className="w-full p-2 bg-surface border border-border rounded-xl focus:outline-none"
                     required
                   />
                 </div>
@@ -518,66 +518,66 @@ export default function AgriculturalServicesView({
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="font-bold text-[#1A2421]">Quantity ({selectedService.unit})</label>
+                  <label className="font-bold text-ink">Quantity ({selectedService.unit})</label>
                   <input
                     type="number"
                     min={1}
                     max={100}
                     value={unitsNeeded}
                     onChange={(e) => setUnitsNeeded(Math.max(1, parseInt(e.target.value) || 1))}
-                    className="w-full p-2 bg-white border border-[#E6E5DF] rounded-xl focus:outline-none text-center"
+                    className="w-full p-2 bg-surface border border-border rounded-xl focus:outline-none text-center"
                     required
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-bold text-[#1A2421]">Farm Coordinates Address</label>
+                  <label className="font-bold text-ink">Farm Coordinates Address</label>
                   <input
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="w-full p-2 bg-white border border-[#E6E5DF] rounded-xl focus:outline-none"
+                    className="w-full p-2 bg-surface border border-border rounded-xl focus:outline-none"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="font-bold text-[#1A2421]">Special Instructions / Agronomist Notes</label>
+                <label className="font-bold text-ink">Special Instructions / Agronomist Notes</label>
                 <textarea
                   rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. Clay-heavy soil, 5 years cash-crop tillage history, pest coordinates..."
-                  className="w-full p-3 border border-[#E6E5DF] rounded-xl focus:outline-none"
+                  className="w-full p-3 border border-border rounded-xl focus:outline-none"
                 />
               </div>
 
               {/* Instant payment option */}
-              <div className="bg-[#FAF8F5] border border-[#E6E5DF] p-4 rounded-2xl flex items-center justify-between">
+              <div className="bg-surface-2 border border-border p-4 rounded-2xl flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <span className="font-bold text-[#1A2421] block">Instant Settlement with Digital Wallet</span>
-                  <p className="text-[10px] text-[#5C6460]">Settle checkout amount immediately from cooperative liquid funds.</p>
+                  <span className="font-bold text-ink block">Instant Settlement with Digital Wallet</span>
+                  <p className="text-[10px] text-muted">Settle checkout amount immediately from cooperative liquid funds.</p>
                 </div>
                 <input
                   type="checkbox"
                   checked={payInstantly}
                   onChange={(e) => setPayInstantly(e.target.checked)}
-                  className="w-4.5 h-4.5 text-[#135D39] focus:ring-[#135D39] rounded cursor-pointer"
+                  className="w-4.5 h-4.5 text-primary focus:ring-primary rounded cursor-pointer"
                 />
               </div>
 
               {/* Summary and pay constraint */}
-              <div className="border-t border-[#FAF8F5] pt-4 space-y-2">
+              <div className="border-t border-border pt-4 space-y-2">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-[#5C6460] font-semibold">Total Commitment:</span>
-                  <span className="font-mono font-bold text-base text-[#135D39]">
+                  <span className="text-muted font-semibold">Total Commitment:</span>
+                  <span className="font-mono font-bold text-base text-primary">
                     ₦{(selectedService.pricePerUnit * unitsNeeded).toLocaleString()}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-[10px] text-[#5C6460]">
+                <div className="flex justify-between items-center text-[10px] text-muted">
                   <span>Available Cooperative Wallet Balance:</span>
-                  <span className="font-semibold text-[#1A2421]">₦{state.walletBalance.toLocaleString()}</span>
+                  <span className="font-semibold text-ink">₦{state.walletBalance.toLocaleString()}</span>
                 </div>
               </div>
 
@@ -585,13 +585,13 @@ export default function AgriculturalServicesView({
                 <button
                   type="button"
                   onClick={handleCloseBooking}
-                  className="w-1/2 border border-[#E6E5DF] hover:bg-[#FAF8F5] py-2.5 rounded-xl font-bold transition"
+                  className="w-1/2 border border-border hover:bg-surface-2 py-2.5 rounded-xl font-bold transition"
                 >
                   Go Back
                 </button>
                 <button
                   type="submit"
-                  className="w-1/2 bg-[#135D39] hover:bg-[#0B3921] text-white py-2.5 rounded-xl font-bold shadow-md shadow-[#135D39]/15 transition"
+                  className="w-1/2 bg-primary hover:bg-[#0B3921] text-white py-2.5 rounded-xl font-bold shadow-md shadow-primary/15 transition"
                 >
                   Publish Booking
                 </button>
